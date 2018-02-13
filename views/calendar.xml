@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="minsa_records_line_view_calendar" model="ir.ui.view">
+            <field name="name">minsa.records.line.calendario</field>
+            <field name="model">minsa.records.line</field>
+            <field name="arch" type="xml">
+                <calendar date_start="fecha_recepcion" color="promotor_id" display="[promotor_id]">
+
+                    <field name="eess" />
+                    <field name="promotor_id" />
+                    <field name="paciente_id" />
+                </calendar>
+            </field>
+        </record>
+
+
+
+
+    </data>
+</openerp>

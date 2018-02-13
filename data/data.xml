@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vim:fdn=3:
+-->
+<odoo>
+    <!-- Parametros para usar envio de sms -->
+    <data noupdate="1">
+        <record id="sms_host" model="ir.config_parameter">
+            <field name="key">sms_host</field>
+            <field name="value">host</field>
+        </record>
+        <record id="sms_token" model="ir.config_parameter">
+            <field name="key">sms_token</field>
+            <field name="value">token</field>
+        </record>
+    </data>
+
+    <data noupdate="1">
+        <record id="his_migrate_host" model="ir.config_parameter">
+            <field name="key">his_migrate_host</field>
+            <field name="value">his_migrate_host</field>
+        </record>
+    </data>
+</odoo>

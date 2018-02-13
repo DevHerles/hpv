@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="minsa_res_partner_promotor_view_form_inherit" model="ir.ui.view">
+            <field name="name">minsa.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@autofocus='autofocus']" position="replace"/>
+                <field name="user_id" position="after">
+                    <field name='es_promotor'/>
+                    <field name='compania'/>
+                    <field name='es_paciente'/>
+                    <field name='es_profesional'/>
+                </field>
+                <xpath expr="//page[@name='sales_purchases']" position="after">
+                    <page string="Procedimientos" attrs="{'invisible': [('es_paciente', '=', False)]}">
+                        <group>
+                            <field name="procedimientos_ids" readonly="True" nolabel="1">
+                                <tree readonly="True">
+                                    <field name="eess"/>
+                                    <field name="fecha_procedimiento"/>
+                                    <field name="dni_id" invisible="True"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Registos" attrs="{'invisible': [('es_paciente', '=', False)]}">
+                        <group>
+                            <field name="registros_ids" nolabel="1" readonly="True">
+                                <tree editable="bottom" readonly="True">
+                                    <field name="codigo"/>
+                                    <field name="fecha_entrega"/>
+                                    <field name="paciente_id" domain="[('es_paciente','=',True)]" readonly="True"/>
+                                    <field name="respuesta" readonly="True"/>
+                                    <field name="state" readonly="True"/>
+                                    <field name="paciente_id" invisible="True"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="minsa_records_view_form" model="ir.ui.view">
+            <field name="name">minsa.records.form</field>
+            <field name="model">minsa.records</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <header>
+            			      <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="eess"/>
+                            <field name="microred"/>
+                            <field name="obstetra_id"/>
+                            <field name="usuario_id" invisible="True"/>
+                            <field name="codigo_servicio" invisible="True"/>
+                            <field name="fecha_entrega"/>
+                            <field name="servicio" attrs="{'invisible': [('promotora', '=', True)]}"/>
+                            <field name="promotora" attrs="{'invisible': [('servicio', '=', True)]}"/>
+                            <field name="promotor_id" domain="[('es_promotor','=',True)]" options="{'no_open': True, 'no_create': True}"
+                                attrs="{'invisible': [('servicio', '=', True)], 'required': [('promotora', '=', True)]}"/>
+                          <field name="cod_entregados" />
+                          <field name="cod_laboratorio" />
+                          <field name="cod_pendiente" />
+                        </group>
+                        <group>
+                            <group>
+                                <field name="numero_inicio" attrs="{'invisible': [('servicio', '=', True)], 'required': [('servicio', '!=', True)]}"/>
+                            </group>
+                            <group>
+                                <field name="numero_fin" attrs="{'invisible': [('servicio', '=', True)], 'required': [('servicio', '!=', True)]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="codigo_servicio_obstetra"
+                                       attrs="{'invisible': [('promotora', '=', True)], 'required': [('servicio', '=', True)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Registros">
+                                <group>
+									                  <field name="record_line_ids" nolabel="1" readonly="True">
+										                    <tree editable="bottom">
+                                            <field name="product_id" invisible="True"/>
+                                            <field name="codigo"/>
+                                            <field name="fecha_entrega"/>
+                                            <field name="sobre_id" readonly="True"/>
+                                            <field name="respuesta" readonly="True"/>
+                                            <field name="state" readonly="True"/>
+                                            <field name="record_id" invisible="True"/>
+										                    </tree>
+									                    </field>
+                                </group>
+                            </page>
+            			</notebook>
+            		</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            	</form>
+            </field>
+       	</record>
+
+        <record id="minsa_records_line_view_form" model="ir.ui.view">
+            <field name="name">minsa.records.line.form</field>
+            <field name="model">minsa.records.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                      <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="eess"/>
+                                <field name="microred"/>
+                                <field name="nom_eess"/>
+                                <field name="fecha_entrega"/>
+                                <field name="codigo"  readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="servicio" invisible="True"/>
+                                <field name="promotor_id" domain="[('es_promotor','=',True)]" attrs="{'invisible': ['|', ('servicio', '=', True), ('eess_a', '=', True)]}"/>
+                                <field name="obstetra_id" attrs="{'invisible': [('eess_a', '=', True)]}"/>
+                                <field name="sobre_id"  readonly="True"/>
+                                <field name="nombre_apellido"  readonly="True"/>
+                                <field name="eess_a" invisible="True"/>
+                                <field name="eessa_a" attrs="{'invisible': [('eess_a', '!=', True)]}"/>
+                                <field name="obstetra_a_id" attrs="{'invisible': [('eess_a', '!=', True)]}"/>
+                            </group>
+                        </group>
+                        <group string="Informe de Muestra">
+                            <group>
+                                <field name="estado_muestra"  readonly="True"/>
+                                <field name="reazones_muestra_invalidad"  readonly="True"/>
+                                <field name="otros"  readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="fecha_recepcion"  readonly="True"/>
+                            </group>
+                        </group>
+                        <group string="Diagnostico">
+                            <group>
+                                <field name="fecha_registro"  readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="respuesta"  readonly="True"/>
+                            </group>
+                        </group>
+                      <group>
+                          <field name="sync"  readonly="True"/>
+                          <field name="regitro"  readonly="True"/>
+                          <field name="his" readonly="True"
+                              attrs="{'invisible': ['|', ('servicio', '=', True), ('eess_a', '=', True)]}"/>
+                      </group>
+            		</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            	</form>
+            </field>
+       	</record>
+
+        <record id="minsa_reason_for_cancellation_view_form" model="ir.ui.view">
+            <field name="name">minsa.reason.for.cancellation.form</field>
+            <field name="model">minsa.reason.for.cancellation</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+            		</sheet>
+            	</form>
+            </field>
+       	</record>
+
+        <record id="minsa_procedimientos_view_form" model="ir.ui.view">
+            <field name="name">procedimientos.form</field>
+            <field name="model">procedimientos</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+            			<field name="state" widget="statusbar"/>
+            		</header>
+                    <sheet>
+                        <group>
+                            <field name="eess"/>
+                            <field name="microred"/>
+                            <field name="usuario_id" invisible="True"/>
+                            <field name="fecha_procedimiento"/>
+                        </group>
+                        <group>
+                            <group>
+                                <div class="oe_title">
+                                    <div class="oe_edit_only">
+                                        <label for="pap_id"/>
+                                    </div>
+                                    <h1>
+                                        <field name="pap_id" string="DNI" style="width:85%"/>
+                                    </h1>
+                                </div>
+                            </group>
+                            <group>
+                                <div class="oe_title">
+                                    <div class="oe_edit_only">
+                                        <label for="vph_id"/>
+                                    </div>
+                                    <h1>
+                                        <!-- <field name="vph_id" domain="[('respuesta', '=', 'positivo')]"
+                                               string="DNI" style="width:85%"/> -->
+                                        <field name="vph_id"
+                                               string="DNI bububu"/>
+                                        
+                                    </h1>
+                                </div>
+                            </group>
+                        </group>
+                        <field name="paciente_vph" invisible="True"/>
+                        <field name="nombre_apellido" readonly="True"/><br/>
+                        <field name="eess_paciente_vph" readonly="True"/>
+
+                        <group string="PAP" attrs="{'invisible': [('paciente_vph', '=', True)]}">
+                            <field name="pap" widget="radio" class="oe_edit_only"/>
+                            <field name="eess_pap" attrs="{'invisible': [('pap', '=', 'no')]}"/>
+                            <field name="obstetra_pap_id" attrs="{'invisible': [('pap', '=', 'no')]}"/>
+                            <field name="fecha_pap" attrs="{'invisible': [('pap', '=', 'no')]}"/>
+                            <field name="fecha_resulado_pap" attrs="{'invisible': [('pap', '=', 'no')]}"/>
+                            <field name="resultado_pap" attrs="{'invisible': [('pap', '=', 'no')]}"/>
+                            <field name="otro_pap" attrs="{'invisible': [('pap', '=', 'no')]}"/>
+                        </group>
+                        
+                        <group string="IVAA">
+                            <field name="iva"  widget="radio" class="oe_edit_only"/>
+                            <field name="luegar_iva" attrs="{'invisible': [('iva', '=', 'no')]}"/>
+                            <field name="medico0" domain="[('autorizados', '=', True)]"/>
+                            <field name="fecha_no_iva"/>
+                            <field name="resultado_iva" attrs="{'invisible': [('iva', '=', 'no')]}"/>
+                            <field name="razon_iva" attrs="{'invisible': [('iva', '=', 'yes')]}"/>
+                        </group>
+                        <group string="CRIOTERAPIA">
+                            <field name="crioterapia"  widget="radio" class="oe_edit_only"/>
+                            <field name="luegar_crioterapia" attrs="{'invisible': [('crioterapia', '=', 'no')]}"/>
+                            <field name="medico" domain="[('autorizados', '=', True)]"/>
+                            <field name="fecha_de_crio"/>
+                            <field name="razon_crio"/>
+                            <field name="fecha_de_contro" attrs="{'invisible': [('crioterapia', '=', 'no')]}"/>
+                        </group>
+                        <group>
+                            <field name="fecha_de_refe_post_contro" attrs="{'invisible': [('crioterapia', '=', 'no')]}"/>
+                        </group>
+                        <group>
+                            <field name="razon1" attrs="{'invisible': [('crioterapia', '=', 'no')]}"/>
+                            <field name="fecha_de_referencia" attrs="{'invisible': [('crioterapia', '=', 'yes')]}"/>
+                            <field name="razon_de_referencia" attrs="{'invisible': [('crioterapia', '=', 'yes')]}"/>
+                            <field name="otros" attrs="{'invisible': [('crioterapia', '=', 'yes')]}"/>
+                        </group>
+                        <group string="PROCEDIMIENTO / TRATAMIENTO POR REFERENCIA">
+                            <field name="procedimiento_tratamiento"/>
+                        </group>
+                        <group string="COLPOSCOPIA">
+                            <field name="coloscopia"  widget="radio" class="oe_edit_only"/>
+                            <field name="luegar_coloscopia" attrs="{'invisible': [('coloscopia', '=', 'no')]}"/>
+                            <field name="fecha_coloscopia" attrs="{'invisible': [('coloscopia', '=', 'no')]}"/>
+                        </group>
+                        <group string="BIOPSIA">
+                            <field name="biopsia"  widget="radio" class="oe_edit_only"/>
+                            <field name="lugar_biopsia" attrs="{'invisible': [('biopsia', '=', 'no')]}"/>
+                            <field name="fecha_biopcia" attrs="{'invisible': [('biopsia', '=', 'no')]}"/>
+                            <field name="resultado_biopsia" attrs="{'invisible': [('biopsia', '=', 'no')]}"/>
+                            <field name="otros_biosia" attrs="{'invisible': [('biopsia', '=', 'no')]}"/>
+                        </group>
+                        <group string="CONO LEEP">
+                            <field name="cono_leep"  widget="radio" class="oe_edit_only"/>
+                            <field name="lugar_conoleep" attrs="{'invisible': [('cono_leep', '=', 'no')]}"/>
+                            <field name="fecha_conoleep" attrs="{'invisible': [('cono_leep', '=', 'no')]}"/>
+                            <field name="fecha_control_conoleep" attrs="{'invisible': [('cono_leep', '=', 'no')]}"/>
+                        </group>
+                        <group string="HISTERECTOMIA">
+                            <field name="histerectomia"  widget="radio" class="oe_edit_only"/>
+                            <field name="lugar_histerectomia" attrs="{'invisible': [('histerectomia', '=', 'no')]}"/>
+                            <field name="fecha_histerectomia" attrs="{'invisible': [('histerectomia', '=', 'no')]}"/>
+                        </group>
+                        <group string="RADIOTERAPIA">
+                            <field name="readioterapia" widget="radio" class="oe_edit_only"/>
+                            <field name="lugar_radioterapia" attrs="{'invisible': [('readioterapia', '=', 'no')]}"/>
+                            <field name="fecha_radioterapia" attrs="{'invisible': [('readioterapia', '=', 'no')]}"/>
+                            <field name="finalizoreadioterapia" attrs="{'invisible': [('readioterapia', '=', 'no')]}"/>
+                            <field name="razon_no" attrs="{'invisible': ['|', ('finalizoreadioterapia', '=', 'yes'), ('readioterapia', '=', 'no')]}"/>
+                        </group>
+                        <group string="QUIMIOTERAPIA">
+                            <field name="quimioterapia" widget="radio" class="oe_edit_only"/>
+                            <field name="lugar_quimioterapia" attrs="{'invisible': [('quimioterapia', '=', 'no')]}"/>
+                            <field name="fecha_quimioterapia" attrs="{'invisible': [('quimioterapia', '=', 'no')]}"/>
+                            <field name="finalizoquimio" attrs="{'invisible': [('quimioterapia', '=', 'no')]}"/>
+                            <field name="razon_noq" attrs="{'invisible': ['|', ('finalizoquimio', '=', 'yes'), ('quimioterapia', '=', 'no')]}"/>
+                        </group>
+                        <group string="PACIENTE CULMINO TRATAMIENTO">
+                            <field name="paciente_culmino_tratamiento" widget="radio" class="oe_edit_only"/>
+                            <field name="otros_si" attrs="{'invisible': [('paciente_culmino_tratamiento', '=', 'not')]}"/>
+                            <field name="otros2" attrs="{'invisible': [('paciente_culmino_tratamiento', '=', 'yes')]}"/>
+                        </group>
+            		</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            	</form>
+            </field>
+       	</record>
+
+        <record id="minsa_reportes_view_form" model="ir.ui.view">
+            <field name="name">minsa.reportes.form</field>
+            <field name="model">reportes</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                      <button name="click_aprobado" type="object" class="oe_inline oe_stat_button"
+                                    icon="fa-check" string="Matriz" attrs="{'invisible': [('state', 'in', ('procesado'))]}"/>
+                      <button name="click_procesados" type="object" class="oe_inline oe_stat_button"
+                                    icon="fa-check" string="Sincronizar" attrs="{'invisible': [('state', 'in', ('abierto'))]}"/>
+                        <field name="state" widget="statusbar" clickable="True"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                              <field name="eess"/>
+                              <field name="usuario_id" invisible="True"/>
+                              <field name="user_id" />
+                              <field name="fecha"/>
+                              <field name="numero_placa"/>
+                            </group>
+                            <group>
+                                <field name="temperatura"/>
+                                <field name="lote_kit"/>
+                                <field name="fecha_expiracion"/>
+                                <field name="placa_valida"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="numero_muestras"/>
+                                <field name="rango" invisible="True"/>
+                            </group>
+                            <group>
+                                <field name="numero_positivos" />
+                            </group>
+                        </group>
+
+                        <notebook>
+                          <page string="Registros">
+                            <group>
+                              <field name="registros_lines_ids" nolabel="1">
+                                <tree editable="bottom">
+                                  <field name="pos_x"/>
+                                  <field name="pos_y"/>
+                                  <field name="number"/>
+                                  <field name="record_lista_id"/>
+                                  <field name="record_id"/>
+                                  <field name="positivo"/>
+                                  <field name="positivo_valores" invisible="True"/>
+                                  <field name="codigo_nombre" invisible="True"/>
+                                </tree>
+                              </field>
+                            </group>
+                          </page>
+            			      </notebook>
+            		</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            	</form>
+            </field>
+       	</record>
+
+        <record id="minsa_verificacion_view_form" model="ir.ui.view">
+            <field name="name">verificacion.form</field>
+            <field name="model">verificacion</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <group>
+                        <group>
+                            <field name="dni"/>
+                        </group>
+                        <group>
+                            <button name="click_aprobado" type="object" class="oe_inline oe_stat_button"
+                                    icon="fa-check" string="Buscar Reniec"
+                            />
+                            <button name="click_buscar" type="object" class="oe_inline oe_stat_button"
+                                    icon="fa-check" string="Buscar en Establecimiento"
+                            />
+                        </group>
+                        <field name="establecimiento" invisible="True"/>
+                    </group>
+                    <field name="image" widget="image" class="oe_avatar" attrs="{'invisible': [('establecimiento', '=', True)]}"/>
+                    <div class="oe_title" attrs="{'invisible': [('establecimiento', '=', True)]}">
+                        <group>
+                            <group>
+                                <field name="ape_paterno" readonly="True"/>
+                                <field name="nombres_dase" readonly="True"/>
+                                <field name="legal_street" readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="ape_materno" readonly="True"/>
+                                <field name="birthday" readonly="True"/>
+                                <field name="edad" readonly="True"/>
+                                <field name="gender" readonly="True"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="eess" attrs="{'invisible': [('establecimiento', '!=', True)]}"/>
+                            <field name="eess_r"/>
+                            <field name="sobre1"/>
+                            <field name="fecha_muestra1"/>
+                            <field name="resultado1"/>
+                        </group>
+                    </div>
+                    <div class="oe_title" attrs="{'invisible': [('establecimiento', '!=', True)]}">
+                        <group>
+                            <group>
+                                <field name="apellidos" readonly="True"/>
+                                <field name="nombres" readonly="True"/>
+                                <field name="eess" readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="sobre" readonly="True"/>
+                                <field name="fecha_muestra" readonly="True"/>
+                                <field name="resultado" readonly="True"/>
+                            </group>
+                        </group>
+                    </div>
+            	</form>
+            </field>
+       	</record>
+
+        <record id="minsa_res_company_view_form_inherit" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_registry']" position="after">
+                    <field name="product_id" invisible="True"/>
+                    <field name="microred_id"/>
+                    <field name="codigo_renipes"/>
+                    <field name="prefijo"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="minsa_micro_rede_view_form" model="ir.ui.view">
+            <field name="name">minsa.micro.rede.form</field>
+            <field name="model">minsa.micro.rede</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="nombre"/>
+                        </group>
+                        <notebook>
+                            <page string="EESS">
+                                <field name="company_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="minsa_res_users_view_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="tipo_documento"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="minsa_res_users_view_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='login']" position="after">
+                    <field name="tipo_documento"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="minsa_hr_employee_view_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="autorizados"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="minsa_registro_sobre_view_form" model="ir.ui.view">
+            <field name="name">registro.sobre.form</field>
+            <field name="model">registro.sobre</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="procesamiento_id" invisible="True"/>
+                            <field name="fecha"/>
+                            <field name="usuario_id" invisible="True"/>
+                            <field name="matriz" invisible="True"/>
+                            <group>
+                                <field name="codigo_sobre" default_focus="1"/>
+                            </group>
+                            <group>
+                                <field name="codigo_tubo"/>
+                            </group>
+                            <group>
+                                <field name="estado_muestra"/>
+                                <field name="codigo_valido_invalido" invisible="True"/>
+                            </group>
+                        </group>
+                        <field name="secuencia" invisible="True"/>
+                        <field name="codigo_valido_invalido1" invisible="True"/>
+                        <group>
+                            <field name="nombres"/>
+                            <field name="apellidos"/>
+                            <field name="tipo_documento"/>
+                            <field name="dni"/>
+                            <field name="edad"/>
+                            <field name="fecha_nacimiento"/>
+                            <field name="mobile" string="Celular"/>
+                            <field name="direccion"/>
+                            <field name="fecha_toma_muestra"/>
+                        </group>
+                        <group string="Informe de Muestras">
+                            <group>
+                                <field name="estado_muestra_b" invisible="True"/>
+                                <field name="reazones_muestra_invalidad"/>
+                                <field name="otros" attrs="{'invisible': [('estado_muestra_b', '=', True)]}"/>
+                            </group>
+                            <group>
+                                <field name="estado_muestra_valido_invalido" />
+                                <field name="registros_id" invisible="True"/>
+                                <field name="respuesta" invisible="True"/>
+                            </group>
+                        </group>
+                  </sheet>
+                  <div class="oe_chatter">
+                      <field name="message_follower_ids" widget="mail_followers"/>
+                      <field name="message_ids" widget="mail_thread"/>
+                  </div>
+                </form>
+            </field>
+       	</record>
+
+        <record id="minsa_paciente_pap_view_form" model="ir.ui.view">
+            <field name="name">paciente.pap.form</field>
+            <field name="model">paciente.pap</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="eess"/>
+                            <field name="microred"/>
+                            <field name="obstetra_id"/>
+                            <field name="nombres"/>
+                            <field name="apellidos"/>
+                            <field name="dni"/>
+                            <field name="edad"/>
+                            <field name="mobile" string="Celular"/>
+                            <field name="direccion"/>
+                        </group>
+                        <group string="PAP">
+                            <field name="gestante" widget="radio" class="oe_edit_only"/>
+                            <field name="fecha_pap" />
+                            <field name="fecha_resulado" />
+                            <field name="resultado_pap" />
+                            <field name="otro_pap" />
+                        </group>
+                  </sheet>
+                </form>
+            </field>
+       	</record>
+
+        <record id="seq_registro_sobre_presupuestal" model="ir.sequence">
+            <field name="name">Registro</field>
+            <field name="code">registro.sobre</field>
+            <field name="padding">0</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_registros_generales_presupuestal" model="ir.sequence">
+            <field name="name">Registro Generales</field>
+            <field name="code">registros.generales</field>
+            <field name="padding">0</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="registros_generales_view_form" model="ir.ui.view">
+            <field name="name">registros.generales.form</field>
+            <field name="model">registros.generales</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="secuencia" invisible="True"/>
+                            <field name="fecha"/>
+                            <field name="eess_origen"/>
+                            <field name="obstetra_entrega"/>
+                            <field name="eess_destino"/>
+                            <field name="obstetra_recepciona" domain="[('company_id','=',eess_destino)]"/>
+                            <field name="numeracion"/>
+                        </group>
+            		</sheet>
+            	</form>
+            </field>
+       	</record>
+
+    </data>
+</odoo>

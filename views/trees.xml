@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+	<data>
+
+        <record id="minsa_reason_for_cancellation_view_tree" model="ir.ui.view">
+            <field name="name">minsa.reason.for.cancellation.tree</field>
+            <field name="model">minsa.reason.for.cancellation</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="minsa_records_view_tree" model="ir.ui.view">
+            <field name="name">minsa.records.tree</field>
+            <field name="model">minsa.records</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="eess"/>
+                    <field name="obstetra_id"/>
+                    <field name="fecha_entrega"/>
+                    <field name="servicio"/>
+                    <field name="promotora"/>
+                    <field name="promotor_id"/>
+                    <field name="rango"/>
+                    <field name="codigo_servicio"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="minsa_records_line_view_tree" model="ir.ui.view">
+            <field name="name">minsa.records.line.tree</field>
+            <field name="model">minsa.records.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="record_id" invisible="True"/>
+                    <field name="eess"/>
+                    <field name="nombre_apellido"/>
+                    <field name="fecha_entrega"/>
+                    <field name="codigo"/>
+                    <field name="product_id" invisible="True"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="minsa_procedimientos_view_tree" model="ir.ui.view">
+            <field name="name">minsa.procedimientos.tree</field>
+            <field name="model">procedimientos</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="eess"/>
+                    <field name="pap_id" string="Paciente PAP"/>
+                    <field name="nombre_apellido" string="Paciente VPH"/>
+                    <field name="fecha_procedimiento"/>
+                    <field name="vph_id" string="Código VPH"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="minsa_reportes_view_tree" model="ir.ui.view">
+            <field name="name">minsa.reportes.tree</field>
+            <field name="model">reportes</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree colors="red:numero_positivos==-3;green:numero_positivos!=-3">
+                    <field name="eess"/>
+                    <field name="numero_placa"/>
+                    <field name="numero_positivos"/>
+                    <field name="user_id"/>
+                    <field name="fecha"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="minsa_registro_sobre_view_tree" model="ir.ui.view">
+            <field name="name">registro.sobre.tree</field>
+            <field name="model">registro.sobre</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="fecha"/>
+                    <field name="procesamiento_id"/>
+                    <field name="codigo_sobre"/>
+                    <field name="nombres"/>
+                    <field name="apellidos"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="minsa_paciente_pap_view_tree" model="ir.ui.view">
+            <field name="name">paciente.pap.tree</field>
+            <field name="model">paciente.pap</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="eess"/>
+                    <field name="obstetra_id"/>
+                    <field name="nombres"/>
+                    <field name="apellidos"/>
+                    <field name="dni"/>
+                    <field name="fecha_pap"/>
+                    <field name="fecha_resulado"/>
+                    <field name="resultado_pap"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="registros_generales_view_tree" model="ir.ui.view">
+            <field name="name">registros.generales.tree</field>
+            <field name="model">registros.generales</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="fecha"/>
+                    <field name="eess_origen"/>
+                    <field name="obstetra_entrega"/>
+                    <field name="eess_destino"/>
+                    <field name="obstetra_recepciona"/>
+                    <field name="numeracion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="minsa_res_partner_acs_view_tree_inherit" model="ir.ui.view">
+            <field name="name">minsa.res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+              <field name="phone" position="replace">
+                    <field name='compania'/>
+              </field>
+              <field name="email" position="replace"/>
+            </field>
+        </record>
+
+        <record id="minsa_micro_rede_view_tree" model="ir.ui.view">
+            <field name="name">minsa.micro.rede.tree</field>
+            <field name="model">minsa.micro.rede</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nombre"/>
+                </tree>
+            </field>
+        </record>
+
+	</data>
+</openerp>

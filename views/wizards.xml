@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+	<data>
+      <record id="view_pruebas_excel_report_wizard" model="ir.ui.view">
+            <field name="name">Pacientes Positivas</field>
+            <field name="model">poi.wizard.excel.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="col-xs-12 text-center">
+                        <p>Generar Pacientes Positivas</p>
+                    </div>
+                    <group>
+                        <field name="eess" invisible="True"/>
+                        <field name="general"/>
+                        <field name="txt_filename" invisible="1"/>
+                        <field name="txt_binary" filename="txt_filename" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button name="generate_file" type="object" class="oe_highlight" string="Descargar"/>
+                    </footer>
+              </form>
+            </field>
+     	</record>
+      <record id="view_pruebas_obtetras_excel_report_wizard" model="ir.ui.view">
+            <field name="name">Pacientes Positivas</field>
+            <field name="model">poi.wizard.excel.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="col-xs-12 text-center">
+                        <p>Generar Pacientes Positivas</p>
+                    </div>
+                    <group>
+                        <field name="eess" attrs="{'required': [('general', '=', False)]}"/>
+                        <field name="general" invisible="True"/>
+                        <field name="txt_filename" invisible="1"/>
+                        <field name="txt_binary" filename="txt_filename" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button name="generate_file" type="object" class="oe_highlight" string="Descargar"/>
+                    </footer>
+              </form>
+            </field>
+     	</record>
+	</data>
+</openerp>

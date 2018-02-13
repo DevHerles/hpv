@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_minsa_records_line">
+            <field name="name">minsa.records.line.kanban</field>
+            <field name="model">minsa.records.line</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column " on_create="quick_create" default_group_by="state">
+                    <field name="eess"/>
+                    <field name="product_id"/>
+                    <field name="state" options='{"group_by_tooltip": {"description": "Estados", "legend_priority": "Estadoss"}}'/>
+                    <field name="fecha_entrega"/>
+                    <field name="codigo"/>
+                    <field name="promotor_id"/>
+                    <field name="paciente_id"/>
+                    <field name="estado_muestra"/>
+                    <field name="fecha_recepcion"/>
+                    <field name="fecha_registro"/>
+                    <field name="respuesta"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div>
+                                        <strong>
+                                            <field name="medico"/>
+                                        </strong>
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="paciente_id"/>
+                                    </div>
+
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="paciente_id" />
+                                        <field name="fecha_registro" />
+                                    </div>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</openerp>

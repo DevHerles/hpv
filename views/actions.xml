@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+	  <data>
+
+        <record id="minsa_reason_for_cancellation_action" model="ir.actions.act_window">
+            <field name="name">Motivo de Cancelación</field>
+            <field name="res_model">minsa.reason.for.cancellation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="minsa_records_action" model="ir.actions.act_window">
+            <field name="name">Distribución</field>
+            <field name="res_model">minsa.records</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+
+        <record id="minsa_records_action_order" model="ir.actions.server">
+            <field name="name">CODIGOS FALTANTES</field>
+            <field name="model_id" ref="model_minsa_records"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                  records.update_codigos()
+            </field>
+        </record>
+
+        <record id="ir_minsa_records_action_order" model="ir.values">
+            <field name="model_id" ref="model_minsa_records" />
+            <field name="name">CODIGOS FALTANTES</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%minsa_records_action_order" name="value"/>
+            <field name="key">action</field>
+            <field name="model">minsa.records</field>
+        </record>
+
+        <record id="minsa_records_line_action" model="ir.actions.act_window">
+            <field name="name">Registros</field>
+            <field name="res_model">minsa.records.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,pivot</field>
+        </record>
+
+        <record id='minsa_res_partner_promotor_action_inherit' model='ir.actions.act_window'>
+            <field name='name'>ACS</field>
+            <field name='res_model'>res.partner</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form</field>
+            <field name="domain">[('es_promotor','=', True)]</field>
+            <field name="context">{"default_es_promotor": True}</field>
+        </record>
+
+        <record id='minsa_res_partner_paciente_action_inherit' model='ir.actions.act_window'>
+            <field name='name'>Paciente</field>
+            <field name='res_model'>res.partner</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form</field>
+            <field name="domain">[('es_paciente','=', True)]</field>
+            <field name="context">{"default_es_paciente": True}</field>
+        </record>
+
+        <record id='minsa_res_partner_paciente_pap_action_inherit' model='ir.actions.act_window'>
+            <field name='name'>Paciente Pap</field>
+            <field name='res_model'>res.partner</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>kanban,tree,form</field>
+            <field name="domain">[('es_pap','=', True)]</field>
+            <field name="context">{"default_es_pap": True}</field>
+        </record>
+
+        <record id="minsa_procedimientos_action" model="ir.actions.act_window">
+            <field name="name">Procedimientos</field>
+            <field name="res_model">procedimientos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="minsa_reportes_action" model="ir.actions.act_window">
+            <field name="name">Reportes</field>
+            <field name="res_model">reportes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+
+        <record id="minsa_verificacion_action" model="ir.actions.act_window">
+            <field name="name">Verificacion</field>
+            <field name="res_model">verificacion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="lunch_order_line_action_order" model="ir.actions.server">
+            <field name="name">Sincronizar</field>
+            <field name="model_id" ref="model_registro_sobre"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                  records.update_os()
+            </field>
+        </record>
+
+        <record id="ir_lunch_order_line_action_order" model="ir.values">
+            <field name="model_id" ref="model_registro_sobre" />
+            <field name="name">Sincronizar</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%lunch_order_line_action_order" name="value"/>
+            <field name="key">action</field>
+            <field name="model">registro.sobre</field>
+        </record>
+
+        <record id="dni_order_line_action_order" model="ir.actions.server">
+            <field name="name">DNI</field>
+            <field name="model_id" ref="model_registro_sobre"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                  records.update_dni()
+            </field>
+        </record>
+
+        <record id="ir_dni_order_line_action_order" model="ir.values">
+            <field name="model_id" ref="model_registro_sobre" />
+            <field name="name">DNI</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%dni_order_line_action_order" name="value"/>
+            <field name="key">action</field>
+            <field name="model">registro.sobre</field>
+        </record>
+
+        <record id="doc_order_line_action_order" model="ir.actions.server">
+            <field name="name">Documento</field>
+            <field name="model_id" ref="model_registro_sobre"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                  records.update_documento()
+            </field>
+        </record>
+
+        <record id="update_positivas_action_order" model="ir.actions.server">
+            <field name="name">ACP</field>
+            <field name="model_id" ref="model_registro_sobre"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                  records.update_positivas()
+            </field>
+        </record>
+
+        <record id="ir_update_positivas_action_order" model="ir.values">
+            <field name="model_id" ref="model_registro_sobre" />
+            <field name="name">ACP</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%update_positivas_action_order" name="value"/>
+            <field name="key">action</field>
+            <field name="model">registro.sobre</field>
+        </record>
+
+        <record id="ir_doc_order_line_action_order" model="ir.values">
+            <field name="model_id" ref="model_registro_sobre" />
+            <field name="name">Documento</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%doc_order_line_action_order" name="value"/>
+            <field name="key">action</field>
+            <field name="model">registro.sobre</field>
+        </record>
+
+        <record id="pacientes_positivas_report_action" model="ir.actions.act_window">
+            <field name="name">Reporte Pacientes Positivas</field>
+            <field name="res_model">poi.wizard.excel.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_pruebas_excel_report_wizard"/>
+        </record>
+        <record id="pacientes_positivas_ob_report_action" model="ir.actions.act_window">
+            <field name="name">Reporte Pacientes Positivas</field>
+            <field name="res_model">poi.wizard.excel.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_pruebas_obtetras_excel_report_wizard"/>
+        </record>
+
+        <record id="sync_order_line_action_order" model="ir.actions.server">
+            <field name="name">Sincronizar</field>
+            <field name="model_id" ref="model_reportes"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                  records.click_procesados()
+            </field>
+        </record>
+
+        <record id="ir_sync_order_line_action_order" model="ir.values">
+            <field name="model_id" ref="model_reportes"/>
+            <field name="name">Sincronizar</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%sync_order_line_action_order" name="value"/>
+            <field name="key">action</field>
+            <field name="model">reportes</field>
+        </record>
+
+        <record id="actualizar_order_line_action_order" model="ir.actions.server">
+            <field name="name">Actualizar</field>
+            <field name="model_id" ref="model_reportes"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                  records.resultado()
+            </field>
+        </record>
+
+        <record id="ir_actualizar_order_line_action_order" model="ir.values">
+            <field name="model_id" ref="model_reportes"/>
+            <field name="name">Actualizar</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%actualizar_order_line_action_order" name="value"/>
+            <field name="key">action</field>
+            <field name="model">reportes</field>
+        </record>
+
+        <record id="placa_order_line_action_order" model="ir.actions.server">
+            <field name="name">Placa</field>
+            <field name="model_id" ref="model_reportes"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                  records.placa()
+            </field>
+        </record>
+
+        <record id="ir_placa_order_line_action_order" model="ir.values">
+            <field name="model_id" ref="model_reportes"/>
+            <field name="name">Placa</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%placa_order_line_action_order" name="value"/>
+            <field name="key">action</field>
+            <field name="model">reportes</field>
+        </record>
+
+        <record id="minsa_registro_sobre_action" model="ir.actions.act_window">
+            <field name="name">Sobre</field>
+            <field name="res_model">registro.sobre</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="minsa_paciente_pap_action" model="ir.actions.act_window">
+            <field name="name">Paciente PAP</field>
+            <field name="res_model">paciente.pap</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="registros_generales_action" model="ir.actions.act_window">
+            <field name="name">Distribución DIRESA - MICROREDES</field>
+            <field name="res_model">registros.generales</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain_force">[('eess_origen','in',user.company_ids.ids)]</field>
+        </record>
+
+        <record id="estado_order_line_action_order" model="ir.actions.server">
+            <field name="name">Produccion</field>
+            <field name="model_id" ref="model_minsa_records_line"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                  records.update_os()
+            </field>
+        </record>
+
+        <record id="ir_estado_order_line_action_order" model="ir.values">
+            <field name="model_id" ref="model_minsa_records_line"/>
+            <field name="name">Produccion</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%estado_order_line_action_order" name="value"/>
+            <field name="key">action</field>
+            <field name="model">minsa.records.line</field>
+        </record>
+
+        <record id="minsa_micro_rede_action" model="ir.actions.act_window">
+            <field name="name">MicroRedes</field>
+            <field name="res_model">minsa.micro.rede</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+	  </data>
+</openerp>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="minsa_records_line_graph" model="ir.ui.view">
+            <field name="name">minsa.records.line.graph</field>
+            <field name="model">minsa.records.line</field>
+            <field name="arch" type="xml">
+                <graph string="Registros" type="pivot" stacked="True">
+                    <field name="eess"/>
+                    <field name="product_id"/>
+                    <field name="fecha_entrega"/>
+                    <field name="codigo"/>
+                    <field name="promotor_id"/>
+                    <field name="paciente_id"/>
+                    <field name="estado_muestra"/>
+                    <field name="fecha_recepcion"/>
+                    <field name="fecha_registro"/>
+                    <field name="respuesta"/>
+                    <field name="state"/>
+                </graph>
+            </field>
+        </record>
+    </data>
+
+    <data>
+        <record id="minsa_records_graph" model="ir.ui.view">
+            <field name="name">minsa.records.graph</field>
+            <field name="model">minsa.records</field>
+            <field name="arch" type="xml">
+                <graph string="Registros" type="pivot" stacked="True">
+                    <field name="eess"/>
+                    <field name="cod_entregados"/>
+                </graph>
+            </field>
+        </record>
+    </data>
+
+
+</openerp>
