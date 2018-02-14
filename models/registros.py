@@ -2211,7 +2211,7 @@ class Verificacion(models.Model):
             data1 = self.env['registro.sobre'].search([('dni', '=', self.dni)], limit=1)
             if data1:
                 data2 = self.env['minsa.records.line'].search([('sobre_id', '=', data1.id)], limit=1)
-                fecha = data['nacimiento']['fecha']
+            fecha = data['nacimiento']['fecha']
             if fecha:
                 edad = (datetime.now().date() - datetime.strptime(fecha, '%Y-%m-%d').date()).days / 365
                 if edad < 0:
