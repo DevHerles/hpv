@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <record id="sobres_positivos_search_view" model="ir.ui.view">
+            <field name="name">sobres.positivos.template.search</field>
+            <field name="model">reportes.line</field>
+            <field name="arch" type="xml">
+                <search string="Sobres">
+                     <field name="codigo_nombre" string="Código VPH" filter_domain="[('codigo_nombre', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="registro_sobre_search_view" model="ir.ui.view">
+            <field name="name">registro.sobre.search</field>
+            <field name="model">registro.sobre</field>
+            <field name="arch" type="xml">
+                <search string="Sobres">
+                     <field name="codigo_sobre" string="Código de sobre" filter_domain="[('codigo_sobre', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="minsa_records_search_view" model="ir.ui.view">
+            <field name="name">minsa.records.search</field>
+            <field name="model">minsa.records</field>
+            <field name="arch" type="xml">
+                <search string="Sobres">
+                     <field name="obstetra_id" string="Obstetra" filter_domain="[('obstetra_id', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="reporte_sobre_search_view" model="ir.ui.view">
+            <field name="name">reporte.sobre.search</field>
+            <field name="model">minsa.records.line</field>
+            <field name="arch" type="xml">
+                <search string="Sobres">
+                     <field name="codigo" string="Código de sobre" filter_domain="[('codigo', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
         <record id="minsa_records_line_view_search" model="ir.ui.view">
             <field name="name">minsa.records.line.search</field>
             <field name="model">minsa.records.line</field>
@@ -43,9 +83,9 @@
             <field name="model">procedimientos</field>
             <field name="arch" type="xml">
                 <search string="Procedimientos">
-                    <field name="vph_id" string="Código VPH"/>
-                    <field name="nombre_apellido" string="Nombres"/>
-                    <field name="pap_id" string="Paciente"/>
+                    <field name="vph_id" string="Código de sobre"/>
+                    <!-- <field name="nombre_apellido" string="Paciente"/> -->
+                    <field name="pap_id" string="Paciente PAP"/>
                     <group expand="0" string="Agrupar por">
                         <filter name="Paciente" context="{'group_by':'dni_id'}"/>
                         <filter name="MicroRed" context="{'group_by':'microred'}"/>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--<record id="cashadvance_list" model="ir.ui.view">-->
+          <!--<field name="name">Test Dialog</field>-->
+          <!--<field name="model">yes.no.wizard</field>-->
+          <!--<field name="type">form</field>-->
+          <!--<field name="arch" type="xml">-->
+            <!--<form string="Test Dialog" version="8.0">-->
+              <!--<group>-->
+                <!--<button class="oe_highlight" name="call_up_wizard" string="confirm" type="object" />-->
+              <!--</group>-->
+            <!--</form>-->
+          <!--</field>-->
+        <!--</record>-->
+
+        <record model="ir.ui.view" id="wizard_form">
+          <field name="name">wizard.form</field>
+          <field name="model">yes.no.wizard</field>
+          <field name="type">form</field>
+          <field name="arch" type="xml">
+            <form string="Confirm dialog">
+
+              <field name="yes_no" readonly="1" />
+
+                <footer>
+                  <button class="oe_highlight" name="click_yes" string="Yes" type="object"/>
+                  <button class="oe_highlight" name="click_no" string="No" type="object" />
+                </footer>
+
+            </form>
+          </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_test">
+            <field name="name">Cash advance list</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">yes.no.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                  It's empty, create something
+                </p>
+                </field>
+        </record>
+    </data>
+</odoo>

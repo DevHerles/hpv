@@ -27,8 +27,13 @@
                           parent="minsa_pap_menu"/>
             <menuitem name="SEGUIMIENTO DE PACIENTES" id="minsa_cancer_seguimiento_main_menu"
                       parent="minsa_main_menu_cancer" sequence="40"/>
+                <menuitem name="Sobres positivos" id="minsa_pacientes_positivos_menu" action="minsa_pacientes_positivos"
+                      parent="minsa_cancer_seguimiento_main_menu"
+                    sequence="10"/>
                 <menuitem name="Procedimientos" id="minsa_procedimientos_menu" action="minsa_procedimientos_action"
-                      parent="minsa_cancer_seguimiento_main_menu"/>
+                      parent="minsa_cancer_seguimiento_main_menu"
+                    sequence="20"/>
+
             <menuitem name="DIRECTORIO" id="minsa_directorio_profesionales_main_menu"
                       parent="minsa_main_menu_cancer" sequence="50"/>
                 <menuitem name="ACS" id="minsa_promotor_menu" action="minsa_res_partner_promotor_action_inherit"
@@ -38,7 +43,7 @@
 
         <menuitem name="LABORATORIO" id="minsa_main_menu_laboratorio" sequence="30" groups="grupo_laboratorio_minsa,grupo_administrador_minsa"/>
             <menuitem name="REGISTRO" id="minsa_registros_principal_main_menu" parent="minsa_main_menu_laboratorio" sequence="10"/>
-                <menuitem name="Sobre" id="minsa_registros_sobre1_main_menu" action="minsa_registro_sobre_action"
+                <menuitem name="Sobres" id="minsa_registros_sobre1_main_menu" action="minsa_registro_sobre_action"
                           parent="minsa_registros_principal_main_menu" sequence="1"/>
             <menuitem name="PROCESAMIENTO" id="minsa_reporte_menu" action="minsa_reportes_action"
                           parent="minsa_main_menu_laboratorio" sequence="20" groups="grupo_laboratorio_general_minsa"/>

@@ -17,7 +17,7 @@
         </record>
 
         <record id="minsa_records_action_order" model="ir.actions.server">
-            <field name="name">CODIGOS FALTANTES</field>
+            <field name="name">*CODIGOS FALTANTES*</field>
             <field name="model_id" ref="model_minsa_records"/>
             <field name="state">code</field>
             <field name="code">
@@ -69,7 +69,15 @@
             <field name="context">{"default_es_pap": True}</field>
         </record>
 
-        <record id="minsa_procedimientos_action" model="ir.actions.act_window">
+        <record id="minsa_pacientes_positivos" model="ir.actions.act_window">
+            <field name="name">Sobres positivos</field>
+            <field name="res_model">reportes.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('positivo_valores','=', 'positivo'),('codigo_nombre','!=','')]</field>
+        </record>
+
+          <record id="minsa_procedimientos_action" model="ir.actions.act_window">
             <field name="name">Procedimientos</field>
             <field name="res_model">procedimientos</field>
             <field name="view_type">form</field>

@@ -72,6 +72,7 @@ class RegistroSobre(models.Model):
     )
     fecha_nacimiento = fields.Date(
         string=u'Fecha de Nacimiento',
+        readonly=True
     )
     codigo_sobre = fields.Char(
         string=u'Codigo de Sobre',
@@ -87,17 +88,21 @@ class RegistroSobre(models.Model):
             ('yes', 'Si'),
             ('not', 'No'),
         ],
-        track_visibility='onchange'
+        default='not',
+        track_visibility='onchange',
+        readonly=True
     )
     nombres = fields.Char(
         string=u'Nombres',
         required=True,
-        track_visibility='onchange'
+        track_visibility='onchange',
+        # readonly=True
     )
     apellidos = fields.Char(
         string=u'Apellidos',
         required=True,
-        track_visibility='onchange'
+        track_visibility='onchange',
+        # readonly=True
     )
     dni = fields.Char(
         string=u'DNI / CARNET DE EXTRANJERIA',
@@ -108,7 +113,8 @@ class RegistroSobre(models.Model):
     edad = fields.Integer(
         string=u'Edad',
         default=0,
-        track_visibility='onchange'
+        track_visibility='onchange',
+        # readonly=True
     )
     mobile = fields.Char(
         size=9,
@@ -813,7 +819,7 @@ class MinsaRecords(models.Model):
         comodel_name='minsa.micro.rede',
         string=u'MicroRed',
         related='eess.microred_id',
-        readonly=True,
+        # readonly=True,
         store=True
     )
     eess_entrega = fields.Many2one(
@@ -843,7 +849,7 @@ class MinsaRecords(models.Model):
         comodel_name='hr.employee',
         string=u'Obstetra',
         default=lambda self: self._default_empleado(),
-        readonly=True
+        # readonly=True
     )
     usuario_id = fields.Many2one(
         "res.users",
@@ -1910,6 +1916,11 @@ class Reportes(models.Model):
     _order = "fecha desc"
     _inherit = ['mail.thread']
 
+    def numero_muestras_changed(self):
+        # you can do something here
+        if self.numero_muestras < 96:
+            return {'value': {}, 'warning': {'title': 'Cuidado!!!', 'message': 'Recuerda que el número de muestras debe ser 90. Asegúrese de que el Número de muestras ingresado seal el correcto.'}}
+
     @api.constrains('numero_muestras')
     def _check_numero_muestras(self):
         if self.numero_muestras > 96:
@@ -1941,7 +1952,8 @@ class Reportes(models.Model):
     rango = fields.Integer(default=1)
     numero_muestras = fields.Integer(
         string=u'Número de Muestras',
-        required=True
+        required=True,
+        default=90
     )
     state = fields.Selection(
         string="Estado",
@@ -1980,7 +1992,8 @@ class Reportes(models.Model):
             lista = []
             positivo = False
             indice = indicen = secuencia = 0
-            for l in range(0, 96):
+            max = self.numero_muestras + 6
+            for l in range(0, max):
                 if l <= 5:
                     secuencia = 0
                 else:
@@ -2024,15 +2037,15 @@ class Reportes(models.Model):
                     rr.update(r[xx])
                     xx = xx + 1
                 cc = cc + 1
-                if len(data2) < 90:
-                    raise ValidationError(u'No tiene suficientes registros para continuar')
+                if len(data2) < self.numero_muestras:
+                    raise ValidationError(u'No tiene suficientes muestras disponibles para continuar.')
                 else:
                     self.env['reportes.line'].create(rr)
 
             self.write({'state': 'procesado'})
         else:
             raise ValidationError(
-                u'La número de Inicio debe ser mayor al número de fin y el Producto debe ser Ingresado')
+                u'El número de Inicio debe ser mayor al número de fin y el Producto debe ser Ingresado')
 
     @api.multi
     def click_procesados(self):

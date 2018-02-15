@@ -43,6 +43,24 @@
             </field>
         </record>
 
+        <record id="minsa_records_view_tree" model="ir.ui.view">
+            <field name="name">minsa.records.tree</field>
+            <field name="model">minsa.records</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Distribución">
+                    <field name="codigo_servicio" string="Código sobre"/>
+                    <field name="eess"/>
+                    <field name="obstetra_id"/>
+                    <field name="fecha_entrega"/>
+                    <field name="servicio"/>
+                    <field name="promotora"/>
+                    <field name="promotor_id"/>
+                    <field name="rango"/>
+                </tree>
+            </field>
+        </record>
+
         <record id="minsa_records_view_form" model="ir.ui.view">
             <field name="name">minsa.records.form</field>
             <field name="model">minsa.records</field>
@@ -107,6 +125,26 @@
             	</form>
             </field>
        	</record>
+
+        <record id="minsa_records_line_view_tree" model="ir.ui.view">
+            <field name="name">minsa.records.line.tree</field>
+            <field name="model">minsa.records.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Registros">
+                    <field name="codigo" string="Código de sobre"/>
+                    <field name="fecha_entrega"/>
+                    <field name="nombre_apellido" string="Paciente"/>
+                    <field name="eess"/>
+                    <!--<field name="microred"/>-->
+                    <field name="obstetra_id"/>
+                    <field name="state"/>
+                    <field name="respuesta"/>
+                    <field name="regitro"/>
+                    <field name="sync"/>
+                </tree>
+            </field>
+        </record>
 
         <record id="minsa_records_line_view_form" model="ir.ui.view">
             <field name="name">minsa.records.line.form</field>
@@ -186,6 +224,36 @@
             </field>
        	</record>
 
+        <record id="minsa_pacientes_positivos_tree_view" model="ir.ui.view">
+            <field name="name">Pacientes positivos</field>
+            <field name="model">reportes.line</field>
+            <!--<field name="inherit_id" ref="minsa_records_line_view_search"/>-->
+            <field name="search_view_id" ref="minsa_records_line_view_search"/>
+            <field name="arch" type="xml">
+                <tree string="Period Tree">
+                    <field name="codigo_nombre" string="Código VPH"/>
+                    <field name="positivo_valores" string="Resulado"/>
+                    <!--<field name="record_id"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="minsa_procedimientos_view_tree" model="ir.ui.view">
+            <field name="name">procedimientos.tree</field>
+            <field name="model">procedimientos</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Procedimientos">
+                    <field name="vph_id" string="Código de sobre"/>
+                    <field name="fecha_procedimiento"/>
+                    <field name="nombre_apellido" string="Paciente VPH"/>
+                    <field name="pap_id" string="Paciente PAP"/>
+                    <field name="eess"/>
+                    <field name="resultado_iva"/>
+                </tree>
+            </field>
+        </record>
+
         <record id="minsa_procedimientos_view_form" model="ir.ui.view">
             <field name="name">procedimientos.form</field>
             <field name="model">procedimientos</field>
@@ -219,11 +287,11 @@
                                         <label for="vph_id"/>
                                     </div>
                                     <h1>
-                                        <!-- <field name="vph_id" domain="[('respuesta', '=', 'positivo')]"
-                                               string="DNI" style="width:85%"/> -->
-                                        <field name="vph_id"
-                                               string="DNI bububu"/>
-                                        
+                                        <field name="vph_id" domain="[('respuesta', '=', 'positivo')]"
+                                               string="DNI" style="width:85%"/>
+                                        <!--<field name="vph_id"-->
+                                               <!--string="DNI bububu"/>-->
+                                        <!---->
                                     </h1>
                                 </div>
                             </group>
@@ -329,8 +397,9 @@
                 <form>
                     <header>
                       <button name="click_aprobado" type="object" class="oe_inline oe_stat_button"
-                                    icon="fa-check" string="Matriz" attrs="{'invisible': [('state', 'in', ('procesado'))]}"/>
-                      <button name="click_procesados" type="object" class="oe_inline oe_stat_button"
+                                    icon="fa-check" string="Matriz" attrs="{'invisible': [('state', 'in', ('procesado'))]}"
+                                    confirm="Estas seguro de hacer esto?"/>
+                        <button name="click_procesados" type="object" class="oe_inline oe_stat_button"
                                     icon="fa-check" string="Sincronizar" attrs="{'invisible': [('state', 'in', ('abierto'))]}"/>
                         <field name="state" widget="statusbar" clickable="True"/>
                     </header>
@@ -352,7 +421,7 @@
                         </group>
                         <group>
                             <group>
-                                <field name="numero_muestras"/>
+                                <field name="numero_muestras" on_change="numero_muestras_changed()"/>
                                 <field name="rango" invisible="True"/>
                             </group>
                             <group>
@@ -518,6 +587,25 @@
             </field>
         </record>
 
+        <record id="minsa_registro_sobre_view_tree" model="ir.ui.view">
+            <field name="name">Sobres</field>
+            <field name="model">registro.sobre</field>
+            <field name="arch" type="xml">
+                <tree string="Sobres Tree">
+                    <field name="codigo_sobre" string="Código de sobre"/>
+                    <field name="estado_muestra" string="Muestra válida?"/>
+                    <field name="fecha_toma_muestra"/>
+                    <field name="fecha"/>
+                    <field name="dni"/>
+                    <field name="nombres"/>
+                    <field name="apellidos"/>
+                    <field name="edad"/>
+                    <field name="mobile"/>
+                    <!--<field name="record_id"/>-->
+                </tree>
+            </field>
+        </record>
+
         <record id="minsa_registro_sobre_view_form" model="ir.ui.view">
             <field name="name">registro.sobre.form</field>
             <field name="model">registro.sobre</field>
@@ -544,10 +632,10 @@
                         <field name="secuencia" invisible="True"/>
                         <field name="codigo_valido_invalido1" invisible="True"/>
                         <group>
-                            <field name="nombres"/>
-                            <field name="apellidos"/>
                             <field name="tipo_documento"/>
                             <field name="dni"/>
+                            <field name="nombres"/>
+                            <field name="apellidos"/>
                             <field name="edad"/>
                             <field name="fecha_nacimiento"/>
                             <field name="mobile" string="Celular"/>
