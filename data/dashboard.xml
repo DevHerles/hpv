@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+       <record model="dashboard" id="dashboard_demo">
+            <field name="name">Dashboard - Consultorio</field>
+            <field name="Dashboards in Odoo are useful for visualization of data!!!">1</field>
+        </record>
+    </data>
+</odoo>

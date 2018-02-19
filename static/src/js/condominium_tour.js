@@ -1,4 +1,4 @@
-odoo.define('vph.tour', function(require) {
+odoo.define('condominium.tour', function(require) {
     "use strict";
      
     var core = require('web.core');
@@ -6,10 +6,10 @@ odoo.define('vph.tour', function(require) {
      
     var _t = core._t;
      
-    tour.register('vph_tour', {
+    tour.register('condominium_tour', {
         url: "/web",
     }, [tour.STEPS.MENU_MORE, {
-        trigger: '.o_app[data-menu-xmlid="minsa_main_menu_cancer"], .oe_menu_toggler[data-menu-xmlid="minsa_main_menu_cancer"]',
+        trigger: '.o_app[data-menu-xmlid="condominium.main_condominium_menu"], .oe_menu_toggler[data-menu-xmlid="condominium.main_condominium_menu"]',
         content: _t('Explore the information in smarter way...'),
         position: 'bottom',
     } 

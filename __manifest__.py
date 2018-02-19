@@ -11,7 +11,7 @@
         'hr',
     ],
     'author': 'MINSA',
-    'description': 'Minsa SGHCE - Registros',
+    'description': 'Minsa SGHCE - Registros VPH',
     'data': [
         'security/security.xml',
         'data/data.xml',
@@ -25,6 +25,8 @@
         'views/menus.xml',
         'views/graph.xml',
         'views/assets.xml',
+        # 'views/dashboard.xml',
+        # 'data/dashboard.xml',
 
     ],
     'active': False,

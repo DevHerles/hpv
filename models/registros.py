@@ -763,10 +763,13 @@ class MinsaRecords(models.Model):
 
     @api.constrains('numero_inicio', 'numero_fin')
     def _check_numeor_inicio_y_fin(self):
-        if self.numero_inicio and self.numero_fin:
-            obj_vats = self.search([('numero_inicio', '=', self.numero_inicio), ('numero_fin', '=', self.numero_fin)])
-            if len(obj_vats) > 1:
-                raise ValidationError('El rango ya existe!')
+        try:
+            if int(self.numero_inicio) and int(self.numero_fin):
+                obj_vats = self.search([('numero_inicio', '=', self.numero_inicio), ('numero_fin', '=', self.numero_fin)])
+                if len(obj_vats) > 1:
+                    raise ValidationError('El rango ya existe!')
+        except ValueError:
+            raise ValidationError('Número inicio y número fin, deben ser enteros.')
 
     @api.one
     @api.depends('record_line_ids')
@@ -873,10 +876,12 @@ class MinsaRecords(models.Model):
         string=u'ACS'
     )
     numero_inicio = fields.Char(
-        string=u'Número de Inicio'
+        string=u'Número de Inicio',
+        track_visibility='onchange',
     )
     numero_fin = fields.Char(
-        string=u'Número de Fin'
+        string=u'Número de Fin',
+        track_visibility='onchange',
     )
     rango = fields.Char(
         string=u'Rango de Muestras',
@@ -1917,7 +1922,6 @@ class Reportes(models.Model):
     _inherit = ['mail.thread']
 
     def numero_muestras_changed(self):
-        # you can do something here
         if self.numero_muestras < 96:
             return {'value': {}, 'warning': {'title': 'Cuidado!!!', 'message': 'Recuerda que el número de muestras debe ser 90. Asegúrese de que el Número de muestras ingresado seal el correcto.'}}
 
