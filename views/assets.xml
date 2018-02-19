@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="sales_team assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Poppins:400,500,600,700" rel="stylesheet"/>
+                <link href="/modulos_registros/static/src/fonts/proxima-nova/fonts.min.css" rel="stylesheet" type="text/css"/>
+                <link href="/modulos_registros/static/src/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet" type="text/css"/>
+                <link href="/modulos_registros/static/src/fonts/pe-icon-7-stroke/css/helper.css" rel="stylesheet" type="text/css"/>
+                <link href="/modulos_registros/static/src/css/modulos_registros.css" rel="stylesheet"/>
+                <link href="/modulos_registros/static/src/css/modulos_registros.less" rel="stylesheet" type="text/less"/>
+                
+                <script type="text/javascript" src="/modulos_registros/static/src/js/vph_tour.js"></script>
+                <script type="text/javascript" src="/modulos_registros/static/src/js/asf.gauge.widget.js"></script>
+                <script type="text/javascript" src="/modulos_registros/static/src/js/d3.bar.widget.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -29,7 +29,7 @@
             <field name="arch" type="xml">
                 <graph string="Registros" type="pivot" stacked="True">
                     <field name="eess"/>
-                    <field name="cod_entregados"/>
+                    <field name="cod_entregados" string="Ssss"/>
                 </graph>
             </field>
         </record>

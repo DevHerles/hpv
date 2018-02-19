@@ -228,7 +228,7 @@
             <field name="name">Pacientes positivos</field>
             <field name="model">reportes.line</field>
             <!--<field name="inherit_id" ref="minsa_records_line_view_search"/>-->
-            <field name="search_view_id" ref="minsa_records_line_view_search"/>
+            <!--<field name="search_view_id" ref="reporte_sobre_search_view"/>-->
             <field name="arch" type="xml">
                 <tree string="Period Tree">
                     <field name="codigo_nombre" string="Código VPH"/>
@@ -663,6 +663,24 @@
             </field>
        	</record>
 
+        <record id="minsa_paciente_pap_view_tree" model="ir.ui.view">
+            <field name="name">paciente.pap.tree</field>
+            <field name="model">paciente.pap</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Paciente PAP">
+                    <field name="dni"/>
+                    <field name="nombres"/>
+                    <field name="apellidos"/>
+                    <field name="fecha_pap"/>
+                    <field name="eess"/>
+                    <field name="obstetra_id"/>
+                    <field name="fecha_resulado"/>
+                    <field name="resultado_pap"/>
+                </tree>
+            </field>
+        </record>
+
         <record id="minsa_paciente_pap_view_form" model="ir.ui.view">
             <field name="name">paciente.pap.form</field>
             <field name="model">paciente.pap</field>
@@ -724,6 +742,7 @@
                             <field name="numeracion"/>
                         </group>
             		</sheet>
+
             	</form>
             </field>
        	</record>

@@ -39,7 +39,7 @@
             <field name="name">Registros</field>
             <field name="res_model">minsa.records.line</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form,calendar,pivot</field>
+            <field name="view_mode">tree,form,calendar,pivot,graph</field>
         </record>
 
         <record id='minsa_res_partner_promotor_action_inherit' model='ir.actions.act_window'>
@@ -249,7 +249,7 @@
         </record>
 
         <record id="minsa_registro_sobre_action" model="ir.actions.act_window">
-            <field name="name">Sobre</field>
+            <field name="name">Sobres</field>
             <field name="res_model">registro.sobre</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>

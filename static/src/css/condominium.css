@@ -1,0 +1,120 @@
+
+body {
+    /* font-family: 'Montserrat', sans-serif; */
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Proxima Nova', Georgia, sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
+    /* font-size: 15px; */
+}
+
+/***
+Rounded corners reset
+***/
+
+/* Reset rounded corners for all elements */
+
+div, 
+svg,          
+input,      
+select,                    
+textarea,             
+span,                          
+img,               
+table,                       
+label,  
+td,                  
+th,    
+p,          
+a, 
+button, 
+ul,    
+code,
+pre,    
+li {
+    -webkit-border-radius: 0 !important;                   
+       -moz-border-radius: 0 !important;
+            border-radius: 0 !important;
+}
+
+/* except below bootstrap elements */
+/* 
+.img-circle {
+    border-radius: 50% !important;
+}
+
+.img-rounded {
+    border-radius: 6px !important;
+}
+
+.btn-primary {
+    color: white;
+    background-color: #03a9f4;
+    border-color: #03a9f4;
+}
+
+.btn {
+    font-family: 'Poppins'!important;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus {
+    color: #03a9f4;
+}
+
+.o_form_view .o_group .o_td_label .o_form_label {
+    font-weight: normal;
+    margin-right: 0px;
+    color: #202020;
+}
+
+.o_form_view .o_horizontal_separator {
+    color: #7c7bad;
+    font-family: 'Montserrat'!important;
+}
+
+.o_form_view.o_form_editable .o_form_field_monetary > .o_form_input:focus {
+    border-color: rgba(0,0,0,0.1);
+    background-color: #e8e9ea;
+    outline: 0!important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.o_form_view .o_group .o_form_field:hover,
+.o_form_view .o_group .o_form_field:focus {
+    border-color: #03a9f4;
+}
+
+.o_form_view .o_form_field .o_form_input:hover,
+.o_form_view .o_form_field .o_form_input:focus {
+    border-color: #03a9f4;
+} */
+
+/***
+Tabs
+***/
+
+/* .nav-tabs > li > a {
+    font-family: 'Montserrat'!important;
+} */
+
+/* .nav-tabs > li.active > a, 
+.nav-tabs > li.active > a:hover, 
+.nav-tabs > li.active > a:focus {
+    border-top: 2px solid;
+} */
+
+/***
+Breadcrumb
+***/
+
+/* .o_control_panel .breadcrumb > li {
+    font-family: 'Montserrat'!important;
+}
+
+.breadcrumb > .active {
+    color: #03a9f4;
+} */
+
+
+  

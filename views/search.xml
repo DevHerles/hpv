@@ -17,6 +17,8 @@
             <field name="arch" type="xml">
                 <search string="Sobres">
                      <field name="codigo_sobre" string="Código de sobre" filter_domain="[('codigo_sobre', 'ilike', self)]"/>
+                     <field name="dni" filter_domain="[('dni', 'ilike', self)]"/>
+                     <field name="apellidos" filter_domain="[('apellidos', 'ilike', self)]"/>
                 </search>
             </field>
         </record>
@@ -46,18 +48,11 @@
             <field name="model">minsa.records.line</field>
             <field name="arch" type="xml">
                 <search string="Sobres">
-                     <field name="codigo" string="Código de sobre" filter_domain="[('codigo', 'ilike', self)]"/>
-                </search>
-            </field>
-        </record>
-
-        <record id="minsa_records_line_view_search" model="ir.ui.view">
-            <field name="name">minsa.records.line.search</field>
-            <field name="model">minsa.records.line</field>
-            <field name="arch" type="xml">
-                <search string="Registros">
-                    <filter name="codigo" string="Codigo de Entrega" filter_domain="[('codigo','ilike',self)]"/>
+                    <field name="codigo" string="Código de sobre" filter_domain="[('codigo', 'ilike', self)]"/>
+                    <field name="nombre_apellido" string="Paciente" filter_domain="[('nombre_apellido', 'ilike', self)]"/>
+                    <field name="obstetra_id" filter_domain="[('obstetra_id', 'ilike', self)]"/>
                     <group expand="0" string="Agrupar por">
+                        <filter name="Resultado" context="{'group_by':'respuesta'}"/>
                         <filter name="Estado" context="{'group_by':'state'}"/>
                         <filter name="EESS" context="{'group_by':'eess'}"/>
                         <filter name="MicroRed" context="{'group_by':'microred'}"/>
@@ -69,6 +64,25 @@
                 </search>
             </field>
         </record>
+
+        <!--<record id="minsa_records_line_view_search" model="ir.ui.view">-->
+            <!--<field name="name">minsa.records.line.search</field>-->
+            <!--<field name="model">minsa.records.line</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<search string="Registros">-->
+                    <!--<filter name="codigo" string="Codigo de Entrega" filter_domain="[('codigo','ilike',self)]"/>-->
+                    <!--<group expand="0" string="Agrupar por">-->
+                        <!--<filter name="Estado" context="{'group_by':'state'}"/>-->
+                        <!--<filter name="EESS" context="{'group_by':'eess'}"/>-->
+                        <!--<filter name="MicroRed" context="{'group_by':'microred'}"/>-->
+                        <!--<filter name="ACS" context="{'group_by':'promotor_id'}"/>-->
+                        <!--<filter name="Paciente" context="{'group_by':'paciente_id'}"/>-->
+                        <!--<filter name="Fecha Recepcion" context="{'group_by':'fecha_recepcion'}"/>-->
+                        <!--<filter name="Fecha Entrega" context="{'group_by':'fecha_entrega'}"/>-->
+                    <!--</group>-->
+                <!--</search>-->
+            <!--</field>-->
+        <!--</record>-->
 
         <!-- <record id="minsa_records_view_search" model="ir.ui.view">
             <field name="name">minsa.records.search</field>
@@ -93,7 +107,7 @@
             <field name="model">procedimientos</field>
             <field name="arch" type="xml">
                 <search string="Procedimientos">
-                    <field name="vph_id" string="Código de sobre"/>
+                    <field name="vph_id" string="Código de sobre (Paciente VPH)"/>
                     <!-- <field name="nombre_apellido" string="Paciente"/> -->
                     <field name="pap_id" string="Paciente PAP"/>
                     <group expand="0" string="Agrupar por">
@@ -109,9 +123,23 @@
             <field name="model">paciente.pap</field>
             <field name="arch" type="xml">
                 <search string="Paciente PAP">
+                    <field name="dni" filter_domain="[('dni','ilike',self)]"/>
+                    <field name="apellidos" filter_domain="[('apellidos','ilike',self)]"/>
+                    <field name="obstetra_id" filter_domain="[('obstetra_id','ilike',self)]"/>
                     <group expand="0" string="Agrupar por">
                         <filter name="MicroRed" context="{'group_by':'microred'}"/>
                     </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="registros_generales_search_view" model="ir.ui.view">
+            <field name="name">registros.generales.search</field>
+            <field name="model">registros.generales</field>
+            <field name="arch" type="xml">
+                <search string="Registros generales">
+                    <field name="obstetra_entrega"/>
+                    <field name="obstetra_recepciona"/>
                 </search>
             </field>
         </record>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="minsa_records_line_view_graph" model="ir.ui.view">
+            <field name="name">minsa.records.line.graph</field>
+            <field name="model">minsa.records.line</field>
+            <field name="arch" type="xml">
+                <graph type="bar">
+                    <field name="eess" />
+                    <field name="respuesta" />
+                </graph>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -23,7 +23,9 @@
         'views/search.xml',
         'views/actions.xml',
         'views/menus.xml',
-        
+        'views/graph.xml',
+        'views/assets.xml',
+
     ],
     'active': False,
     'installable': True
