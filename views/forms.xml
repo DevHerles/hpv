@@ -134,6 +134,7 @@
                 <tree string="Registros">
                     <field name="codigo" string="Código de sobre"/>
                     <field name="fecha_entrega"/>
+                    <field name="dni"/>
                     <field name="nombre_apellido" string="Paciente"/>
                     <field name="eess"/>
                     <!--<field name="microred"/>-->
@@ -170,6 +171,7 @@
                                 <field name="obstetra_id" attrs="{'invisible': [('eess_a', '=', True)]}"/>
                                 <field name="sobre_id"  readonly="True"/>
                                 <field name="nombre_apellido"  readonly="True"/>
+                                <field name="dni"  readonly="True"/>
                                 <field name="eess_a" invisible="True"/>
                                 <field name="eessa_a" attrs="{'invisible': [('eess_a', '!=', True)]}"/>
                                 <field name="obstetra_a_id" attrs="{'invisible': [('eess_a', '!=', True)]}"/>
@@ -616,6 +618,7 @@
                         <group>
                             <field name="procesamiento_id" invisible="True"/>
                             <field name="fecha"/>
+                            <field name="image" widget="image" class="oe_avatar"/>
                             <field name="usuario_id" invisible="True"/>
                             <field name="matriz" invisible="True"/>
                             <group>
@@ -623,6 +626,10 @@
                             </group>
                             <group>
                                 <field name="codigo_tubo"/>
+                            </group>
+                            <group>
+                                <field name="micro_red"/>
+                                <field name="eess"/>
                             </group>
                             <group>
                                 <field name="estado_muestra"/>

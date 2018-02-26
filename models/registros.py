@@ -36,6 +36,22 @@ class RegistroSobre(models.Model):
     _inherit = ['mail.thread']
 
     @api.model
+    def search_eess_name(self, codigo_sobre, args=None, operator='=', limit=1):
+        args = args or []
+        recs = self.browse()
+        domain = ['codigo_sobre', operator, codigo_sobre]
+
+        recs = self.search(domain + args, limit=limit)
+        if recs:
+            return recs.get_eess_name()
+        return super(RegistroSobre, self).search_eess_name(codigo_sobre, args=args, operator=operator, limit=limit)
+
+    @api.multi
+    def get_eess_name(self):
+        return [(obj.id, u'{}'.format(obj.codigo_sobre))
+                for obj in self]
+
+    @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         args = args or []
         recs = self.browse()
@@ -57,9 +73,20 @@ class RegistroSobre(models.Model):
         return [(obj.id, u'{}'.format(obj.codigo_sobre))
                 for obj in self]
 
+    micro_red = fields.Char(
+        string="MicroRed",
+        default=''
+    )
+
+    eess = fields.Char(
+        string="Nombre del establecimiento",
+        default=''
+    )
+
     secuencia = fields.Integer(
         string=u'secuencia de registro'
     )
+
     usuario_id = fields.Many2one(
         "res.users",
         default=lambda self: self.env.uid,
@@ -72,7 +99,7 @@ class RegistroSobre(models.Model):
     )
     fecha_nacimiento = fields.Date(
         string=u'Fecha de Nacimiento',
-        readonly=True
+        # readonly=True
     )
     codigo_sobre = fields.Char(
         string=u'Codigo de Sobre',
@@ -109,6 +136,9 @@ class RegistroSobre(models.Model):
         required=True,
         size=10,
         track_visibility='onchange'
+    )
+    image = fields.Binary(
+        string=u'Fotografia'
     )
     edad = fields.Integer(
         string=u'Edad',
@@ -224,19 +254,39 @@ class RegistroSobre(models.Model):
     @api.onchange('edad')
     def _onchange_edad_si(self):
         if self.edad < 30 or self.edad >= 50 and self.dni:
-            self.reazones_muestra_invalidad = 'edadfuera'
+            if self.fecha_toma_muestra:
+                edad = (datetime.now().date() - datetime.strptime(self.fecha_toma_muestra, '%Y-%m-%d').date()).days / 365
+            else:
+                edad = self.edad
+
+            if edad < 50:
+                self.reazones_muestra_invalidad = ''
+            else:
+                self.reazones_muestra_invalidad = 'edadfuera'
         else:
             self.reazones_muestra_invalidad = ''
 
     @api.onchange('codigo_sobre', 'codigo_tubo')
     def _onchange_valido_invalido(self):
         if self.codigo_sobre and self.codigo_tubo:
+            registro = self.env['minsa.records.line'].search([
+                ('codigo', '=', self.codigo_sobre)])
+            if registro:
+                self.micro_red = registro.microred.display_name
+                self.eess = registro.nom_eess
+            else:
+                self.micro_red = ""
+                self.eess = ""
+
             if self.codigo_sobre == self.codigo_tubo:
                 self.estado_muestra = 'yes'
                 self.reazones_muestra_invalidad = False
             elif self.codigo_sobre != self.codigo_tubo:
                 self.estado_muestra = 'not'
                 self.reazones_muestra_invalidad = 'codigo'
+        else:
+            self.micro_red = ""
+            self.eess = ""
 
     @api.onchange('dni', 'tipo_documento')
     def click_aprobado(self):
@@ -261,6 +311,7 @@ class RegistroSobre(models.Model):
                     self.apellidos = u'{} {}'.format(data['ape_paterno'], data['ape_materno'])
                     self.direccion = data['domicilio']['direccion_descripcion']
                     self.fecha_nacimiento = data['nacimiento']['fecha']
+                    self.image = data['fotografia']
             except Exception as ex:
                 raise ValidationError("%s : %s" % (RENIEC_ERR, ex.message))
 
@@ -282,6 +333,7 @@ class RegistroSobre(models.Model):
                     'fecha_registro': res.fecha,
                     'regitro': True,
                     'state': 'laboratorio',
+                    'dni': res.dni
                 })
             for reg in registro:
                 reg.record_id._compute_record_line_laboratio_ids()
@@ -1145,6 +1197,9 @@ class MinsaRecordsLine(models.Model):
         string=u'Nombre y Apellido',
         compute='_compute_nombres_apellidos',
         store=True,
+    )
+    dni = fields.Char(
+        string='Documento de Identidad'
     )
     estado_muestra = fields.Selection(
         string=u'Muestra en Buen Estado',
