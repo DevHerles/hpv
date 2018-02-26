@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_vph_document">
+        <t t-call="report.external_layout">
+            <t t-set="doc" t-value="doc.with_context({})" />
+            <div class="page">
+                <div class="oe_structure">
+                    <table class="table">
+                        <tr>
+                            <td align="center">
+                                DIRECCION REGIONAL DE SALUD DE TUMBES<br></br>
+                                LABORATORIO DE REFERENCIA REGIONAL DE SALUD PUBLICA - TUMBES<br></br>
+                                Av. Fernando Belaunde Terry. Mz. X  Lot. 1 - 10   Urb. Jose Lisner Tudela I Etapa - Tumbes<br></br>
+                                Teléfono: 072 – 52 1639 E-Mail:  laboratoriotumbes@yahoo.es
+                            </td>
+                        </tr>
+                        <tr>
+                            <span t-field="doc.codigo"/>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_vph">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="modulos_registros.report_vph_document"/>
+            </t>
+        </t>
+    </template>
+</odoo>

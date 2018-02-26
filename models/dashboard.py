@@ -2,7 +2,6 @@
 
 from odoo import models, fields, api
 
-
 class Dashboard(models.Model):
     _name = "dashboard"
 
@@ -25,4 +24,4 @@ class Dashboard(models.Model):
     total_pacientes_vph_negativos = fields.Integer(compute='_get_count')
 
     def dashboard_sales_action_id(self):
-        print 'dashboard_sales_action_id'
+        print('dashboard_sales_action_id')

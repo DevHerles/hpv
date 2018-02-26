@@ -154,7 +154,8 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                      <field name="state" widget="statusbar"/>
+                        <button name="imprimir_resultado" string="Imprimir resultado" type="object" class="btn-primary"/>
+                        <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
                         <group>

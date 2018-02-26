@@ -15,6 +15,8 @@
     'data': [
         'security/security.xml',
         'data/data.xml',
+        'reports/vph_report.xml',
+        'reports/vph_report_templates.xml',
         'views/trees.xml',
         'views/forms.xml',
         'views/pivot.xml',

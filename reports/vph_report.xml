@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="modulos_registros_report_vph"
+            string="*Imprimir resultados*"
+            model="minsa.records.line"
+            report_type="qweb-pdf"
+            file="modulos_registros.report_vph"
+            name="modulos_registros.report_vph"
+        />
+    </data>
+</odoo>

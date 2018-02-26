@@ -35,16 +35,16 @@ class RegistroSobre(models.Model):
     _order = "secuencia asc"
     _inherit = ['mail.thread']
 
-    @api.model
-    def search_eess_name(self, codigo_sobre, args=None, operator='=', limit=1):
-        args = args or []
-        recs = self.browse()
-        domain = ['codigo_sobre', operator, codigo_sobre]
-
-        recs = self.search(domain + args, limit=limit)
-        if recs:
-            return recs.get_eess_name()
-        return super(RegistroSobre, self).search_eess_name(codigo_sobre, args=args, operator=operator, limit=limit)
+    # @api.model
+    # def search_eess_name(self, codigo_sobre, args=None, operator='=', limit=1):
+    #     args = args or []
+    #     recs = self.browse()
+    #     domain = ['codigo_sobre', operator, codigo_sobre]
+    #
+    #     recs = self.search(domain + args, limit=limit)
+    #     if recs:
+    #         return recs.get_eess_name()
+    #     return super(RegistroSobre, self).search_eess_name(codigo_sobre, args=args, operator=operator, limit=limit)
 
     @api.multi
     def get_eess_name(self):
@@ -1135,6 +1135,10 @@ class MinsaRecords(models.Model):
 class MinsaRecordsLine(models.Model):
     _name = 'minsa.records.line'
     _inherit = ['mail.thread']
+
+    def imprimir_resultado(self):
+        print('Print document!')
+        return self.env['report'].get_action(self, 'sale.report_saleorder')
 
     @api.multi
     def name_get(self):
