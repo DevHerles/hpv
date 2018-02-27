@@ -89,6 +89,24 @@ header > .main-nav > .container-fluid > .navbar-header .navbar-toggle {
     padding-bottom: 0;
 }
 
+/* .o_web_client > .o_main 
+    { .o_sub_menu 
+        { .o_sub_menu_content 
+            { .oe_secondary_menu_section {
+                position: relative;
+                display: block;
+                padding: 5px 15px;
+            }
+        }
+    }
+}
+
+.oe_menu_leaf {
+    padding-left: 46px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+} */
+
 /***
 Kanban
 ***/
@@ -497,6 +515,10 @@ Form Breadcrumb
 Form
 ***/
 .o_form_view {
+    .o_horizontal_separator {
+        border-bottom: 1px dashed #8c8b8b;
+        background: #f0eeee;
+    }
     .oe_title {
         padding-left: 0 !important;
         margin-left: 0 !important;
@@ -624,3 +646,11 @@ Chater
         padding-right: 32px;
     }
 }
+
+html .o_loading {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1051;
+    top: auto;
+  }

@@ -71,22 +71,26 @@
             			      <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
-                        <group>
-                            <field name="eess"/>
-                            <field name="microred"/>
-                            <field name="obstetra_id"/>
+                        <group string="Datos del establecimiento de salud y profesional">
+                            <!--<group string="Datos del establecimiento de salud y profesional">-->
+                                <field name="fecha_entrega"/>
+                                <field name="eess"/>
+                                <field name="microred"/>
+                                <field name="obstetra_id"/>
+                            <!--</group>-->
+                        </group>
+                        <group string="Datos generales">
                             <field name="usuario_id" invisible="True"/>
                             <field name="codigo_servicio" invisible="True"/>
-                            <field name="fecha_entrega"/>
                             <field name="servicio" attrs="{'invisible': [('promotora', '=', True)]}"/>
                             <field name="promotora" attrs="{'invisible': [('servicio', '=', True)]}"/>
                             <field name="promotor_id" domain="[('es_promotor','=',True)]" options="{'no_open': True, 'no_create': True}"
                                 attrs="{'invisible': [('servicio', '=', True)], 'required': [('promotora', '=', True)]}"/>
-                          <field name="cod_entregados" />
-                          <field name="cod_laboratorio" />
-                          <field name="cod_pendiente" />
+                            <field name="cod_entregados" />
+                            <field name="cod_laboratorio" />
+                            <field name="cod_pendiente" />
                         </group>
-                        <group>
+                        <group string="Asignación de sobres">
                             <group>
                                 <field name="numero_inicio" attrs="{'invisible': [('servicio', '=', True)], 'required': [('servicio', '!=', True)]}"/>
                             </group>
@@ -154,27 +158,26 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="imprimir_resultado" string="Imprimir resultado" type="object" class="btn-primary"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
                         <group>
-                            <group>
+                            <group string="Datos del establecimiento">
                                 <field name="eess"/>
                                 <field name="microred"/>
                                 <field name="nom_eess"/>
                                 <field name="fecha_entrega"/>
                                 <field name="codigo"  readonly="True"/>
                             </group>
-                            <group>
+                            <group string="Datos del paciente y profesional">
                                 <field name="servicio" invisible="True"/>
                                 <field name="promotor_id" domain="[('es_promotor','=',True)]" attrs="{'invisible': ['|', ('servicio', '=', True), ('eess_a', '=', True)]}"/>
-                                <field name="obstetra_id" attrs="{'invisible': [('eess_a', '=', True)]}"/>
                                 <field name="sobre_id"  readonly="True"/>
                                 <field name="nombre_apellido"  readonly="True"/>
                                 <field name="dni"  readonly="True"/>
                                 <field name="eess_a" invisible="True"/>
                                 <field name="eessa_a" attrs="{'invisible': [('eess_a', '!=', True)]}"/>
+                                <field name="obstetra_id" attrs="{'invisible': [('eess_a', '=', True)]}"/>
                                 <field name="obstetra_a_id" attrs="{'invisible': [('eess_a', '!=', True)]}"/>
                             </group>
                         </group>
@@ -267,21 +270,25 @@
             			<field name="state" widget="statusbar"/>
             		</header>
                     <sheet>
-                        <group>
-                            <field name="eess"/>
-                            <field name="microred"/>
-                            <field name="usuario_id" invisible="True"/>
-                            <field name="fecha_procedimiento"/>
+                        <group string="DATOS DEL ESTABLECIMIENTO DE SALUD Y FECHA">
+                            <group>
+                                <field name="eess"/>
+                                <field name="microred"/>
+                            </group>
+                            <group>
+                                <field name="usuario_id" invisible="True"/>
+                                <field name="fecha_procedimiento"/>
+                            </group>
                         </group>
-                        <group>
+                        <group string="Búsqueda de paciente">
                             <group>
                                 <div class="oe_title">
                                     <div class="oe_edit_only">
                                         <label for="pap_id"/>
                                     </div>
-                                    <h1>
+                                    <h2>
                                         <field name="pap_id" string="DNI" style="width:85%"/>
-                                    </h1>
+                                    </h2>
                                 </div>
                             </group>
                             <group>
@@ -289,19 +296,18 @@
                                     <div class="oe_edit_only">
                                         <label for="vph_id"/>
                                     </div>
-                                    <h1>
+                                    <h2>
                                         <field name="vph_id" domain="[('respuesta', '=', 'positivo')]"
                                                string="DNI" style="width:85%"/>
-                                        <!--<field name="vph_id"-->
-                                               <!--string="DNI bububu"/>-->
-                                        <!---->
-                                    </h1>
+                                    </h2>
                                 </div>
                             </group>
                         </group>
-                        <field name="paciente_vph" invisible="True"/>
-                        <field name="nombre_apellido" readonly="True"/><br/>
-                        <field name="eess_paciente_vph" readonly="True"/>
+                        <!--<group string="Datos del paciente">-->
+                            <field name="paciente_vph" invisible="True"/>
+                            <field name="nombre_apellido" readonly="True"/><br/>
+                            <field name="eess_paciente_vph" readonly="True"/>
+                        <!--</group>-->
 
                         <group string="PAP" attrs="{'invisible': [('paciente_vph', '=', True)]}">
                             <field name="pap" widget="radio" class="oe_edit_only"/>
@@ -312,7 +318,50 @@
                             <field name="resultado_pap" attrs="{'invisible': [('pap', '=', 'no')]}"/>
                             <field name="otro_pap" attrs="{'invisible': [('pap', '=', 'no')]}"/>
                         </group>
-                        
+
+                        <!--<notebook>
+                            <page string="Ivaa">
+                                <group>
+                                </group>
+                            </page>
+                            <page string="Crioterapia">
+                                <group>
+                                </group>
+                            </page>
+                            <page string="Proc. / Trat. por ref.">
+                                <group>
+                                </group>
+                            </page>
+                            <page string="Colposcopía">
+                                <group>
+                                </group>
+                            </page><page string="Biopsia">
+                                <group>
+                                </group>
+                            </page>
+                            <page string="Cono Leep">
+                                <group>
+                                </group>
+                            </page>
+                            <page string="Histerectomía">
+                                <group>
+                                </group>
+                            </page>
+                            <page string="Radioterapia">
+                                <group>
+                                </group>
+                            </page>
+                            <page string="Quimioterapia">
+                                <group>
+                                </group>
+                            </page>
+                            <page string="Culminó?">
+                                <group>
+                                </group>
+                            </page>
+
+            			</notebook>-->
+
                         <group string="IVAA">
                             <field name="iva"  widget="radio" class="oe_edit_only"/>
                             <field name="luegar_iva" attrs="{'invisible': [('iva', '=', 'no')]}"/>
@@ -616,39 +665,53 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <group>
+                        <group string="Fechas">
+                            <group>
+                                <field name="fecha"/>
+                            </group>
+                            <group>
+                                <field name="fecha_toma_muestra"/>
+                            </group>
+                        </group>
+                        <group string="Datos del sobre">
                             <field name="procesamiento_id" invisible="True"/>
-                            <field name="fecha"/>
-                            <field name="image" widget="image" class="oe_avatar"/>
                             <field name="usuario_id" invisible="True"/>
                             <field name="matriz" invisible="True"/>
                             <group>
                                 <field name="codigo_sobre" default_focus="1"/>
+                                <field name="estado_muestra"/>
                             </group>
                             <group>
                                 <field name="codigo_tubo"/>
                             </group>
+                        </group>
+                        <group string="Datos del establecimiento">
                             <group>
                                 <field name="micro_red"/>
-                                <field name="eess"/>
                             </group>
                             <group>
-                                <field name="estado_muestra"/>
+                                <field name="eess"/>
                                 <field name="codigo_valido_invalido" invisible="True"/>
                             </group>
                         </group>
                         <field name="secuencia" invisible="True"/>
                         <field name="codigo_valido_invalido1" invisible="True"/>
+                        <group string="Datos del paciente">
+                            <group>
+                                <field name="tipo_documento"/>
+                                <field name="dni"/>
+                                <field name="nombres"/>
+                                <field name="apellidos"/>
+                                <field name="edad"/>
+                            </group>
+                            <group>
+                                <field name="image" widget="image" string="" class="oe_avatar"/>
+                                <field name="fecha_nacimiento"/>
+                                <field name="mobile" string="Celular"/>
+                            </group>
+                        </group>
                         <group>
-                            <field name="tipo_documento"/>
-                            <field name="dni"/>
-                            <field name="nombres"/>
-                            <field name="apellidos"/>
-                            <field name="edad"/>
-                            <field name="fecha_nacimiento"/>
-                            <field name="mobile" string="Celular"/>
-                            <field name="direccion"/>
-                            <field name="fecha_toma_muestra"/>
+                            <field name="direccion" string="Dirección"/>
                         </group>
                         <group string="Informe de Muestras">
                             <group>
@@ -696,22 +759,37 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <group>
-                            <field name="eess"/>
-                            <field name="microred"/>
-                            <field name="obstetra_id"/>
-                            <field name="nombres"/>
-                            <field name="apellidos"/>
-                            <field name="dni"/>
-                            <field name="edad"/>
-                            <field name="mobile" string="Celular"/>
-                            <field name="direccion"/>
+                        <group string="Datos del Establecimiento de salud y profesional">
+                            <group>
+                                <field name="eess"/>
+                                <field name="microred"/>
+                            </group>
+                            <group>
+                                <field name="obstetra_id"/>
+                            </group>
+                        </group>
+                        <group string="Datos del Paciente">
+                            <group>
+                                <field name="dni"/>
+                                <field name="nombres"/>
+                                <field name="apellidos"/>
+                                <field name="edad"/>
+                            </group>
+                            <group>
+                                <field name="image" widget="image" class="oe_avatar" string=""/>
+                                <field name="mobile" string="Celular"/>
+                                <field name="direccion"/>
+                            </group>
                         </group>
                         <group string="PAP">
-                            <field name="gestante" widget="radio" class="oe_edit_only"/>
-                            <field name="fecha_pap" />
-                            <field name="fecha_resulado" />
-                            <field name="resultado_pap" />
+                            <group>
+                                <field name="gestante" widget="radio" class="oe_edit_only"/>
+                                <field name="fecha_pap" />
+                            </group>
+                            <group>
+                                <field name="fecha_resulado" />
+                                <field name="resultado_pap" />
+                            </group>
                             <field name="otro_pap" />
                         </group>
                   </sheet>

@@ -10,7 +10,7 @@
                 <link href="/modulos_registros/static/src/css/vph.css" rel="stylesheet"/>
                 <link href="/modulos_registros/static/src/css/vph.less" rel="stylesheet" type="text/less"/>
                 
-                <script type="text/javascript" src="/modulos_registros/static/src/js/tour.js"></script>
+                <script type="text/javascript" src="/modulos_registros/static/src/js/vph_tour.js"></script>
                 <!--<script type="text/javascript" src="/modulos_registros/static/src/js/asf.gauge.widget.js"></script>-->
                 <!--<script type="text/javascript" src="/modulos_registros/static/src/js/d3.bar.widget.js"></script>-->
             </xpath>

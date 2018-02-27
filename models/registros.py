@@ -450,6 +450,9 @@ class PacentePap(models.Model):
         string=u'Edad',
         default=0
     )
+    image = fields.Binary(
+        string=u'Fotografia'
+    )
     mobile = fields.Char(
         size=9
     )
@@ -532,6 +535,14 @@ class PacentePap(models.Model):
                     edad = 0
                 else:
                     self.edad = edad
+            if not data:
+                return True
+            elif data:
+                self.nombres = data['nombres']
+                self.apellidos = u'{} {}'.format(data['ape_paterno'], data['ape_materno'])
+                self.direccion = data['domicilio']['direccion_descripcion']
+                self.fecha_nacimiento = data['nacimiento']['fecha']
+                self.image = data['fotografia']
         except Exception as ex:
             raise ValidationError("%s : %s" % (RENIEC_ERR, ex.message))
 
@@ -1136,10 +1147,6 @@ class MinsaRecordsLine(models.Model):
     _name = 'minsa.records.line'
     _inherit = ['mail.thread']
 
-    def imprimir_resultado(self):
-        print('Print document!')
-        return self.env['report'].get_action(self, 'sale.report_saleorder')
-
     @api.multi
     def name_get(self):
         return [(obj.id, u'{}'.format(obj.codigo or ''))
@@ -1580,11 +1587,11 @@ class Procedimientos(models.Model):
     )
     pap_id = fields.Many2one(
         comodel_name='paciente.pap',
-        string=u'Busqueda Paciente PAP  mmmmm'
+        string=u'PAP'
     )
     vph_id = fields.Many2one(
         comodel_name='registro.sobre',
-        string=u'Busqueda Paciente VPH xxx'
+        string=u'VPH'
     )
     image = fields.Binary(related='dni_id.image')
     medico0 = fields.Many2one(
@@ -1980,8 +1987,9 @@ class Reportes(models.Model):
     _order = "fecha desc"
     _inherit = ['mail.thread']
 
+    @property
     def numero_muestras_changed(self):
-        if self.numero_muestras < 96:
+        if 96 > self.numero_muestras > 0:
             return {'value': {}, 'warning': {'title': 'Cuidado!!!', 'message': 'Recuerda que el número de muestras debe ser 90. Asegúrese de que el Número de muestras ingresado seal el correcto.'}}
 
     @api.constrains('numero_muestras')

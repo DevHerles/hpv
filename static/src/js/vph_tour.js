@@ -9,30 +9,34 @@ odoo.define('vph.tour', function(require) {
     tour.register('vph_tour', {
         url: "/web",
     }, [tour.STEPS.MENU_MORE, {
-        trigger: '.o_app[data-menu-xmlid="minsa_main_menu_cancer"], .oe_menu_toggler[data-menu-xmlid="minsa_main_menu_cancer"]',
-        content: _t('Explore the information in smarter way...'),
-        position: 'bottom',
-    } 
-    , {
-        trigger: ".oe_link",
-        extra_trigger: '.oe_highlight',
-        content:  _t("Information for second step of tour."),
-        position: "right"
-    }
-    , {
-        trigger: ".o_form_required",
-        extra_trigger: '.oe_highlight',
-        content:  _t("Information for third step of tour."),
-        position: "top"
-    }
-    , {
-        trigger: ".o_address_street",
-        extra_trigger: '.oe_highlight',
-        content:  _t("Information for next and so on"),
-        position: "left"
-    }
-     
-     
-    ]);
-     
-    });
+            trigger: '.o_app[data-menu-xmlid="modulos_registros.minsa_entrega_registros_menu"]',
+            content: _t('Quieres <b>distribuir Sobres</b>?<br/><i>Haga click aquí para empezar.</i>'),
+            position: 'bottom',
+        }, {
+            trigger: '.oe_menu_leaf[data-menu-xmlid="modulos_registros.minsa_registros_menu"]',
+            content: _t('Quieres <b>ver los reportes</b>?<br/><i>Haga click aquí para empezar.</i>'),
+            position: 'bottom',
+        }, {
+            trigger: '.oe_menu_leaf[data-menu-xmlid="modulos_registros.minsa_registros_pap_main_menu"]',
+            content: _t('Quieres <b>registrar PAP</b>?<br/><i>Haga click aquí para empezar.</i>'),
+            position: 'bottom',
+        }, {
+            trigger: '.oe_menu_leaf[data-menu-xmlid="modulos_registros.minsa_procedimientos_menu"]',
+            content: _t('Quieres <b>registrar Procedimientos</b>?<br/><i>Haga click aquí para empezar.</i>'),
+            position: 'bottom',
+        }, {
+            trigger: '.oe_menu_leaf[data-menu-xmlid="modulos_registros.minsa_verificar_sobre_main_menu"]',
+            content: _t('Quieres <b>registrar Sobres</b>?<br/><i>Haga click aquí para empezar.</i>'),
+            position: 'bottom',
+        }, {
+            trigger: '.oe_menu_leaf[data-menu-xmlid="modulos_registros.minsa_registros_sobre1_main_menu"]',
+            content: _t('Quieres <b>registrar Sobres</b>?<br/><i>Haga click aquí para empezar.</i>'),
+            position: 'bottom',
+        }, {
+            trigger: '.o_list_button_add',
+            content: _t('Haga click para crear.'),
+            position: 'bottom',
+            width: 200,
+        }, 
+    ]);     
+});

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Make the xmlid of menus required by the VPH tour available in webclient -->
+    <record id="minsa_main_menu_cancer" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_verificar_sobre_main_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_entrega_registros_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_registros_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="menu_wizard_paciente_gg_report" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+<!--     <record id="pacientes_positivas_ob_report_action" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record> -->
+    <record id="minsa_registros_pap_main_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_cancer_seguimiento_main_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_pacientes_positivos_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_procedimientos_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_directorio_profesionales_main_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_main_menu_laboratorio" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_registros_sobre1_main_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_reporte_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+    <record id="minsa_micro_redes_menu" model="ir.ui.menu">
+        <field name="load_xmlid" eval="True"/>
+    </record>
+</odoo>
