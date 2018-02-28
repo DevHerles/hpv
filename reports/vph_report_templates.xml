@@ -32,24 +32,30 @@
                 <div class="oe_structure">
                     <table class="table">
                         <tr>
-                            <td align="center">
-                                PLACA - DIRECCION REGIONAL DE SALUD DE TUMBES<br></br>
-                                LABORATORIO DE REFERENCIA REGIONAL DE SALUD PUBLICA - TUMBES<br></br>
-                                Av. Fernando Belaunde Terry. Mz. X  Lot. 1 - 10   Urb. Jose Lisner Tudela I Etapa - Tumbes<br></br>
-                                Teléfono: 072 – 52 1639 E-Mail:  laboratoriotumbes@yahoo.es
-                            </td>
+                            <td colspan="2">Responsable del proceso:</td>
+                            <td><span t-field="doc.user_id.name"></span></td>
+                            <td>Fecha:</td>
+                            <td><span t-field="doc.fecha"></span></td>
                         </tr>
                         <tr>
-                            <td colspan="2">Responsable del proceso</td>
+                            <td>Hora Inicio:</td>
                             <td></td>
-                            <td>Fecha</td>
+                            <td>Hora Final:</td>
+                            <td></td>
+                            <td># Equipo</td>
+                        </tr>
+                        <tr>
+                            <td>#Placa:</td>
+                            <td>#Placa en Equipo:</td>
+                            <td>Total positivos:</td>
+                            <td><span t-field="doc.numero_positivos"></span></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Pos X</td>
-                            <td>Pos Y</td>
-                            <td>Secuencia</td>
-                            <td>Sobre</td>
+                            <td style="width:60px">Pos X</td>
+                            <td style="width:60px">Pos Y</td>
+                            <td style="width:60px">Secuencia</td>
+                            <td style="width:100px">Sobre</td>
                             <td>Resultado</td>
                         </tr>
                         <t t-foreach="doc.registros_lines_ids" t-as="row">
@@ -58,6 +64,7 @@
                                 <td><span t-field="row.pos_y"></span></td>
                                 <td><span t-field="row.number"></span></td>
                                 <td><span t-field="row.record_lista_id.codigo_sobre"></span></td>
+                                <td><span t-field="row.positivo_valores"></span></td>
                             </tr>
                         </t>
                     </table>
