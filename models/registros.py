@@ -35,17 +35,6 @@ class RegistroSobre(models.Model):
     _order = "secuencia asc"
     _inherit = ['mail.thread']
 
-    # @api.model
-    # def search_eess_name(self, codigo_sobre, args=None, operator='=', limit=1):
-    #     args = args or []
-    #     recs = self.browse()
-    #     domain = ['codigo_sobre', operator, codigo_sobre]
-    #
-    #     recs = self.search(domain + args, limit=limit)
-    #     if recs:
-    #         return recs.get_eess_name()
-    #     return super(RegistroSobre, self).search_eess_name(codigo_sobre, args=args, operator=operator, limit=limit)
-
     @api.multi
     def get_eess_name(self):
         return [(obj.id, u'{}'.format(obj.codigo_sobre))
@@ -77,16 +66,13 @@ class RegistroSobre(models.Model):
         string="MicroRed",
         default=''
     )
-
     eess = fields.Char(
         string="Nombre del establecimiento",
         default=''
     )
-
     secuencia = fields.Integer(
         string=u'secuencia de registro'
     )
-
     usuario_id = fields.Many2one(
         "res.users",
         default=lambda self: self.env.uid,
@@ -119,6 +105,25 @@ class RegistroSobre(models.Model):
         track_visibility='onchange',
         readonly=True
     )
+    nacionalidad = fields.Selection(
+        string="Nacionalidad",
+        selection=[
+            ('peruano', 'Peruano'),
+            ('extranjero', 'Extranjero')
+        ],
+        default='peruano'
+    )
+    procedencia = fields.Selection(
+        string="Región de procedencia",
+        selection=[
+            ('tumbes', 'Tumbes'),
+            ('otros', 'Otros')
+        ],
+        default='tumbes'
+    )
+    observaciones = fields.Char(
+        string="Observaciones"
+    )
     nombres = fields.Char(
         string=u'Nombres',
         required=True,
@@ -145,6 +150,9 @@ class RegistroSobre(models.Model):
         default=0,
         track_visibility='onchange',
         # readonly=True
+    )
+    fecha_nacimiento = fields.Date(
+        string="Fecha de nacimiento"
     )
     mobile = fields.Char(
         size=9,
@@ -315,6 +323,30 @@ class RegistroSobre(models.Model):
             except Exception as ex:
                 raise ValidationError("%s : %s" % (RENIEC_ERR, ex.message))
 
+    @api.onchange('nacionalidad')
+    def click_nacionalidad(self):
+        if self.nacionalidad == "peruano":
+            self.tipo_documento = "dni"
+            self.procedencia = "tumbes"
+        else:
+            self.tipo_documento = "doi"
+            self.procedencia = "otros"
+
+    @api.onchange('tipo_documento')
+    def click_tipodocumento(self):
+        self.dni = ""
+        self.edad = ""
+        self.nombres = ""
+        self.apellidos = ""
+        self.direccion = ""
+        self.fecha_nacimiento = ""
+        self.image = ""
+        self.mobile = ""
+        if self.tipo_documento == "dni":
+            self.nacionalidad = "peruano"
+        else:
+            self.nacionalidad = "extranjero"
+
     @api.model
     def create(self, vals):
         if not vals.get('secuencia'):
@@ -445,11 +477,40 @@ class PacentePap(models.Model):
     )
     dni = fields.Char(
         string=u'DNI',
-        size=8
+        size=10,
+        required=True,
+    )
+    tipo_documento = fields.Selection(
+        string="Documento de Identidad",
+        selection=[
+            ('dni', 'DNI'),
+            ('doi', 'Carnet de extranjería')
+        ],
+        default='dni'
+    )
+    nacionalidad = fields.Selection(
+        string="Nacionalidad",
+        selection=[
+            ('peruano', 'Peruano'),
+            ('extranjero', 'Extranjero')
+        ],
+        default='peruano'
+    )
+    procedencia = fields.Selection(
+        string="Región de procedencia",
+        selection=[
+            ('tumbes','Tumbes'),
+            ('otros', 'Otros')
+        ],
+        default='tumbes'
+    )
+    observaciones = fields.Char(
+        string="Observaciones"
     )
     edad = fields.Integer(
         string=u'Edad',
-        default=0
+        default=0,
+        required=True
     )
     image = fields.Binary(
         string=u'Fotografia'
@@ -485,7 +546,8 @@ class PacentePap(models.Model):
         store=True
     )
     fecha_pap = fields.Date(
-        string=u'Fecha'
+        string=u'Fecha de toma',
+        required=True
     )
     fecha_resulado = fields.Date(
         string=u'Fecha Resultado'
@@ -523,8 +585,14 @@ class PacentePap(models.Model):
 
     @api.onchange('dni')
     def click_aprobado(self):
-        if not self.dni:
-            self.edad = ''
+        if not self.dni or self.tipo_documento=="doi":
+            self.edad = ""
+            self.nombres = ""
+            self.apellidos = ""
+            self.direccion = ""
+            self.fecha_nacimiento = ""
+            self.image = ""
+            self.mobile = ""
             return {}
         # Consulta de Datos Reniec
         try:
@@ -547,6 +615,29 @@ class PacentePap(models.Model):
         except Exception as ex:
             raise ValidationError("%s : %s" % (RENIEC_ERR, ex.message))
 
+    @api.onchange('nacionalidad')
+    def click_nacionalidad(self):
+        if self.nacionalidad == "peruano":
+            self.tipo_documento="dni"
+            self.procedencia="tumbes"
+        else:
+            self.tipo_documento="doi"
+            self.procedencia="otros"
+
+    @api.onchange('tipo_documento')
+    def click_tipodocumento(self):
+        self.dni = ""
+        self.edad = ""
+        self.nombres = ""
+        self.apellidos = ""
+        self.direccion = ""
+        self.fecha_nacimiento = ""
+        self.image = ""
+        self.mobile = ""
+        if self.tipo_documento == "dni":
+            self.nacionalidad = "peruano"
+        else:
+            self.nacionalidad = "extranjero"
 
 class Paciente(models.Model):
     _inherit = 'res.partner'

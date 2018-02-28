@@ -698,6 +698,8 @@
                         <field name="codigo_valido_invalido1" invisible="True"/>
                         <group string="Datos del paciente">
                             <group>
+                                <field name="nacionalidad"/>
+                                <field name="procedencia"/>
                                 <field name="tipo_documento"/>
                                 <field name="dni"/>
                                 <field name="nombres"/>
@@ -711,6 +713,7 @@
                             </group>
                         </group>
                         <group>
+                            <field name="observaciones"/>
                             <field name="direccion" string="Dirección"/>
                         </group>
                         <group string="Informe de Muestras">
@@ -770,7 +773,10 @@
                         </group>
                         <group string="Datos del Paciente">
                             <group>
-                                <field name="dni"/>
+                                <field name="nacionalidad"/>
+                                <field name="procedencia"/>
+                                <field name="tipo_documento"/>
+                                <field name="dni" string="Número"/>
                                 <field name="nombres"/>
                                 <field name="apellidos"/>
                                 <field name="edad"/>
@@ -778,13 +784,16 @@
                             <group>
                                 <field name="image" widget="image" class="oe_avatar" string=""/>
                                 <field name="mobile" string="Celular"/>
-                                <field name="direccion"/>
                             </group>
+                        </group>
+                        <group>
+                            <field name="direccion" string="Dirección"/>
+                            <field name="observaciones" placeholder="Aquí puedes ingresar el lugar de procedencia."/>
                         </group>
                         <group string="PAP">
                             <group>
                                 <field name="gestante" widget="radio" class="oe_edit_only"/>
-                                <field name="fecha_pap" />
+                                <field name="fecha_pap" string="Fecha de toma" />
                             </group>
                             <group>
                                 <field name="fecha_resulado" />
