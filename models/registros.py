@@ -285,6 +285,7 @@ class RegistroSobre(models.Model):
             else:
                 self.micro_red = ""
                 self.eess = ""
+                raise ValidationError("El sobre NO está registrado en el sistema.")
 
             if self.codigo_sobre == self.codigo_tubo:
                 self.estado_muestra = 'yes'
@@ -302,6 +303,10 @@ class RegistroSobre(models.Model):
             if not self.dni:
                 self.edad = False
                 return {}
+
+            if len(self.dni) != 8:
+                raise ValidationError("El número de DNI debe tener 8 dígitos.")
+
             # Consulta de Datos Reniec
             try:
                 data = self.env['consultadatos.reniec'].consultardni(self.dni)
@@ -323,13 +328,18 @@ class RegistroSobre(models.Model):
             except Exception as ex:
                 raise ValidationError("%s : %s" % (RENIEC_ERR, ex.message))
 
+    @api.onchange('fecha_nacimiento')
+    def click_fecha_nacimiento(self):
+        if self.fecha_nacimiento:
+            self.edad = (datetime.now().date() - datetime.strptime(self.fecha_nacimiento, '%Y-%m-%d').date()).days / 365
+
     @api.onchange('nacionalidad')
     def click_nacionalidad(self):
         if self.nacionalidad == "peruano":
             self.tipo_documento = "dni"
             self.procedencia = "tumbes"
         else:
-            self.tipo_documento = "doi"
+            self.tipo_documento = "carnet"
             self.procedencia = "otros"
 
     @api.onchange('tipo_documento')
@@ -915,6 +925,22 @@ class MinsaRecords(models.Model):
     _name = 'minsa.records'
     _order = "fecha_entrega desc"
     _inherit = ['mail.thread']
+
+    def numero_inicio_changed(self, numero_inicio):
+        if numero_inicio:
+            try:
+                ni = int(numero_inicio)
+            except ValueError:
+                return {'value': {}, 'warning': {'title': 'Cuidado!!!',
+                                                 'message': 'Usted debe ingresar un número entero. Ejemplo: 100, 203, etc.'}}
+
+    def numero_fin_changed(self, numero_fin):
+        if numero_fin:
+            try:
+                nf = int(numero_fin)
+            except ValueError:
+                return {'value': {}, 'warning': {'title': 'Cuidado!!!',
+                                                 'message': 'Usted debe ingresar un número entero. Ejemplo: 100, 203, etc.'}}
 
     @api.constrains('numero_inicio', 'numero_fin')
     def _check_numeor_inicio_y_fin(self):
@@ -2079,9 +2105,12 @@ class Reportes(models.Model):
     _order = "fecha desc"
     _inherit = ['mail.thread']
 
-    def numero_muestras_changed(self):
-        if self.numero_muestras < 96:
-            return {'value': {}, 'warning': {'title': 'Cuidado!!!', 'message': 'Recuerda que el número de muestras debe ser 90. Asegúrese de que el Número de muestras ingresado sea el correcto.'}}
+    def numero_muestras_changed(self, numero_muestras):
+        if numero_muestras == 90 or numero_muestras == 0:
+            return {}
+        else:
+            return {'value': {}, 'warning': {'title': 'Cuidado!!!', 'message': 'Recuerda que el número de muestras debe ser 90. Asegúrese de que el número de muestras ingresado es el correcto.'}}
+
 
     @api.constrains('numero_muestras')
     def _check_numero_muestras(self):

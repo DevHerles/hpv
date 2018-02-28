@@ -92,10 +92,10 @@
                         </group>
                         <group string="Asignación de sobres">
                             <group>
-                                <field name="numero_inicio" attrs="{'invisible': [('servicio', '=', True)], 'required': [('servicio', '!=', True)]}"/>
+                                <field name="numero_inicio" on_change="numero_inicio_changed(numero_inicio)" attrs="{'invisible': [('servicio', '=', True)], 'required': [('servicio', '!=', True)]}"/>
                             </group>
                             <group>
-                                <field name="numero_fin" attrs="{'invisible': [('servicio', '=', True)], 'required': [('servicio', '!=', True)]}"/>
+                                <field name="numero_fin" on_change="numero_fin_changed(numero_fin)" attrs="{'invisible': [('servicio', '=', True)], 'required': [('servicio', '!=', True)]}"/>
                             </group>
                         </group>
                         <group>
@@ -473,7 +473,7 @@
                         </group>
                         <group string="Datos de las muestras">
                             <group>
-                                <field name="numero_muestras" on_change="numero_muestras_changed()"/>
+                                <field name="numero_muestras" on_change="numero_muestras_changed(numero_muestras)"/>
                                 <field name="rango" invisible="True"/>
                             </group>
                             <group>
@@ -669,9 +669,6 @@
                             <group>
                                 <field name="fecha"/>
                             </group>
-                            <group>
-                                <field name="fecha_toma_muestra"/>
-                            </group>
                         </group>
                         <group string="Datos del sobre">
                             <field name="procesamiento_id" invisible="True"/>
@@ -683,9 +680,10 @@
                             </group>
                             <group>
                                 <field name="codigo_tubo"/>
+                                <field name="fecha_toma_muestra"/>
                             </group>
                         </group>
-                        <group string="Datos del establecimiento">
+                        <group>
                             <group>
                                 <field name="micro_red"/>
                             </group>
@@ -713,8 +711,8 @@
                             </group>
                         </group>
                         <group>
-                            <field name="observaciones"/>
                             <field name="direccion" string="Dirección"/>
+                            <field name="observaciones" placeholder="Aquí puedes ingresar el lugar de procedencia."/>
                         </group>
                         <group string="Informe de Muestras">
                             <group>

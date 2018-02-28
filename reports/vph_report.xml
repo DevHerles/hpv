@@ -9,5 +9,13 @@
             file="modulos_registros.report_vph"
             name="modulos_registros.report_vph"
         />
+        <report
+            id="modulos_registros_report_placa"
+            string="Imprimir placa"
+            model="reportes"
+            report_type="qweb-pdf"
+            file="modulos_registros.report_placa"
+            name="modulos_registros.report_placa"
+        />
     </data>
 </odoo>
