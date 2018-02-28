@@ -418,7 +418,8 @@ class RegistroSobre(models.Model):
 
 class PacentePap(models.Model):
     _name = 'paciente.pap'
-
+    _inherit = ['mail.thread']
+    
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         args = args or []
