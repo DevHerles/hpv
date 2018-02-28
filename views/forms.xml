@@ -456,7 +456,7 @@
                         <field name="state" widget="statusbar" clickable="True"/>
                     </header>
                     <sheet>
-                        <group>
+                        <group string="Datos generales">
                             <group>
                               <field name="eess"/>
                               <field name="usuario_id" invisible="True"/>
@@ -471,7 +471,7 @@
                                 <field name="placa_valida"/>
                             </group>
                         </group>
-                        <group>
+                        <group string="Datos de las muestras">
                             <group>
                                 <field name="numero_muestras" on_change="numero_muestras_changed()"/>
                                 <field name="rango" invisible="True"/>

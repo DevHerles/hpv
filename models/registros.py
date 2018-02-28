@@ -1987,10 +1987,9 @@ class Reportes(models.Model):
     _order = "fecha desc"
     _inherit = ['mail.thread']
 
-    @property
     def numero_muestras_changed(self):
-        if 96 > self.numero_muestras > 0:
-            return {'value': {}, 'warning': {'title': 'Cuidado!!!', 'message': 'Recuerda que el número de muestras debe ser 90. Asegúrese de que el Número de muestras ingresado seal el correcto.'}}
+        if self.numero_muestras < 96:
+            return {'value': {}, 'warning': {'title': 'Cuidado!!!', 'message': 'Recuerda que el número de muestras debe ser 90. Asegúrese de que el Número de muestras ingresado sea el correcto.'}}
 
     @api.constrains('numero_muestras')
     def _check_numero_muestras(self):
@@ -2179,7 +2178,6 @@ class Reportes(models.Model):
             for line in record.registros_lines_ids:
                 if line.record_lista_id:
                     line.record_lista_id.procesamiento_id = record.id
-
 
 class ReportesLineas(models.Model):
     _name = 'reportes.line'

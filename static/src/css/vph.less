@@ -89,24 +89,6 @@ header > .main-nav > .container-fluid > .navbar-header .navbar-toggle {
     padding-bottom: 0;
 }
 
-/* .o_web_client > .o_main 
-    { .o_sub_menu 
-        { .o_sub_menu_content 
-            { .oe_secondary_menu_section {
-                position: relative;
-                display: block;
-                padding: 5px 15px;
-            }
-        }
-    }
-}
-
-.oe_menu_leaf {
-    padding-left: 46px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-} */
-
 /***
 Kanban
 ***/
@@ -185,12 +167,7 @@ Kanban
     }
 }
 
-.btn-group > .btn {
-    // text-transform: capitalize;
-}
-
 .btn {
-    // font-family: 'Poppins'!important;
     text-transform: uppercase;
 
     &:active {
@@ -247,7 +224,7 @@ Kanban
     border-color: @brand-primary-dark-20;
     color: @brand-disabled;
 }
-
+/* 
 .o_form_view > header > button:not(.btn-primary):not(.btn-link):not(.oe_highlight) {
     color: @brand-primary;
     background-color: white;
@@ -262,7 +239,7 @@ Kanban
         // font-weight: bold;
     }
 }
-
+ */
 a {
     &:hover {
         color: @brand-primary-dark-20;
@@ -274,7 +251,7 @@ a {
     color: @brand-primary;
 }
 
-.o_form_view .o_group .o_td_label .o_form_label {
+/* .o_form_view .o_group .o_td_label .o_form_label {
     font-weight: normal;
     margin-right: 0px;
     color: @brand-body-color !important;
@@ -283,7 +260,7 @@ a {
 .o_form_view .o_horizontal_separator {
     color: @brand-body-color;
     font-family: 'Montserrat'!important;
-}
+} */
 
 .o_form_view.o_form_editable .o_form_field_monetary > .o_form_input:focus {
     border-color: rgba(0,0,0,0.1);
@@ -293,7 +270,7 @@ a {
     box-shadow: none;
 }
 
-.o_form_view .o_group .o_form_field:focus,
+/* .o_form_view .o_group .o_form_field:focus,
 .o_form_view .o_form_field .o_form_input:focus,
 .o_form_view .o_group .o_form_field:hover,
 .o_form_view .o_form_field .o_form_input:hover {
@@ -306,14 +283,12 @@ a {
 
 .o_form_view .o_form_field_image > .o_form_image_controls > .fa.o_select_file_button {
     background: @brand-primary;
-}
+} */
 
 /***
 Tabs
 ***/
-
 .nav-tabs > li > a {
-    // font-family: 'Montserrat'!important;
     color: @brand-body-color;
     &:hover {
         color: @brand-primary;    
@@ -326,7 +301,6 @@ Tabs
 .nav-tabs > li.active > a:focus {
     border-top: 1px solid;
     color: darken(@brand-main-nav , 20%);
-    // font-weight: 600;
 }
 
 .nav-tabs > li > a:hover {
@@ -340,14 +314,6 @@ Tabs
 /***
 Breadcrumb
 ***/
-
-// .o_control_panel .breadcrumb > li {
-//     font-family: 'Montserrat'!important;
-// }
-
-// .breadcrumb > .active {
-//     color: @brand-primary;
-// }
 
 /***
 Table
@@ -442,7 +408,6 @@ Dropdown
 }
 
 .open > .dropdown-toggle.btn-primary {
-    // background-color: #e6e6e6;
     background-color: @brand-primary-dark-20;;
     border-color: @brand-primary;
 
@@ -455,7 +420,6 @@ Dropdown
         border-color: @brand-primary-dark-10;
     }
 }
-
 
 /***
 Form Breadcrumb
@@ -515,7 +479,40 @@ Form Breadcrumb
 Form
 ***/
 .o_form_view {
+    > header > button:not(.btn-primary):not(.btn-link):not(.oe_highlight) {
+        color: @brand-primary;
+        background-color: white;
+        border-color: transparent;
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: darken(@brand-main-nav, 20%);
+            background-color: #fff;
+            border-color: transparent;    
+            // font-weight: bold;
+        }
+    }
+    .o_group .o_form_field:focus,
+    .o_form_field .o_form_input:focus,
+    .o_group .o_form_field:hover,
+    .o_form_field .o_form_input:hover {
+        border-color: @brand-primary!important;
+    }
+    .o_form_field.o_form_field_many2one .o_external_button {
+        color: @brand-primary;
+    }
+    .o_form_field_image > .o_form_image_controls > .fa.o_select_file_button {
+        background: @brand-primary;
+    }
+    .o_group .o_td_label .o_form_label {
+        font-weight: normal;
+        margin-right: 0px;
+        color: @brand-body-color !important;
+    }
     .o_horizontal_separator {
+        color: @brand-body-color;
+        font-family: 'Montserrat'!important;
         border-bottom: 1px dashed #8c8b8b;
         background: #f0eeee;
     }
@@ -653,4 +650,15 @@ html .o_loading {
     right: 0;
     z-index: 1051;
     top: auto;
-  }
+}
+
+.datepicker .table-condensed > tbody > tr > td.active, .datepicker .table-condensed > tbody > tr > td .active {
+    background-color: @brand-primary;
+}
+
+.ui-autocomplete .ui-menu-item.o_m2o_dropdown_option > a {
+    color: @brand-primary;
+    &:hover {
+        color: @brand-control-panel;
+    }
+}
