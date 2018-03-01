@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 
-        <menuitem name="-CONSULTORIO-" id="minsa_main_menu_cancer" sequence="10" groups="grupo_obstetra_minsa,grupo_administrador_minsa"/>
+        <menuitem name="CONSULTORIO" id="minsa_main_menu_cancer" sequence="10" groups="grupo_obstetra_minsa,grupo_administrador_minsa"/>
         <menuitem name="VERIFICACIÓN" id="minsa_verificar_sobre_main_menu" action="minsa_verificacion_action" sequence="20" groups="grupo_obstetra_minsa,grupo_administrador_minsa"/>
             <menuitem name="PRUEBAS VPH" id="minsa_cancer_registros_main_menu"  parent="minsa_main_menu_cancer" sequence="20"/>
 
