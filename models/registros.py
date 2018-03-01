@@ -9,8 +9,6 @@ from datetime import datetime
 from odoo.exceptions import ValidationError
 from odoo import models, fields, api
 
-from odoo.tools.translate import _
-
 logger = logging.getLogger(__name__)
 
 reload(sys)
@@ -461,7 +459,7 @@ class RegistroSobre(models.Model):
 class PacentePap(models.Model):
     _name = 'paciente.pap'
     _inherit = ['mail.thread']
-    
+
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         args = args or []
@@ -509,7 +507,7 @@ class PacentePap(models.Model):
     procedencia = fields.Selection(
         string="Región de procedencia",
         selection=[
-            ('tumbes','Tumbes'),
+            ('tumbes', 'Tumbes'),
             ('otros', 'Otros')
         ],
         default='tumbes'
@@ -595,7 +593,7 @@ class PacentePap(models.Model):
 
     @api.onchange('dni')
     def click_aprobado(self):
-        if not self.dni or self.tipo_documento=="doi":
+        if not self.dni or self.tipo_documento == "doi":
             self.edad = ""
             self.nombres = ""
             self.apellidos = ""
@@ -628,11 +626,11 @@ class PacentePap(models.Model):
     @api.onchange('nacionalidad')
     def click_nacionalidad(self):
         if self.nacionalidad == "peruano":
-            self.tipo_documento="dni"
-            self.procedencia="tumbes"
+            self.tipo_documento = "dni"
+            self.procedencia = "tumbes"
         else:
-            self.tipo_documento="doi"
-            self.procedencia="otros"
+            self.tipo_documento = "doi"
+            self.procedencia = "otros"
 
     @api.onchange('tipo_documento')
     def click_tipodocumento(self):
@@ -648,6 +646,7 @@ class PacentePap(models.Model):
             self.nacionalidad = "peruano"
         else:
             self.nacionalidad = "extranjero"
+
 
 class Paciente(models.Model):
     _inherit = 'res.partner'
@@ -930,6 +929,7 @@ class MinsaRecords(models.Model):
         if numero_inicio:
             try:
                 ni = int(numero_inicio)
+                numero_inicio = ni
             except ValueError:
                 return {'value': {}, 'warning': {'title': 'Cuidado!!!',
                                                  'message': 'Usted debe ingresar un número entero. Ejemplo: 100, 203, etc.'}}
@@ -938,6 +938,7 @@ class MinsaRecords(models.Model):
         if numero_fin:
             try:
                 nf = int(numero_fin)
+                numero_fin = nf
             except ValueError:
                 return {'value': {}, 'warning': {'title': 'Cuidado!!!',
                                                  'message': 'Usted debe ingresar un número entero. Ejemplo: 100, 203, etc.'}}
@@ -2120,7 +2121,6 @@ class Reportes(models.Model):
         else:
             return {'value': {}, 'warning': {'title': 'Cuidado!!!', 'message': 'Recuerda que el número de muestras debe ser 90. Asegúrese de que el número de muestras ingresado es el correcto.'}}
 
-
     @api.constrains('numero_muestras')
     def _check_numero_muestras(self):
         if self.numero_muestras > 96:
@@ -2308,6 +2308,7 @@ class Reportes(models.Model):
             for line in record.registros_lines_ids:
                 if line.record_lista_id:
                     line.record_lista_id.procesamiento_id = record.id
+
 
 class ReportesLineas(models.Model):
     _name = 'reportes.line'
