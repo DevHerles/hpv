@@ -5,7 +5,7 @@
 @gray-light:             #4E5D6C;   // #999
 @gray-lighter:           #EBEBEB; // #eee
 
-@brand-primary:         #F27902;
+@brand-primary:         #00a09d; //#F27902;
 @brand-success:         #5cb85c;
 @brand-info:            #5bc0de;
 @brand-warning:         #f0ad4e;
@@ -13,13 +13,45 @@
 @brand-disabled:        #8c8c8c;
 @brand-control-panel:   #fff;
 @brand-nav-bar:         #eee;
-@brand-main-nav:        #313949; //#875A7B;
+@brand-main-nav:         @brand-primary; //#313949; //#875A7B;
 @brand-body-color:      #666666;
-@brand-primary-dark-20: darken(@brand-primary, 20%);   // #333
+@brand-primary-dark-20: darken(@brand-primary, 80%);   // #333
 @brand-primary-dark-10: darken(@brand-primary, 30%);   // #333
 
 body {
+    /* font-family: 'Montserrat', sans-serif; */
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Proxima Nova', Georgia, sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
+    /* font-size: 15px; */
     color: @brand-body-color !important;
+}
+
+/***
+Rounded corners reset
+***/
+/* Reset rounded corners for all elements */
+div, 
+svg,          
+input,      
+select,                    
+textarea,             
+span,                          
+img,               
+table,                       
+label,  
+td,                  
+th,    
+p,          
+a, 
+button, 
+ul,    
+code,
+pre,    
+li {
+    -webkit-border-radius: 0 !important;                   
+       -moz-border-radius: 0 !important;
+            border-radius: 0 !important;
 }
 
 header > .main-nav {
@@ -94,6 +126,79 @@ Kanban
 ***/
 .o_web_client {
     background-color: #F9F9F9;
+
+    > .o_main {
+        .o_sub_menu {
+            background-color: #2c3136;
+            min-width: 250px;
+            .o_sub_menu_content {
+                .oe_secondary_menu_section.active {
+                    background: @brand-primary;
+                    .oe_menu_leaf {
+                        .oe_menu_text {
+                            color: @brand-control-panel !important;
+                        }
+                    }
+                }
+                .oe_secondary_menu_section {
+                    color: @brand-control-panel;
+                    text-transform: uppercase;
+
+                    position: relative;
+                    display: block;
+                    padding: 10px 0px;
+
+                    .oe_menu_leaf {
+                        .oe_menu_text {
+                            color: @brand-control-panel;
+                            text-transform: uppercase;
+                        }    
+                    }
+                }
+                /* .oe_secondary_menu {
+                    .oe_secondary_submenu {
+                        .nav-pills {
+                            > li.active {
+                                background: #5bc0de;
+                                > a {
+                                    background-color: red;
+                                    &:hover {
+                                        background-color: #5cb85c;
+                                    }
+                                    &:focus {
+                                        background-color: #d9534f;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } */
+                .oe_secondary_submenu {
+                    > li:not(.active) {
+                        > a {
+                            color: #a5a9ad;
+                            &:hover {
+                                background-color: @brand-primary;
+                                color: @brand-control-panel;
+                                border-color: @brand-primary;
+                                transition: all .3s;
+                            }
+                        }
+                    }
+                    > li > a {
+                        position: relative;
+                        display: block;
+                        padding: 10px 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: white;
+    background-color: @brand-primary;
 }
 
 .o_kanban_view .o_kanban_record {
@@ -251,17 +356,6 @@ a {
     color: @brand-primary;
 }
 
-/* .o_form_view .o_group .o_td_label .o_form_label {
-    font-weight: normal;
-    margin-right: 0px;
-    color: @brand-body-color !important;
-}
-
-.o_form_view .o_horizontal_separator {
-    color: @brand-body-color;
-    font-family: 'Montserrat'!important;
-} */
-
 .o_form_view.o_form_editable .o_form_field_monetary > .o_form_input:focus {
     border-color: rgba(0,0,0,0.1);
     background-color: #e8e9ea;
@@ -269,21 +363,6 @@ a {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-
-/* .o_form_view .o_group .o_form_field:focus,
-.o_form_view .o_form_field .o_form_input:focus,
-.o_form_view .o_group .o_form_field:hover,
-.o_form_view .o_form_field .o_form_input:hover {
-    border-color: @brand-primary!important;
-}
-
-.o_form_view .o_form_field.o_form_field_many2one .o_external_button {
-    color: @brand-primary;
-}
-
-.o_form_view .o_form_field_image > .o_form_image_controls > .fa.o_select_file_button {
-    background: @brand-primary;
-} */
 
 /***
 Tabs
@@ -510,12 +589,6 @@ Form
         margin-right: 0px;
         color: @brand-body-color !important;
     }
-    .o_horizontal_separator {
-        color: @brand-body-color;
-        font-family: 'Montserrat'!important;
-        border-bottom: 1px dashed #8c8b8b;
-        background: #f0eeee;
-    }
     .oe_title {
         padding-left: 0 !important;
         margin-left: 0 !important;
@@ -548,8 +621,13 @@ Form
         }
     }
     .o_horizontal_separator {
+        /* font-family: 'Montserrat'!important; */
+        color: @brand-body-color;
+        text-transform: uppercase;
         font-weight: bold;
         font-size: 15px;
+        border-bottom: 1px dotted @brand-primary;
+        background: #f0eeee;
     }
     .o_group {
         .o_td_label {

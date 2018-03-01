@@ -6,7 +6,7 @@
         <menuitem name="VERIFICACIÓN" id="minsa_verificar_sobre_main_menu" action="minsa_verificacion_action" sequence="20" groups="grupo_obstetra_minsa,grupo_administrador_minsa"/>
             <menuitem name="PRUEBAS VPH" id="minsa_cancer_registros_main_menu"  parent="minsa_main_menu_cancer" sequence="20"/>
 
-                <menuitem name="Distribución" id="minsa_entrega_registros_menu" action="minsa_records_action"
+                <menuitem name="Distribución a Diresa" id="minsa_entrega_registros_menu" action="minsa_records_action"
                           parent="minsa_cancer_registros_main_menu" sequence="2"/>
 
                 <menuitem name="Reporte" id="minsa_registros_menu" action="minsa_records_line_action"
@@ -38,15 +38,19 @@
                       parent="minsa_main_menu_cancer" sequence="50"/>
                 <menuitem name="ACS" id="minsa_promotor_menu" action="minsa_res_partner_promotor_action_inherit"
                       parent="minsa_directorio_profesionales_main_menu"/>
-            <menuitem name="Distribución DIRESA - MICROREDES" id="minsa_entrega_registros_eess_menu" action="registros_generales_action"
+            <menuitem name="Distribución" id="minsa_entrega_registros_eess_menu" action="registros_generales_action"
                           parent="minsa_main_menu_cancer" sequence="60" groups="grupo_obstetra_general_minsa"/>
+                <menuitem name="Diresa a MicroRed" id="minsa_entrega_registros_dire_eess_menu" parent="minsa_entrega_registros_eess_menu"
+                          action="registros_generales_action" groups="grupo_obstetra_general_minsa"/>
 
         <menuitem name="LABORATORIO" id="minsa_main_menu_laboratorio" sequence="30" groups="grupo_laboratorio_minsa,grupo_administrador_minsa"/>
             <menuitem name="REGISTRO" id="minsa_registros_principal_main_menu" parent="minsa_main_menu_laboratorio" sequence="10"/>
                 <menuitem name="Sobres" id="minsa_registros_sobre1_main_menu" action="minsa_registro_sobre_action"
                           parent="minsa_registros_principal_main_menu" sequence="1"/>
-            <menuitem name="PROCESAMIENTO" id="minsa_reporte_menu" action="minsa_reportes_action"
-                          parent="minsa_main_menu_laboratorio" sequence="20" groups="grupo_laboratorio_general_minsa"/>
+            <menuitem name="PROCESAMIENTO" id="minsa_reporte_menu"
+                          parent="minsa_main_menu_laboratorio" sequence="20" />
+                <menuitem name="Placas" id="minsa_registros_placas_menu" action="minsa_reportes_action"
+                          parent="minsa_reporte_menu" groups="grupo_laboratorio_general_minsa"/>
 
         <menuitem name="Micro Redes" id="minsa_micro_redes_menu" action="minsa_micro_rede_action"
                           parent="base.menu_users" groups="grupo_administrador_minsa"/>

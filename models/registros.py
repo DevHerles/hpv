@@ -998,13 +998,15 @@ class MinsaRecords(models.Model):
         comodel_name='res.company',
         string=u'EESS',
         default=lambda self: self.env.user.company_id.id,
+        required=True
     )
     microred = fields.Many2one(
         comodel_name='minsa.micro.rede',
         string=u'MicroRed',
         related='eess.microred_id',
         # readonly=True,
-        store=True
+        store=True,
+        required=True
     )
     eess_entrega = fields.Many2one(
         comodel_name='registros.generales',
@@ -1034,6 +1036,7 @@ class MinsaRecords(models.Model):
         string=u'Obstetra',
         default=lambda self: self._default_empleado(),
         # readonly=True
+        required=True
     )
     usuario_id = fields.Many2one(
         "res.users",
@@ -1043,7 +1046,8 @@ class MinsaRecords(models.Model):
     fecha_entrega = fields.Date(
         string=u'Fecha de Entrega',
         default=lambda self: fields.datetime.now(),
-        track_visibility='onchange'
+        track_visibility='onchange',
+        required=True
     )
     servicio = fields.Boolean(
         string=u'Servicio'
@@ -1121,6 +1125,7 @@ class MinsaRecords(models.Model):
     @api.one
     def click_aprobado(self):
         prefijo = self.env.user.company_id.prefijo
+
         if int(self.numero_inicio) < int(self.numero_fin):
             if self.promotora:
                 for i in range(int(self.numero_inicio), int(self.numero_fin) + 1):
@@ -1163,6 +1168,10 @@ class MinsaRecords(models.Model):
 
     @api.model
     def create(self, vals):
+        if not vals['servicio'] and not vals['promotora']:
+            raise ValidationError(
+                u'Seleccione Servicio o ACS')
+
         prefijo = self.env.user.company_id.prefijo
         res = super(MinsaRecords, self).create(vals)
         if res.eess_a and not res.numero_inicio:
