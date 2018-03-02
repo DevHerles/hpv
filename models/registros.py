@@ -62,7 +62,7 @@ class RegistroSobre(models.Model):
 
     micro_red = fields.Char(
         string="MicroRed",
-        default=''
+        default='',
     )
     eess = fields.Char(
         string="Nombre del establecimiento",

@@ -25,9 +25,9 @@
     <record id="minsa_cancer_seguimiento_main_menu" model="ir.ui.menu">
         <field name="load_xmlid" eval="True"/>
     </record>
-    <record id="minsa_pacientes_positivos_menu" model="ir.ui.menu">
-        <field name="load_xmlid" eval="True"/>
-    </record>
+    <!--<record id="minsa_pacientes_positivos_menu" model="ir.ui.menu">-->
+        <!--<field name="load_xmlid" eval="True"/>-->
+    <!--</record>-->
     <record id="minsa_procedimientos_menu" model="ir.ui.menu">
         <field name="load_xmlid" eval="True"/>
     </record>

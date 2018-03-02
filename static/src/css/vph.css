@@ -95,10 +95,12 @@ Kanban
   min-width: 250px;
 }
 .o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section.active {
-  background: #00a09d;
+  background: #3F4448;
+  transition: all .3s;
+  border-left: 4px solid #00a09d;
 }
 .o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section.active .oe_menu_leaf .oe_menu_text {
-  color: #fff !important;
+  color: #fff;
 }
 .o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section {
   color: #CACACA;
@@ -109,7 +111,7 @@ Kanban
   margin-left: 0px;
 }
 .o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section .oe_menu_leaf .oe_menu_text {
-  color: #fff;
+  color: #CACACA;
   text-transform: uppercase;
 }
 .o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu {
@@ -236,7 +238,7 @@ Kanban
 }
 .btn-icon {
   color: #00a09d;
-  background-color: white;
+  background-color: transparent;
   border-color: transparent;
 }
 .btn-icon:hover {

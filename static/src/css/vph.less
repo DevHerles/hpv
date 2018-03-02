@@ -137,10 +137,12 @@ Kanban
             min-width: 250px;
             .o_sub_menu_content {
                 .oe_secondary_menu_section.active {
-                    background: @brand-primary;
+                    background: @brand-active-item;
+                    transition: all .3s;
+                    border-left: 4px solid @brand-primary;
                     .oe_menu_leaf {
                         .oe_menu_text {
-                            color: @brand-control-panel !important;
+                            color: @brand-control-panel;
                         }
                     }
                 }
@@ -155,7 +157,7 @@ Kanban
 
                     .oe_menu_leaf {
                         .oe_menu_text {
-                            color: @brand-control-panel;
+                            color: @brand-menu-item;
                             text-transform: uppercase;
                         }    
                     }
@@ -313,7 +315,7 @@ Kanban
 
 .btn-icon {
     color: @brand-primary;
-    background-color: white;
+    background-color: transparent;
     border-color: transparent;
 
     &:hover {
@@ -444,7 +446,7 @@ div.o_checkbox > input:focus + span {
 
 div.o_checkbox > input:checked + span {
     background-repeat: no-repeat;
-    background-image: url(/condominium/static/src/img/checked.svg);
+    background-image: url(/modulos_registros/static/src/img/checked.svg);
     background-position: center center;
 }
 
