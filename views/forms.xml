@@ -101,7 +101,8 @@
                         <group>
                             <group>
                                 <field name="codigo_servicio_obstetra"
-                                       attrs="{'invisible': [('promotora', '=', True)], 'required': [('servicio', '=', True)]}"/>
+                                       attrs="{'invisible': [('promotora', '=', True)], 'required': [('servicio', '=', True)]}"
+                                       on_change="codigo_servicio_obstetra_changed(codigo_servicio_obstetra)"/>
                             </group>
                         </group>
                         <notebook>

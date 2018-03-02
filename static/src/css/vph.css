@@ -1,3 +1,4 @@
+@import url("../css/materia_icons.css");
 body {
   /* font-family: 'Montserrat', sans-serif; */
   /* font-family: 'Roboto', sans-serif; */
@@ -100,35 +101,68 @@ Kanban
   color: #fff !important;
 }
 .o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section {
-  color: #fff;
+  color: #CACACA;
   text-transform: uppercase;
   position: relative;
   display: block;
-  padding: 10px 0px;
+  padding: 10px 10px;
+  margin-left: 0px;
 }
 .o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section .oe_menu_leaf .oe_menu_text {
   color: #fff;
   text-transform: uppercase;
 }
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu {
+  margin: 0px;
+}
 .o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu > li:not(.active) > a {
   color: #a5a9ad;
 }
 .o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu > li:not(.active) > a:hover {
-  background-color: #00a09d;
+  background-color: #3F4448;
   color: #fff;
-  border-color: #00a09d;
+  border-color: #3F4448;
   transition: all .3s;
+  border-left: 4px solid #00a09d;
 }
 .o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu > li > a {
   position: relative;
   display: block;
   padding: 10px 15px;
 }
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu > .nav-stacked > li + li {
+  margin-top: 0px !important;
+}
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu .oe_menu_text {
+  max-width: 100% !important;
+}
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content ul li.active {
+  border-left: 4px solid #00a09d;
+}
+.o_web_client > .o_main ul li a i {
+  font-size: 21px;
+  margin-right: 7px;
+  vertical-align: middle;
+}
+.o_web_client > .o_main ul li:nth-child(0) a i {
+  color: #558B2F;
+}
+.nav-stacked > li + li {
+  margin-top: 0px;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+  border: 1px solid #003eff;
+  background: red;
+  font-weight: normal;
+  color: #ffffff;
+}
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
   color: white;
-  background-color: #00a09d;
+  background-color: #3F4448;
 }
 .o_kanban_view .o_kanban_record {
   border-color: #d9d7d7;
@@ -144,7 +178,7 @@ Kanban
   background-color: white;
 }
 .o_control_panel {
-  background-color: #fff;
+  background-color: #F1F3F6;
 }
 .o_control_panel .navbar-default .navbar-nav > .active > a,
 .o_control_panel .navbar-default .navbar-nav > .active > a:hover,
@@ -152,7 +186,7 @@ Kanban
   background-color: #00d3cf;
 }
 .o_control_panel .breadcrumb {
-  background-color: #fff;
+  background-color: transparent;
 }
 .o_control_panel .breadcrumb > li > a {
   color: #00a09d;

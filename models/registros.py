@@ -932,7 +932,7 @@ class MinsaRecords(models.Model):
                 numero_inicio = ni
             except ValueError:
                 return {'value': {}, 'warning': {'title': 'Cuidado!!!',
-                                                 'message': 'Usted debe ingresar un número entero. Ejemplo: 100, 203, etc.'}}
+                                                 'message': 'El número de inicio debe ser entero. Ejemplo: 1, 100, 203, etc.'}}
 
     def numero_fin_changed(self, numero_fin):
         if numero_fin:
@@ -941,17 +941,33 @@ class MinsaRecords(models.Model):
                 numero_fin = nf
             except ValueError:
                 return {'value': {}, 'warning': {'title': 'Cuidado!!!',
-                                                 'message': 'Usted debe ingresar un número entero. Ejemplo: 100, 203, etc.'}}
+                                                 'message': 'El número de fin debe ser entero. Ejemplo: 1, 2, 3, 100, 203, etc.'}}
 
-    @api.constrains('numero_inicio', 'numero_fin')
-    def _check_numeor_inicio_y_fin(self):
+    def codigo_servicio_obstetra_changed(self, codigo_servicio_obstetra_changed):
+        if codigo_servicio_obstetra_changed:
+            try:
+                cs = int(codigo_servicio_obstetra_changed)
+                codigo_servicio_obstetra_changed = cs
+            except ValueError:
+                return {'value': {}, 'warning': {'title': 'Cuidado!!!',
+                                                 'message': 'El código de servicio debe ser entero. Ejemplo: 1, 5, 15, 100, 203, etc.'}}
+
+    @api.constrains('numero_inicio', 'numero_fin', 'codigo_servicio_obstetra')
+    def _check_numero_inicio_fin_servicio(self):
         try:
-            if int(self.numero_inicio) and int(self.numero_fin):
-                obj_vats = self.search([('numero_inicio', '=', self.numero_inicio), ('numero_fin', '=', self.numero_fin)])
-                if len(obj_vats) > 1:
-                    raise ValidationError('El rango ya existe!')
+            if self.promotora:
+                if int(self.numero_inicio) and int(self.numero_fin):
+                    obj_vats = self.search([('numero_inicio', '=', self.numero_inicio), ('numero_fin', '=', self.numero_fin)])
+                    if len(obj_vats) > 1:
+                        raise ValidationError('El rango ingresado ya existe!')
+            else:
+                pass
+
         except ValueError:
-            raise ValidationError('Número inicio y número fin, deben ser enteros.')
+            if self.promotora:
+                raise ValidationError('Número inicio y número fin, deben ser enteros.')
+            else:
+                raise ValidationError('El código de servicio debe ser entero.')
 
     @api.one
     @api.depends('record_line_ids')
@@ -1670,7 +1686,7 @@ class MinsaRecordsLine(models.Model):
     _sql_constraints = [
         ('field_unique_codigo',
          'unique(codigo)',
-         'Ya existe Codigo!')
+         'El código ya existe, por favor ingrese uno diferente.')
     ]
 
 
