@@ -28,6 +28,8 @@
         'views/menus.xml',
         'views/graph.xml',
         'views/assets.xml',
+        # 'views/login.xml',
+        'security/ir.model.access.csv',
         # 'views/dashboard.xml',
         # 'data/dashboard.xml',
 

@@ -7,10 +7,15 @@
                 <link href="/modulos_registros/static/src/fonts/proxima-nova/fonts.min.css" rel="stylesheet" type="text/css"/>
                 <link href="/modulos_registros/static/src/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet" type="text/css"/>
                 <link href="/modulos_registros/static/src/fonts/pe-icon-7-stroke/css/helper.css" rel="stylesheet" type="text/css"/>
-                <!-- <link href="/modulos_registros/static/src/css/vph.css" rel="stylesheet"/> -->
+                <link href="/modulos_registros/static/src/css/tippy-themes.css" rel="stylesheet"/>
                 <link href="/modulos_registros/static/src/css/vph.less" rel="stylesheet" type="text/less"/>
                 
-                <script type="text/javascript" src="/modulos_registros/static/src/js/vph_tour.js"></script>
+                <!--<script type="text/javascript" src="/modulos_registros/static/src/js/tippy.js"></script>-->
+                <!--<script type="text/javascript" src="/modulos_registros/static/src/js/prism.js"></script>-->
+                <!--<script type="text/javascript" src="/modulos_registros/static/src/js/tippy-app.js"></script>-->
+                <!--<script type="text/javascript" src="/modulos_registros/static/src/js/tippy.all.min.js"></script>-->
+                <!--<script type="text/javascript" src="/modulos_registros/static/src/js/front.js"></script>-->
+                <!--<script type="text/javascript" src="/modulos_registros/static/src/js/app_vph.js"></script>-->
                 <!--<script type="text/javascript" src="/modulos_registros/static/src/js/asf.gauge.widget.js"></script>-->
                 <!--<script type="text/javascript" src="/modulos_registros/static/src/js/d3.bar.widget.js"></script>-->
             </xpath>

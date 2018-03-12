@@ -491,6 +491,17 @@ Icons
 }
 
 /***
+SearchView
+***/
+.o_searchview {
+    .o_searchview_autocomplete {
+        li.o-selection-focus {
+            background-color: @brand-active-item;
+        }
+    }
+}
+
+/***
 Dropdown
 ***/
 .dropdown-menu > li > a:hover,
@@ -548,7 +559,7 @@ Form Breadcrumb
   background-image: none;
 }
 
-.o_form_view ul.oe_form_status li.oe_active > .arrow span, 
+.o_form_view ul.oe_form_status li.oe_active > .arrow span,
 .o_form_view ul.oe_form_status_clickable li.oe_active > .arrow span {
     background-color: #F9F9F9 !important;
     background: #F9F9F9 !important;
@@ -571,7 +582,7 @@ Form Breadcrumb
   background-color: #fff;
   background: #fff;
 }
-  
+
 .o_form_view ul.oe_form_status,
 .o_form_view ul.oe_form_status_clickable {
   text-transform: uppercase;
@@ -591,7 +602,7 @@ Form
         &:active {
             color: darken(@brand-main-nav, 20%);
             background-color: #fff;
-            border-color: transparent;    
+            border-color: transparent;
             // font-weight: bold;
         }
     }
@@ -762,4 +773,10 @@ html .o_loading {
     &:hover {
         color: @brand-control-panel;
     }
+}
+
+.tab-content.nav.nav-tabs {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 0px 20px;
 }

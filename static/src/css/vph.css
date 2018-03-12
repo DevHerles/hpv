@@ -369,7 +369,7 @@ div.o_checkbox > input:focus + span {
 }
 div.o_checkbox > input:checked + span {
   background-repeat: no-repeat;
-  background-image: url(/condominium/static/src/img/checked.svg);
+  background-image: url(/modulos_registros/static/src/img/checked.svg);
   background-position: center center;
 }
 td a {
@@ -561,6 +561,12 @@ Icons
   width: 45px;
   float: left;
   line-height: 1;
+}
+/***
+SearchView
+***/
+.o_searchview .o_searchview_autocomplete li.o-selection-focus {
+  background-color: #3F4448;
 }
 /***
 Dropdown
@@ -798,4 +804,9 @@ html .o_loading {
 }
 .ui-autocomplete .ui-menu-item.o_m2o_dropdown_option > a:hover {
   color: #fff;
+}
+.tab-content.nav.nav-tabs {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 0px 20px;
 }

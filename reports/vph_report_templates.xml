@@ -7,7 +7,8 @@
                 <div class="oe_structure">
                     <table class="table">
                         <tr>
-                            <td align="center">
+                            <td><img src="/modulos_registros/static/src/img/logo-laboratorio-regional-tumbes.png" height="70"/></td>
+                            <td align="center" colspan="3">
                                 DIRECCION REGIONAL DE SALUD DE TUMBES<br></br>
                                 LABORATORIO DE REFERENCIA REGIONAL DE SALUD PUBLICA - TUMBES<br></br>
                                 Av. Fernando Belaunde Terry. Mz. X  Lot. 1 - 10   Urb. Jose Lisner Tudela I Etapa - Tumbes<br></br>
@@ -15,7 +16,65 @@
                             </td>
                         </tr>
                         <tr>
-                            <span t-field="doc.codigo"/>
+                            <td>NOMBRES Y APELLIDOS DEL PACIENTE</td>
+                            <td><span t-field="doc.nombre_apellido"></span></td>
+                            <td>EDAD:</td>
+                            <td><span></span></td>
+                        </tr>
+                        <tr>
+                            <td>EXAMEN SOLICITADO</td>
+                            <td>Dx. Virus de Papiloma Humano</td>
+                            <td>CODIGO:</td>
+                            <td><span t-field="doc.codigo"></span></td>
+                        </tr>
+                        <tr>
+                            <td>PROCEDENCIA</td>
+                            <td><span t-field="doc.nom_eess"></span></td>
+                            <td>FEC. PROCESO:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>HISTORIA CLINICA:</td>
+                            <td></td>
+                            <td>FEC. EMIS. RESULTADO:</td>
+                            <td><span t-field="doc.fecha_registro"></span></td>
+                        </tr>
+                        <tr>
+                            <td>TIPO DE MUESTRA:</td>
+                            <td>SECRECION VAGINAL (AUTO TOMA)</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td>ENFERMEDAD:</td>
+                            <td colspan="3">VIRUS DE PAPILOMA HUMANO</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">INFORME DE PRUEBA</td>
+                        </tr>
+                        <tr>
+                            <td>PRUEBA:</td>
+                            <td>CARE HPV</td>
+                            <td>RESULTADO:</td>
+                            <td><span t-field="doc.respuesta"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">OBSERVACIONES Y SUGERENCIAS:</td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>NOTA:</td>
+                            <td colspan="3">POSITIVO:   Existe la presencia de al menos un Genotipo de VPH(16,18,31,33,35,39,45,51,52,56,58,59,66,68)</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="3">NEGATIVO:  No existe presencia de Genotipos de VPH</td>
                         </tr>
                     </table>
                 </div>
