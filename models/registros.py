@@ -67,6 +67,7 @@ class RegistroSobre(models.Model):
         store=True,
         required=True,
     )
+
     @api.depends('codigo_sobre')
     def _micro_red(self):
         self._onchange_valido_invalido()
@@ -78,6 +79,7 @@ class RegistroSobre(models.Model):
         store=True,
         required=True,
     )
+
     @api.depends('micro_red')
     def _eesss(self):
         self._onchange_valido_invalido()
@@ -161,10 +163,11 @@ class RegistroSobre(models.Model):
     edad = fields.Integer(
         string=u'Edad',
         default=0,
-        #track_visibility='onchange',
+        # track_visibility='onchange',
         compute="_edad",
         store=True
     )
+
     @api.depends('fecha_nacimiento')
     def _edad(self):
         edad = 0
@@ -198,10 +201,9 @@ class RegistroSobre(models.Model):
             ('valido', 'Muestra válida'),
             ('invalido', 'Muestra inválida'),
         ],
-        #track_visibility='onchange',
-        store = True,
-        compute = "_estado_muestra_valido_invalido",
-        default = 'invalido'
+        store=True,
+        compute="_estado_muestra_valido_invalido",
+        default='invalido'
     )
 
     @api.depends('reazones_muestra_invalidad')
@@ -562,6 +564,7 @@ class PacentePap(models.Model):
         compute='_edad',
         store=True,
     )
+
     @api.depends('fecha_nacimiento')
     def _edad(self):
         edad = 0
