@@ -63,11 +63,25 @@ class RegistroSobre(models.Model):
     micro_red = fields.Char(
         string="MicroRed",
         default='',
+        compute="_micro_red",
+        store=True,
+        required=True,
     )
+    @api.depends('codigo_sobre')
+    def _micro_red(self):
+        self._onchange_valido_invalido()
+
     eess = fields.Char(
         string="Nombre del establecimiento",
-        default=''
+        default='',
+        compute="_eesss",
+        store=True,
+        required=True,
     )
+    @api.depends('micro_red')
+    def _eesss(self):
+        self._onchange_valido_invalido()
+
     secuencia = fields.Integer(
         string=u'Secuencia de registro'
     )
