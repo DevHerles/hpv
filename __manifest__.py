@@ -27,7 +27,7 @@
         'views/actions.xml',
         'views/menus.xml',
         'views/graph.xml',
-        # 'views/assets.xml',
+        'views/assets.xml',
         # 'views/login.xml',
         'security/ir.model.access.csv',
         # 'views/dashboard.xml',

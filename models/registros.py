@@ -83,6 +83,7 @@ class RegistroSobre(models.Model):
     )
     fecha_nacimiento = fields.Date(
         string=u'Fecha de nacimiento',
+        required=True,
         # readonly=True
     )
     codigo_sobre = fields.Char(
@@ -158,7 +159,8 @@ class RegistroSobre(models.Model):
         self.edad = edad
 
     fecha_nacimiento = fields.Date(
-        string="Fecha de nacimiento"
+        string="Fecha de nacimiento",
+        required=True
     )
     mobile = fields.Char(
         size=9,

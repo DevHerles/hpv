@@ -519,12 +519,14 @@
                         <group>
                             <field name="dni"/>
                             <field name="establecimiento" invisible="True"/>
-                            <button name="click_buscar" type="object" class="btn btn-default btn-sm"
-                                    string="Buscar en EESS" style="width: 210px;"/>
                         </group>
+                    </group>
+                    <group>
                         <group>
                             <button name="click_aprobado" type="object" class="btn btn-primary btn-sm"
                                     icon="fa-search" string="Buscar en RENIEC" style="width: 210px;"/>
+                            <button name="click_buscar" type="object" class="btn btn-default btn-sm"
+                                    string="Buscar en EESS" style="width: 210px;"/>
                         </group>
                     </group>
                     <div class="oe_title" attrs="{'invisible': [('establecimiento', '=', True)]}">
