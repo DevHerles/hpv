@@ -146,9 +146,17 @@ class RegistroSobre(models.Model):
     edad = fields.Integer(
         string=u'Edad',
         default=0,
-        track_visibility='onchange',
-        # readonly=True
+        #track_visibility='onchange',
+        compute="_edad",
+        store=True
     )
+    @api.depends('fecha_nacimiento')
+    def _edad(self):
+        edad = 0
+        if self.fecha_nacimiento:
+            edad = (datetime.now().date() - datetime.strptime(self.fecha_nacimiento, '%Y-%m-%d').date()).days / 365
+        self.edad = edad
+
     fecha_nacimiento = fields.Date(
         string="Fecha de nacimiento"
     )
@@ -157,7 +165,11 @@ class RegistroSobre(models.Model):
         track_visibility='onchange'
     )
     direccion = fields.Char(
-        string=u'Dirección',
+        string=u'Dirección RENIEC',
+        track_visibility='onchange'
+    )
+    direccion_actual = fields.Char(
+        string=u'Dirección actual',
         track_visibility='onchange'
     )
     fecha_toma_muestra = fields.Date(
@@ -170,8 +182,19 @@ class RegistroSobre(models.Model):
             ('valido', 'Muestra válida'),
             ('invalido', 'Muestra inválida'),
         ],
-        track_visibility='onchange'
+        #track_visibility='onchange',
+        store = True,
+        compute = "_estado_muestra_valido_invalido",
+        default = 'invalido'
     )
+
+    @api.depends('reazones_muestra_invalidad')
+    def _estado_muestra_valido_invalido(self):
+        if self.reazones_muestra_invalidad:
+            self.estado_muestra_valido_invalido = 'invalido'
+        else:
+            self.estado_muestra_valido_invalido = 'valido'
+
     reazones_muestra_invalidad = fields.Selection(
         string="Razones de muestra inválida",
         selection=[
@@ -518,7 +541,19 @@ class PacentePap(models.Model):
     edad = fields.Integer(
         string=u'Edad',
         default=0,
-        required=True
+        required=True,
+        compute='_edad',
+        store=True,
+    )
+    @api.depends('fecha_nacimiento')
+    def _edad(self):
+        edad = 0
+        if self.fecha_nacimiento:
+            edad = (datetime.now().date() - datetime.strptime(self.fecha_nacimiento, '%Y-%m-%d').date()).days / 365
+        self.edad = edad
+
+    fecha_nacimiento = fields.Date(
+        string="Fecha de nacimiento"
     )
     image = fields.Binary(
         string=u'Fotografía'
@@ -527,7 +562,11 @@ class PacentePap(models.Model):
         size=9
     )
     direccion = fields.Char(
-        string=u'Dirección'
+        string=u'Dirección RENIEC'
+    )
+    direccion_actual = fields.Char(
+        string=u'Dirección actual',
+        track_visibility='onchange'
     )
     gestante = fields.Selection(
         string=u'Gestante',
@@ -570,7 +609,8 @@ class PacentePap(models.Model):
             ('carcinoma', 'Carcinoma Insitu'),
             ('ascos', 'ASCUS'),
             ('asgos', 'AGUS'),
-        ]
+        ],
+        default='negativo'
     )
     otro_pap = fields.Char(
         string=u'Otro'
@@ -1740,11 +1780,11 @@ class Procedimientos(models.Model):
     image = fields.Binary(related='dni_id.image')
     medico0 = fields.Many2one(
         comodel_name='hr.employee',
-        string=u'Profesional'
+        string=u'Profesional IVAA'
     )
     medico = fields.Many2one(
         comodel_name='hr.employee',
-        string=u'Primer profesional'
+        string=u'Profesional crioterapia'
     )
     medico2 = fields.Many2one(
         comodel_name='hr.employee',
@@ -1766,7 +1806,7 @@ class Procedimientos(models.Model):
         string=u'Fecha de procedimiento',
     )
     fecha_no_iva = fields.Date(
-        string=u'Fecha de no IVA',
+        string=u'Fecha de no IVAA',
     )
     procedimientos_ids = fields.One2many(
         comodel_name='procedimientos.lineas',
@@ -1777,7 +1817,7 @@ class Procedimientos(models.Model):
         string=u'Fecha que se realiza'
     )
     resultado_iva = fields.Selection(
-        string=u'Resultado IVA',
+        string=u'Resultado IVAA',
         selection=[
             ('true', 'Positivo'),
             ('false', 'Negativo'),
@@ -1793,27 +1833,27 @@ class Procedimientos(models.Model):
     )
     obstetra_pap_id = fields.Many2one(
         comodel_name='hr.employee',
-        string=u'Profesional',
+        string=u'Profesional PAP',
         related='pap_id.obstetra_id'
     )
     eess_pap = fields.Many2one(
         comodel_name='res.company',
-        string=u'Lugar',
+        string=u'Lugar de PAP',
         related='pap_id.eess'
     )
     fecha_pap = fields.Date(
-        string=u'Fecha',
+        string=u'Fecha de toma PAP',
         related='pap_id.fecha_pap'
     )
     fecha_resulado_pap = fields.Date(
-        string=u'Fecha de resultado',
+        string=u'Fecha de resultado PAP',
         related='pap_id.fecha_resulado'
     )
     paciente_vph = fields.Boolean(
         string="Es paciente VPH"
     )
     resultado_pap = fields.Selection(
-        string=u"Resultado",
+        string=u"Resultado PAP",
         selection=[
             ('negativo', 'Negativo'),
             ('insactifactorio', 'PAP insactifactorio'),
@@ -1840,7 +1880,7 @@ class Procedimientos(models.Model):
         string='Lugar IVA'
     )
     razon_iva = fields.Char(
-        string=u'Razón IVA'
+        string=u'Razón IVAA'
     )
     crioterapia = fields.Selection(
         string=u'Crioterapia',
@@ -1859,7 +1899,7 @@ class Procedimientos(models.Model):
         string=u'Razón de crioterapia'
     )
     fecha_de_contro = fields.Date(
-        string=u'Fecha de control'
+        string=u'Fecha de control crioterapia'
     )
     fecha_de_refe_post_contro = fields.Date(
         string=u'Fecha referencia post control'
@@ -1868,7 +1908,7 @@ class Procedimientos(models.Model):
         string=u'Razón'
     )
     fecha_de_referencia = fields.Date(
-        string=u'Fecha de referencia'
+        string=u'Fecha de referencia crioterapia'
     )
     referencia = fields.Selection(
         string=u'Referencia',
@@ -1878,7 +1918,7 @@ class Procedimientos(models.Model):
         ]
     )
     razon_de_referencia = fields.Selection(
-        string=u'Razón referencia',
+        string=u'Razón referencia crioterapia',
         selection=[
             ('gestacion', 'Gestación'),
             ('sospecha', 'Sospecha de microinvasión o cáncer'),
@@ -1888,7 +1928,7 @@ class Procedimientos(models.Model):
         ]
     )
     otros = fields.Char(
-        string=u'Otros'
+        string=u'Otros crioterapia'
     )
     coloscopia = fields.Selection(
         string=u'Colposcopía',
@@ -2025,14 +2065,14 @@ class Procedimientos(models.Model):
         string=u'Razón de finalización de quimioterapia'
     )
     paciente_culmino_tratamiento = fields.Selection(
-        string="Paciente culmino tratamiendo",
+        string="Paciente culminó tratamiendo",
         selection=[
             ('yes', 'Si'),
             ('not', 'No'),
         ]
     )
     otros2 = fields.Char(
-        string=u'Razón'
+        string=u'Razón de culminación de tratamiento'
     )
     otros_si = fields.Char(
         string=u'¿Con qué tratamiento culminó?'

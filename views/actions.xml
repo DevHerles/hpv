@@ -85,7 +85,7 @@
         </record>
 
         <record id="minsa_reportes_action" model="ir.actions.act_window">
-            <field name="name">Reportes</field>
+            <field name="name">Placas</field>
             <field name="res_model">reportes</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,pivot</field>
