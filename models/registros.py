@@ -21,10 +21,10 @@ class MinsaReasonForCancellation(models.Model):
     _name = 'minsa.reason.for.cancellation'
 
     name = fields.Char(
-        string=u'Motivo de Cancelacion'
+        string=u'Motivo de Cancelación'
     )
     code = fields.Char(
-        string=u'Codigo de Cancelacion'
+        string=u'Codigo de Cancelación'
     )
 
 
@@ -69,7 +69,7 @@ class RegistroSobre(models.Model):
         default=''
     )
     secuencia = fields.Integer(
-        string=u'secuencia de registro'
+        string=u'Secuencia de registro'
     )
     usuario_id = fields.Many2one(
         "res.users",
@@ -77,24 +77,24 @@ class RegistroSobre(models.Model):
         string="Usuario"
     )
     fecha = fields.Date(
-        string=u'Fecha de Registro',
+        string=u'Fecha de registro',
         default=fields.Datetime.now,
         track_visibility='onchange'
     )
     fecha_nacimiento = fields.Date(
-        string=u'Fecha de Nacimiento',
+        string=u'Fecha de nacimiento',
         # readonly=True
     )
     codigo_sobre = fields.Char(
-        string=u'Codigo de Sobre',
+        string=u'Código de sobre',
         track_visibility='onchange'
     )
     codigo_tubo = fields.Char(
-        string=u'Codigo de Tubo',
+        string=u'Código de tubo',
         track_visibility='onchange'
     )
     estado_muestra = fields.Selection(
-        string="Codigo Valido",
+        string="Código válido",
         selection=[
             ('yes', 'Si'),
             ('not', 'No'),
@@ -135,13 +135,13 @@ class RegistroSobre(models.Model):
         # readonly=True
     )
     dni = fields.Char(
-        string=u'DNI / CARNET DE EXTRANJERIA',
+        string=u'Número',
         required=True,
         size=10,
         track_visibility='onchange'
     )
     image = fields.Binary(
-        string=u'Fotografia'
+        string=u'Fotografía'
     )
     edad = fields.Integer(
         string=u'Edad',
@@ -157,44 +157,44 @@ class RegistroSobre(models.Model):
         track_visibility='onchange'
     )
     direccion = fields.Char(
-        string=u'Direccion',
+        string=u'Dirección',
         track_visibility='onchange'
     )
     fecha_toma_muestra = fields.Date(
-        string=u'Fecha Toma Muestra',
+        string=u'Fecha toma muestra',
         track_visibility='onchange'
     )
     estado_muestra_valido_invalido = fields.Selection(
-        string="Estado de la Muestra",
+        string="Estado de la muestra",
         selection=[
-            ('valido', 'Muestra Valida'),
-            ('invalido', 'Muestra Invalida'),
+            ('valido', 'Muestra válida'),
+            ('invalido', 'Muestra inválida'),
         ],
         track_visibility='onchange'
     )
     reazones_muestra_invalidad = fields.Selection(
-        string="Razones de Muestra Invalida",
+        string="Razones de muestra inválida",
         selection=[
             ('edadfuera', 'Edad fuera de rango'),
-            ('dnisindato', 'DNI sin Dato'),
-            ('dniequivocado', 'DNI Equivocado'),
+            ('dnisindato', 'DNI sin dato'),
+            ('dniequivocado', 'DNI equivocado'),
             ('codigo', 'Código diferente entre tubo y sobre'),
             ('muestra', 'Muestra con moco'),
-            ('tubo', 'Tubo sin liquido'),
+            ('tubo', 'Tubo sin líquido'),
             ('tubo1', 'Tubo sin cepillo'),
             ('sobre', 'Sobre sin tubo'),
             ('sobre1', 'Sobre sin datos'),
-            ('reniec', 'Datos RENIEC no coinciden con sobre'),
+            ('reniec', 'Los datos de RENIEC no coinciden con el sobre'),
         ],
         track_visibility='onchange'
     )
     codigo_valido_invalido = fields.Char(
-        string="Confirmacion de Codigo",
+        string="Confirmación de código",
         store=True,
         track_visibility='onchange'
     )
     estado_muestra_b = fields.Boolean(
-        string='Estado de la Muestra',
+        string='Estado de la muestra',
         default=True,
         track_visibility='onchange'
     )
@@ -203,7 +203,7 @@ class RegistroSobre(models.Model):
         track_visibility='onchange'
     )
     codigo_valido_invalido1 = fields.Char(
-        string="Confirmacion de Codigo",
+        string="Confirmación de código",
         related='codigo_valido_invalido',
         store=True,
         track_visibility='onchange'
@@ -217,10 +217,10 @@ class RegistroSobre(models.Model):
         track_visibility='onchange'
     )
     tipo_documento = fields.Selection(
-        string="Tipo de Documento",
+        string="Tipo de documento",
         selection=[
             ('dni', 'DNI'),
-            ('carnet', 'Carnet de Extranjeria'),
+            ('carnet', 'Carnet de extranjería'),
         ],
         track_visibility='onchange',
         required=True
@@ -231,7 +231,7 @@ class RegistroSobre(models.Model):
     )
     registros_id = fields.Many2one(
         comodel_name='minsa.records.line',
-        string=u'Lineas de Registros'
+        string=u'Líneas de registros'
     )
     respuesta = fields.Selection(
         string=u'Resultado',
@@ -484,12 +484,12 @@ class PacentePap(models.Model):
         required=True
     )
     dni = fields.Char(
-        string=u'DNI',
+        string=u'Número',
         size=10,
         required=True,
     )
     tipo_documento = fields.Selection(
-        string="Documento de Identidad",
+        string="Documento de identidad",
         selection=[
             ('dni', 'DNI'),
             ('doi', 'Carnet de extranjería')
@@ -521,13 +521,13 @@ class PacentePap(models.Model):
         required=True
     )
     image = fields.Binary(
-        string=u'Fotografia'
+        string=u'Fotografía'
     )
     mobile = fields.Char(
         size=9
     )
     direccion = fields.Char(
-        string=u'Direccion'
+        string=u'Dirección'
     )
     gestante = fields.Selection(
         string=u'Gestante',
@@ -558,7 +558,7 @@ class PacentePap(models.Model):
         required=True
     )
     fecha_resulado = fields.Date(
-        string=u'Fecha Resultado'
+        string=u'Fecha de resultado'
     )
     resultado_pap = fields.Selection(
         string=u"Resultado",
@@ -659,35 +659,35 @@ class Paciente(models.Model):
         return hremployee
 
     es_promotor = fields.Boolean(
-        string="Es Promotor"
+        string="Es promotor"
     )
     es_paciente = fields.Boolean(
-        string="Es Paciente"
+        string="Es paciente"
     )
     es_profesional = fields.Boolean(
-        string="Es Paciente"
+        string="Es profesional"
     )
     es_pap = fields.Boolean(
-        string="Es Paciente Pap"
+        string="Es paciente PAP"
     )
     paciente_vph = fields.Boolean(
-        string=u'paciente vph'
+        string=u'Paciente vph'
     )
     procedimientos_ids = fields.One2many(
         comodel_name='procedimientos',
         inverse_name='dni_id',
-        string=u'Lineas de Procedimientos'
+        string=u'Líneas de procedimientos'
     )
     registros_ids = fields.One2many(
         comodel_name='minsa.records.line',
         inverse_name='paciente_id',
-        string=u'Lineas de Registros'
+        string=u'Líneas de registros'
     )
     codigo_sobre = fields.Char(
-        string=u'Codigo de Sobre'
+        string=u'Código de sobre'
     )
     codigo_tubo = fields.Char(
-        string=u'Codigo de Tubo'
+        string=u'Código de tubo'
     )
     nombres = fields.Char(
         string=u'Nombres',
@@ -709,51 +709,51 @@ class Paciente(models.Model):
         size=9
     )
     direccion = fields.Char(
-        string=u'Direccion'
+        string=u'Dirección'
     )
     fecha = fields.Date(
-        string=u'Fecha de Registro',
+        string=u'Fecha de registro',
         default=fields.Datetime.now(),
     )
     fecha_toma_muestra = fields.Date(
-        string=u'Fecha Toma Muestra'
+        string=u'Fecha de la toma de muestra'
     )
     codigo_valido_invalido = fields.Char(
-        string="Confirmacion de Codigo",
+        string="Confirmación de código",
         store=True,
     )
     codigo_valido_invalido1 = fields.Char(
-        string="Confirmacion de Codigo",
+        string="Confirmación de código",
         related='codigo_valido_invalido',
         store=True,
     )
     estado_muestra = fields.Selection(
-        string="Codigo Valido",
+        string="Código válido",
         selection=[
             ('yes', 'Si'),
             ('not', 'No'),
         ],
     )
     estado_muestra_b = fields.Boolean(
-        string='Estado de la Muestra',
+        string='Estado de la muestra',
         default=True
     )
     estado_muestra_valido_invalido = fields.Selection(
-        string="Estado de la Muestra",
+        string="Estado de la muestra",
         selection=[
             ('valido', 'Muestra Valida'),
             ('invalido', 'Muestra Invalida'),
         ],
     )
     reazones_muestra_invalidad = fields.Selection(
-        string="Razones de Muestra Invalida",
+        string="Razones de muestra inválida",
         selection=[
             ('edadfuera', 'Edad fuera de rango'),
-            ('dnisindato', 'DNI sin Dato'),
-            ('dniequivocado', 'DNI Equivocado'),
+            ('dnisindato', 'DNI sin dato'),
+            ('dniequivocado', 'DNI equivocado'),
             ('codigo', 'Código diferente entre tubo y sobre'),
             ('muestra', 'Muestra con moco'),
-            ('tubo', 'Tubo sin liquido'),
+            ('tubo', 'Tubo sin líquido'),
             ('tubo1', 'Tubo sin cepillo'),
             ('sobre', 'Sobre sin tubo'),
             ('sobre1', 'Sobre sin datos'),
@@ -781,7 +781,7 @@ class Paciente(models.Model):
         default=lambda self: self.env.user.company_id.id
     )
     pap = fields.Selection(
-        string=u'Pap',
+        string=u'PAP',
         selection=[
             ('si', 'Si'),
             ('no', 'No'),
@@ -792,7 +792,7 @@ class Paciente(models.Model):
         string=u'Fecha'
     )
     fecha_resulado = fields.Date(
-        string=u'Fecha Resultado'
+        string=u'Fecha de resultado'
     )
     resultado_pap = fields.Selection(
         string=u"Resultado",
@@ -1027,7 +1027,7 @@ class MinsaRecords(models.Model):
     )
     eess_entrega = fields.Many2one(
         comodel_name='registros.generales',
-        string=u'Entrega a Establecimientos'
+        string=u'Entrega a establecimientos'
     )
     cod_entregados = fields.Integer(
         string=u"# Entregados",
@@ -1040,7 +1040,7 @@ class MinsaRecords(models.Model):
         store=True
     )
     cod_pendiente = fields.Char(
-        string="Codigo Faltantes",
+        string="Codigo faltantes",
         compute='_compute_record_line_pendiente_ids',
         store=True
     )
@@ -1061,7 +1061,7 @@ class MinsaRecords(models.Model):
         string="Usuario"
     )
     fecha_entrega = fields.Date(
-        string=u'Fecha de Entrega',
+        string=u'Fecha de entrega',
         default=lambda self: fields.datetime.now(),
         track_visibility='onchange',
         required=True
@@ -1070,7 +1070,7 @@ class MinsaRecords(models.Model):
         string=u'Servicio'
     )
     codigo_servicio = fields.Char(
-        string=u'Codigo en servico',
+        string=u'Código en servico',
         compute='_compute_codigo',
         store=True
     )
@@ -1078,15 +1078,15 @@ class MinsaRecords(models.Model):
         string=u'ACS'
     )
     numero_inicio = fields.Char(
-        string=u'Número de Inicio',
+        string=u'Número de inicio',
         track_visibility='onchange',
     )
     numero_fin = fields.Char(
-        string=u'Número de Fin',
+        string=u'Número de fin',
         track_visibility='onchange',
     )
     rango = fields.Char(
-        string=u'Rango de Muestras',
+        string=u'Rango de muestras',
         store=True,
         compute=_compute_tango
     )
@@ -1118,10 +1118,10 @@ class MinsaRecords(models.Model):
     )
     obstetra_a_id = fields.Many2one(
         comodel_name='hr.employee',
-        string=u'Nombre de Obstetra'
+        string=u'Nombre de obstetra'
     )
     codigo_servicio_obstetra = fields.Char(
-        string=u'Codigo',
+        string=u'Código de servicio',
         size=5
     )
 
@@ -1335,10 +1335,10 @@ class MinsaRecordsLine(models.Model):
         store=True,
     )
     fecha_entrega = fields.Date(
-        string=u'Fecha de Entrega',
+        string=u'Fecha de entrega',
     )
     codigo = fields.Char(
-        string=u'Codigo de Entrega'
+        string=u'Código de entrega'
     )
     paciente_id = fields.Many2one(
         comodel_name='res.partner',
@@ -1349,26 +1349,26 @@ class MinsaRecordsLine(models.Model):
         string=u'Paciente'
     )
     nombre_apellido = fields.Char(
-        string=u'Nombre y Apellido',
+        string=u'Nombre y apellidos',
         compute='_compute_nombres_apellidos',
         store=True,
     )
     dni = fields.Char(
-        string='Documento de Identidad'
+        string='Documento de identidad'
     )
     estado_muestra = fields.Selection(
-        string=u'Muestra en Buen Estado',
+        string=u'Muestra en buen estado',
         selection=[
             ('yes', 'Si'),
             ('not', 'No'),
-            ('codigo', 'Codigo Invalido'),
+            ('codigo', 'Código inválido'),
         ]
     )
     fecha_recepcion = fields.Date(
-        string=u'Fecha de Recepcion de Muestra'
+        string=u'Fecha de recepción de muestra'
     )
     fecha_registro = fields.Date(
-        string=u'Fecha de Registro de Diagnostico'
+        string=u'Fecha de registro de diagnóstico'
     )
     respuesta = fields.Selection(
         string=u'Resultado',
@@ -1380,19 +1380,19 @@ class MinsaRecordsLine(models.Model):
     )
     motivo_cancelacion = fields.Many2one(
         comodel_name='minsa.reason.for.cancellation',
-        string=u'Motivo de Cancelacion'
+        string=u'Motivo de cancelación'
     )
     state = fields.Selection(
         string="Estado",
         selection=[
             ('servicio', 'Servicio'),
             ('promotor', 'Agente comunitario'),
-            ('laboratorio', 'Con Laboratorio'),
-            ('resultado', 'Con Resultado'),
+            ('laboratorio', 'Con laboratorio'),
+            ('resultado', 'Con resultado'),
         ],
         default='servicio',
     )
-    code_lab = fields.Char('Codigo Lab')
+    code_lab = fields.Char('Código de Laboratorio')
     sync = fields.Boolean(
         string=u'Sincronizado'
     )
@@ -1400,18 +1400,18 @@ class MinsaRecordsLine(models.Model):
         string=u'Registrado'
     )
     reazones_muestra_invalidad = fields.Selection(
-        string="Razones de Muestra Invalida",
+        string="Razones de muestra inválida",
         selection=[
             ('edadfuera', 'Edad fuera de rango'),
-            ('dnisindato', 'DNI sin Dato'),
-            ('dniequivocado', 'DNI Equivocado'),
+            ('dnisindato', 'DNI sin dato'),
+            ('dniequivocado', 'DNI equivocado'),
             ('codigo', 'Código diferente entre tubo y sobre'),
             ('muestra', 'Muestra con moco'),
             ('tubo', 'Tubo sin liquido'),
             ('tubo1', 'Tubo sin cepillo'),
             ('sobre', 'Sobre sin tubo'),
             ('sobre1', 'Sobre sin datos'),
-            ('reniec', 'Datos RENIEC no coinciden con sobre'),
+            ('reniec', 'Datos de RENIEC no coinciden con sobre'),
         ]
     )
     otros = fields.Char(
@@ -1430,7 +1430,7 @@ class MinsaRecordsLine(models.Model):
         string=u'Obstetra-A'
     )
     nom_eess = fields.Char(
-        string=u'Nombre de Establecimiento',
+        string=u'Nombre de establecimiento',
         compute='_compute_nombre_eess',
         store=True
     )
@@ -1727,15 +1727,15 @@ class Procedimientos(models.Model):
     )
     dni_id = fields.Many2one(
         comodel_name='res.partner',
-        string=u'Datos de Paciente'
+        string=u'Datos del paciente'
     )
     pap_id = fields.Many2one(
         comodel_name='paciente.pap',
-        string=u'PAP'
+        string=u'Paciente PAP'
     )
     vph_id = fields.Many2one(
         comodel_name='registro.sobre',
-        string=u'VPH'
+        string=u'Paciene VPH'
     )
     image = fields.Binary(related='dni_id.image')
     medico0 = fields.Many2one(
@@ -1744,47 +1744,47 @@ class Procedimientos(models.Model):
     )
     medico = fields.Many2one(
         comodel_name='hr.employee',
-        string=u'Profesional'
+        string=u'Primer profesional'
     )
     medico2 = fields.Many2one(
         comodel_name='hr.employee',
-        string=u'Profesional'
+        string=u'Segundo profesional'
     )
     medico3 = fields.Many2one(
         comodel_name='hr.employee',
-        string=u'Profesional'
+        string=u'Tercer profesional'
     )
     medico4 = fields.Many2one(
         comodel_name='hr.employee',
-        string=u'Profesional'
+        string=u'Cuarto profesional'
     )
     medico1 = fields.Many2one(
         comodel_name='hr.employee',
         string=u'Responsable de registrar'
     )
     fecha_procedimiento = fields.Date(
-        string=u'Fecha',
+        string=u'Fecha de procedimiento',
     )
     fecha_no_iva = fields.Date(
-        string=u'Fecha',
+        string=u'Fecha de no IVA',
     )
     procedimientos_ids = fields.One2many(
         comodel_name='procedimientos.lineas',
         inverse_name='procedimientos_id',
-        string=u'Lineas de Procedimientos'
+        string=u'Líneas de procedimientos'
     )
     fecha_realizada = fields.Date(
-        string=u'Fecha que se Realiza'
+        string=u'Fecha que se realiza'
     )
     resultado_iva = fields.Selection(
-        string=u'Resultado',
+        string=u'Resultado IVA',
         selection=[
             ('true', 'Positivo'),
             ('false', 'Negativo'),
         ]
     )
     pap = fields.Selection(
-        string=u'Pap',
+        string=u'PAP',
         selection=[
             ('yes', 'Si'),
             ('no', 'No'),
@@ -1806,11 +1806,11 @@ class Procedimientos(models.Model):
         related='pap_id.fecha_pap'
     )
     fecha_resulado_pap = fields.Date(
-        string=u'Fecha Resultado',
+        string=u'Fecha de resultado',
         related='pap_id.fecha_resulado'
     )
     paciente_vph = fields.Boolean(
-        string="Es Paciente"
+        string="Es paciente VPH"
     )
     resultado_pap = fields.Selection(
         string=u"Resultado",
@@ -1819,14 +1819,14 @@ class Procedimientos(models.Model):
             ('insactifactorio', 'PAP insactifactorio'),
             ('lei', 'LEI bajo grado'),
             ('lei1', 'LEI alto grado'),
-            ('carcinoma', 'Carcinoma Insitu'),
+            ('carcinoma', 'Carcinoma insitu'),
             ('ascos', 'Ascos'),
             ('asgos', 'Agos'),
         ],
         related='pap_id.resultado_pap'
     )
     otro_pap = fields.Char(
-        string=u'Otro',
+        string=u'Otro PAP',
         related='pap_id.otro_pap'
     )
     iva = fields.Selection(
@@ -1837,10 +1837,10 @@ class Procedimientos(models.Model):
         ]
     )
     luegar_iva = fields.Char(
-        string='Lugar'
+        string='Lugar IVA'
     )
     razon_iva = fields.Char(
-        string=u'Razon'
+        string=u'Razón IVA'
     )
     crioterapia = fields.Selection(
         string=u'Crioterapia',
@@ -1850,25 +1850,25 @@ class Procedimientos(models.Model):
         ]
     )
     luegar_crioterapia = fields.Char(
-        string='Lugar'
+        string='Lugar crioterapia'
     )
     fecha_de_crio = fields.Date(
-        string=u'Fecha'
+        string=u'Fecha de crioterapia'
     )
     razon_crio = fields.Char(
-        string=u'Razon'
+        string=u'Razón de crioterapia'
     )
     fecha_de_contro = fields.Date(
-        string=u'Fecha de Control'
+        string=u'Fecha de control'
     )
     fecha_de_refe_post_contro = fields.Date(
-        string=u'Fecha Referencia Post Control'
+        string=u'Fecha referencia post control'
     )
     razon1 = fields.Char(
         string=u'Razón'
     )
     fecha_de_referencia = fields.Date(
-        string=u'Fecha de Referencia'
+        string=u'Fecha de referencia'
     )
     referencia = fields.Selection(
         string=u'Referencia',
@@ -1878,11 +1878,11 @@ class Procedimientos(models.Model):
         ]
     )
     razon_de_referencia = fields.Selection(
-        string=u'Razón Referencia',
+        string=u'Razón referencia',
         selection=[
             ('gestacion', 'Gestación'),
             ('sospecha', 'Sospecha de microinvasión o cáncer'),
-            ('lesion', 'Lesión Blanda en canal endocervical'),
+            ('lesion', 'Lesión blanda en canal endocervical'),
             ('lesion1', 'Lesión que ocupa más del 70% y se extiende a pared vaginal'),
             ('alteracion', 'Alteraciones anatómicas de cuello'),
         ]
@@ -1891,17 +1891,17 @@ class Procedimientos(models.Model):
         string=u'Otros'
     )
     coloscopia = fields.Selection(
-        string=u'Colposcopia',
+        string=u'Colposcopía',
         selection=[
             ('yes', 'Si'),
             ('no', 'No'),
         ]
     )
     luegar_coloscopia = fields.Char(
-        string=u'Lugar'
+        string=u'Lugar de coloscopía'
     )
     fecha_coloscopia = fields.Date(
-        string=u'Fecha'
+        string=u'Fecha de coloscopía'
     )
     biopsia = fields.Selection(
         string=u'Biopsia',
@@ -1911,13 +1911,13 @@ class Procedimientos(models.Model):
         ]
     )
     lugar_biopsia = fields.Char(
-        string=u'Lugar'
+        string=u'Lugar de biopsia'
     )
     fecha_biopcia = fields.Date(
-        string=u'Fecha'
+        string=u'Fecha de biopsia'
     )
     resultado_biopsia = fields.Selection(
-        string=u"Resultado",
+        string=u"Resultado de biopsia",
         selection=[
             ('negativo', 'Normal'),
             ('insactifactorio', 'Cervicitis'),
@@ -1928,7 +1928,7 @@ class Procedimientos(models.Model):
         ]
     )
     otros_biosia = fields.Char(
-        string=u'Otros'
+        string=u'Otros biopsia'
     )
     cono_leep = fields.Selection(
         string=u'Cono Leep',
@@ -1938,32 +1938,32 @@ class Procedimientos(models.Model):
         ]
     )
     lugar_conoleep = fields.Char(
-        string=u'Lugar'
+        string=u'Lugar de cono leep'
     )
     fecha_conoleep = fields.Date(
-        string=u'Fecha'
+        string=u'Fecha de cono leep'
     )
     fecha_control_conoleep = fields.Date(
-        string=u'Fecha de Control'
+        string=u'Fecha de control cono leep'
     )
     resultado_conoleep = fields.Char(
-        string=u'Resultado'
+        string=u'Resultado de cono leep'
     )
     histerectomia = fields.Selection(
-        string=u'Histerectomia',
+        string=u'Histerectomía',
         selection=[
             ('yes', 'Si'),
             ('no', 'No'),
         ]
     )
     fecha_histerectomia = fields.Date(
-        string=u'Fecha'
+        string=u'Fecha de histeroctomía'
     )
     lugar_histerectomia = fields.Char(
-        string=u'Lugar'
+        string=u'Lugar de histerocomía'
     )
     resultado_histerectomia = fields.Char(
-        string=u'Resultado'
+        string=u'Resultado de histerecotomía'
     )
     contrareferencia = fields.Selection(
         string=u'Contrareferencia',
@@ -1973,10 +1973,10 @@ class Procedimientos(models.Model):
         ],
     )
     fecha_contrareferencia = fields.Date(
-        string=u'Fecha de la Contrareferencia'
+        string=u'Fecha de la contrareferencia'
     )
     fecha_de_retornode_de_la_cabecera = fields.Date(
-        string=u'Fecha de Retorno a la Cabecera de Microred'
+        string=u'Fecha de retorno a la cabecera de Microred'
     )
     readioterapia = fields.Selection(
         string=u'Radioterapia',
@@ -1986,13 +1986,13 @@ class Procedimientos(models.Model):
         ],
     )
     fecha_radioterapia = fields.Date(
-        string=u'Fecha'
+        string=u'Fecha de radioterapia'
     )
     lugar_radioterapia = fields.Char(
-        string=u'Lugar'
+        string=u'Lugar de radioterapia'
     )
     finalizoreadioterapia = fields.Selection(
-        string=u'Finalizo Tratamiento',
+        string=u'Finalizo tratamiento de radioterapia',
         selection=[
             ('yes', 'Si'),
             ('no', 'No'),
@@ -2009,20 +2009,20 @@ class Procedimientos(models.Model):
         ]
     )
     fecha_quimioterapia = fields.Date(
-        string=u'Fecha'
+        string=u'Fecha de quimioterapia'
     )
     lugar_quimioterapia = fields.Char(
-        string=u'Lugar'
+        string=u'Lugar de quimioterapia'
     )
     finalizoquimio = fields.Selection(
-        string=u'Finalizo Tratamiento',
+        string=u'Finalizo tratamiento de quimioterapia',
         selection=[
             ('yes', 'Si'),
             ('no', 'No'),
         ]
     )
     razon_noq = fields.Char(
-        string=u'Razón'
+        string=u'Razón de finalización de quimioterapia'
     )
     paciente_culmino_tratamiento = fields.Selection(
         string="Paciente culmino tratamiendo",
@@ -2035,25 +2035,25 @@ class Procedimientos(models.Model):
         string=u'Razón'
     )
     otros_si = fields.Char(
-        string=u'¿Con que tratamiento culmino?'
+        string=u'¿Con qué tratamiento culminó?'
     )
     fecha_fin_tratamiento = fields.Date(
-        string=u'Fecha de Culminacion de Tratamiento'
+        string=u'Fecha de culminación de tratamiento'
     )
     razon_de_tratamiento = fields.Char(
-        string=u'Razón (es) de no Tratamiento'
+        string=u'Razón(es) de no tratamiento'
     )
     no_acudio = fields.Char(
-        string=u'No Acudio a Cita'
+        string=u'No acudió a cita'
     )
     no_procedimiento = fields.Char(
-        string=u'No Realizan el Procedimiento'
+        string=u'No realizan el procedimiento'
     )
     no_insumos = fields.Char(
-        string=u'No hay Insumos para Realizar el Procedimiento'
+        string=u'No hay insumos para realizar el procedimiento'
     )
     no_profesional = fields.Char(
-        string=u'No hay Profesional para Realizar el Tratamiento'
+        string=u'No hay profesional para realizar el tratamiento'
     )
     state = fields.Selection(
         string="Estado",
@@ -2064,10 +2064,10 @@ class Procedimientos(models.Model):
         default='borrador',
     )
     procedimiento_tratamiento = fields.Char(
-        string=u'NÚMERO DE HISTORIA CLINICA'
+        string=u'Número de historia clínica'
     )
     nombre_apellido = fields.Char(
-        string=u'Nombre y Apellido',
+        string=u'Nombre y apellidos',
     )
 
     @api.onchange('vph_id')
@@ -2105,13 +2105,13 @@ class ProcedimientosLineas(models.Model):
         ]
     )
     fecha = fields.Date(
-        string=u'Fecha de Prueba'
+        string=u'Fecha de prueba'
     )
     resultado = fields.Char(
-        string=u'Resultado de Prueba'
+        string=u'Resultado de prueba'
     )
     lugar_prueba = fields.Char(
-        string=u'Lugar de Prueba'
+        string=u'Lugar de prueba'
     )
     procedimientos_id = fields.Many2one(
         comodel_name='procedimientos',
@@ -2120,7 +2120,7 @@ class ProcedimientosLineas(models.Model):
     dni_id = fields.Many2one(
         comodel_name='res.partner',
         related='procedimientos_id.dni_id',
-        string=u'Datos de Paciente',
+        string=u'Datos del paciente',
         store=True
     )
 
@@ -2140,7 +2140,7 @@ class Reportes(models.Model):
     @api.constrains('numero_muestras')
     def _check_numero_muestras(self):
         if self.numero_muestras > 96:
-            raise ValidationError('Numero de Muestras no permitido')
+            raise ValidationError('Número de Muestras no permitido')
 
     eess = fields.Many2one('res.company', string="Lugar")
     usuario_id = fields.Many2one(
@@ -2151,23 +2151,23 @@ class Reportes(models.Model):
     fecha = fields.Date(
         string=u'Fecha'
     )
-    user_id = fields.Many2one('res.users', string='Nombre Operador')
+    user_id = fields.Many2one('res.users', string='Nombre del operador')
     temperatura = fields.Integer(string=u'Temperatura °C')
-    lote_kit = fields.Char(string=u'Lote Kit')
-    fecha_expiracion = fields.Date(string=u'Fecha expiracion')
+    lote_kit = fields.Char(string=u'Lote del Kit')
+    fecha_expiracion = fields.Date(string=u'Fecha expiración')
     placa_valida = fields.Selection(
-        string="Valida",
+        string="Válida",
         selection=[
             ('si', 'Si'),
             ('no', 'No'),
         ]
     )
     numero_placa = fields.Integer(
-        string=u'Número de Placa'
+        string=u'Número de placa'
     )
     rango = fields.Integer(default=1)
     numero_muestras = fields.Integer(
-        string=u'Número de Muestras',
+        string=u'Número de muestras',
         required=True,
         default=90
     )
@@ -2179,11 +2179,11 @@ class Reportes(models.Model):
         ],
         default='abierto',
     )
-    numero_positivos = fields.Integer('Número Positivos')
+    numero_positivos = fields.Integer('Número de positivos')
     registros_lines_ids = fields.One2many(
         comodel_name='reportes.line',
         inverse_name='reporte_id',
-        string=u'Lineas de reporte'
+        string=u'Líneas de reporte'
     )
 
     @api.multi
@@ -2297,9 +2297,9 @@ class Reportes(models.Model):
         msg_url_parametro = self.env['ir.config_parameter'].get_param(parametro_url) or None
         msg_token_parametro = self.env['ir.config_parameter'].get_param(parametro_token) or None
         if msg_token_parametro is None:
-            raise ValidationError('No Existe el Parametro en el Sistema')
+            raise ValidationError('No existe el parametro en el sistema')
         if msg_url_parametro == 'host':
-            raise ValidationError('Falta configurar el parametro para el envio de Mensajes')
+            raise ValidationError('Falta configurar el parametro para el envio de mensajes')
         msg_url = msg_url_parametro
         msg_token = msg_token_parametro
         msg_texto = " Su resultado de la prueba para el Virus Papiloma Humano es NEGATIVO " \
@@ -2365,10 +2365,10 @@ class Verificacion(models.Model):
         string=u'Documento Nacional de Identidad'
     )
     ape_paterno = fields.Char(
-        string=u'Apellido Paterno'
+        string=u'Apellido paterno'
     )
     ape_materno = fields.Char(
-        string=u'Apellido Materno'
+        string=u'Apellido materno'
     )
     nombres = fields.Char(
         string=u'Nombres'
@@ -2377,23 +2377,23 @@ class Verificacion(models.Model):
         string=u'Nombres'
     )
     birthday = fields.Char(
-        string=u'Fecha de Nacimiento'
+        string=u'Fecha de nacimiento'
     )
     legal_street = fields.Char(
         string=u'Domicilio'
     )
     gender = fields.Selection([('male', 'Masculino'), ('female', 'Femenino')])
     image = fields.Binary(
-        string=u'Fotografia'
+        string=u'Fotografía'
     )
     edad = fields.Char(
         string=u'Edad'
     )
     sobre = fields.Char(
-        string=u'Codigo de Sobre'
+        string=u'Código de sobre'
     )
     sobre1 = fields.Char(
-        string=u'Codigo  de Sobre'
+        string=u'Código  de sobre'
     )
     apellidos = fields.Char(
         string=u'Apellidos'
@@ -2495,7 +2495,7 @@ class Verificacion(models.Model):
                 }
                 self.write(values)
         else:
-            raise ValidationError(u'Paciente no se realizo las pruebas PVH')
+            raise ValidationError(u'Paciente no se realizó las pruebas PVH')
 
 
 class HrEmployee(models.Model):
@@ -2510,10 +2510,10 @@ class ResUsers(models.Model):
     _inherit = 'res.users'
 
     tipo_documento = fields.Selection(
-        string="Tipo de Documento",
+        string="Tipo de documento",
         selection=[
             ('dni', 'DNI'),
-            ('carnet', 'Carnet de Extranjeria'),
+            ('carnet', 'Carnet de Extranjería'),
         ],
         default='dni'
     )
@@ -2562,29 +2562,29 @@ class RegistrosGenerales(models.Model):
                 for obj in self]
 
     eess_origen = fields.Char(
-        string=u'EESS Origen'
+        string=u'EESS origen'
     )
     eess_destino = fields.Many2one(
         comodel_name='res.company',
-        string=u'EESS Destino'
+        string=u'EESS destino'
     )
     obstetra_entrega = fields.Many2one(
         comodel_name='hr.employee',
-        string=u'Obstetra Origen',
+        string=u'Obstetra origen',
         default=lambda self: self._default_empleado(),
     )
     obstetra_recepciona = fields.Many2one(
         comodel_name='hr.employee',
-        string=u'Obstetra Destino'
+        string=u'Obstetra destino'
     )
     numeracion = fields.Char(
         string=u'Rangos'
     )
     fecha = fields.Date(
-        string=u'Fecha de Entrega'
+        string=u'Fecha de entrega'
     )
     secuencia = fields.Integer(
-        string=u'secuencia de registro'
+        string=u'Secuencia de registro'
     )
 
     @api.multi
