@@ -519,7 +519,8 @@ class PacentePap(models.Model):
             ('dni', 'DNI'),
             ('doi', 'Carnet de extranjería')
         ],
-        default='dni'
+        default='dni',
+        required=True,
     )
     nacionalidad = fields.Selection(
         string="Nacionalidad",
@@ -555,7 +556,8 @@ class PacentePap(models.Model):
         self.edad = edad
 
     fecha_nacimiento = fields.Date(
-        string="Fecha de nacimiento"
+        string="Fecha de nacimiento",
+        required=True,
     )
     image = fields.Binary(
         string=u'Fotografía'
@@ -581,18 +583,21 @@ class PacentePap(models.Model):
         comodel_name='hr.employee',
         string=u'Obstetra',
         default=lambda self: self._default_empleado(),
+        required=True,
     )
     eess = fields.Many2one(
         comodel_name='res.company',
         string=u'EESS',
-        default=lambda self: self.env.user.company_id.id
+        default=lambda self: self.env.user.company_id.id,
+        required=True,
     )
     microred = fields.Many2one(
         comodel_name='minsa.micro.rede',
         string=u'MicroRed',
         related='eess.microred_id',
         readonly=True,
-        store=True
+        store=True,
+        required=True,
     )
     fecha_pap = fields.Date(
         string=u'Fecha de toma',
@@ -1396,7 +1401,7 @@ class MinsaRecordsLine(models.Model):
         store=True,
     )
     dni = fields.Char(
-        string='Documento de identidad'
+        string='Documento de identidad',
     )
     estado_muestra = fields.Selection(
         string=u'Muestra en buen estado',
