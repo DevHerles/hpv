@@ -2,7 +2,7 @@
 
 {
     'name': 'Registros',
-    'version': '1.0',
+    'version': '1.0.1',
     'website': 'www.minsa.gob.pe',
     'category': 'hhrr',
     'depends': [
