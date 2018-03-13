@@ -53,6 +53,9 @@
             <menuitem name="REGISTRO" id="minsa_registros_principal_main_menu" parent="minsa_main_menu_laboratorio" sequence="10"/>
                 <menuitem name="Sobres" id="minsa_registros_sobre1_main_menu" action="minsa_registro_sobre_action"
                           parent="minsa_registros_principal_main_menu" sequence="1"/>
+            <menuitem name="REPORTES" id="minsa_reportes_principal_main_menu" parent="minsa_main_menu_laboratorio" sequence="10"/>
+                <menuitem name="Resultados" id="minsa_reportes_sobre1_main_menu" action="action_stock_level_forecast_report_template"
+                          parent="minsa_registros_principal_main_menu" sequence="1"/>
             <menuitem name="PROCESAMIENTO" id="minsa_reporte_menu"
                           parent="minsa_main_menu_laboratorio" sequence="20" />
                 <menuitem name="Placas" id="minsa_registros_placas_menu" action="minsa_reportes_action"

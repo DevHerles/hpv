@@ -16,6 +16,7 @@
         'security/security.xml',
         'data/data.xml',
         'data/vph_tour.xml',
+        'views/reports.xml',
         'reports/vph_report.xml',
         'reports/vph_report_templates.xml',
         'views/trees.xml',
