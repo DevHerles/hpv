@@ -541,7 +541,7 @@
                             <group>
                                 <field name="image" widget="image" class="oe_avatar" attrs="{'invisible': [('establecimiento', '=', True)]}"/>
                                 <field name="edad" readonly="True"/>
-                                <field name="gender" readonly="True"/>
+                                <field name="gender" string="Género" readonly="True"/>
                             </group>
                         </group>
                         <group>
@@ -676,11 +676,11 @@
                             <field name="usuario_id" invisible="True"/>
                             <field name="matriz" invisible="True"/>
                             <group>
-                                <field name="codigo_sobre" default_focus="1"/>
+                                <field name="codigo_sobre" style="text-transform:uppercase" default_focus="1"/>
                                 <field name="estado_muestra"/>
                             </group>
                             <group>
-                                <field name="codigo_tubo"/>
+                                <field name="codigo_tubo" style="text-transform:uppercase"/>
                                 <field name="fecha_toma_muestra"/>
                             </group>
                         </group>

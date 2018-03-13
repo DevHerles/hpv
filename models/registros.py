@@ -110,6 +110,14 @@ class RegistroSobre(models.Model):
         string=u'Código de tubo',
         track_visibility='onchange'
     )
+
+    # @api.depends('codigo_sobre', 'codigo_tubo')
+    # def _estado_muestra(self):
+    #     if self.codigo_sobre.upper() == self.codigo_tubo.upper():
+    #         self.estado_muestra = 'yes'
+    #     else:
+    #         self.estado_muestra = 'no'
+
     estado_muestra = fields.Selection(
         string="Código válido",
         selection=[
@@ -119,6 +127,8 @@ class RegistroSobre(models.Model):
         default='not',
         track_visibility='onchange',
         readonly=True
+        # compute="_estado_muestra",
+        # store=True,
     )
     nacionalidad = fields.Selection(
         string="Nacionalidad",

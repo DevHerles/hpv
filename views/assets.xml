@@ -20,5 +20,14 @@
                 <!--<script type="text/javascript" src="/modulos_registros/static/src/js/d3.bar.widget.js"></script>-->
             </xpath>
         </template>
+        <template id="menu" inherit_id="web.menu_secondary" name="Web Menu">
+            <xpath expr="//a[1]" position="replace">
+                <div style="margin:0 auto;">
+                    <a t-att-href="'/web/?debug' if debug else '/web'">
+                        <img src="/modulos_registros/static/src/img/minsa.png" alt="Company Logo"/>
+                    </a>
+                </div>
+            </xpath>
+        </template>
     </data>
 </odoo>

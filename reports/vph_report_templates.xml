@@ -123,7 +123,11 @@
                                 <td><span t-field="row.pos_y"></span></td>
                                 <td><span t-field="row.number"></span></td>
                                 <td><span t-field="row.record_lista_id.codigo_sobre"></span></td>
-                                <td><span t-field="row.positivo_valores"></span></td>
+                                <td>
+                                    <p t-if="doc.state == 'procesado'">
+                                        <span t-field="row.positivo_valores"></span>
+                                    </p>
+                                </td>
                             </tr>
                         </t>
                     </table>

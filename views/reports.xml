@@ -5,43 +5,48 @@
         <field name="name">Report.vph.pivot</field>
         <field name="model">report.vph</field>
         <field name="arch" type="xml">
-            <pivot string="Stock Level forecast" disable_linking="True">
+            <pivot string="Reportes VPH" disable_linking="True">
                 <field name="microred" type="row"/>
-                <field name="fecha_resultado" type="col" context="{'pivot_column_groupby': ['fecha_resultado:year']}"/>
-                <!-- <field name="fecha_resultado" type="col" context="{'pivot_column_groupby': ['fecha_resultado:month']}"/> -->
+                <field name="establecimiento" type="row"/>
+                <field name="fecha_resultado" type="col" context="{'pivot_column_groupby': ['fecha_resultado:year','microred']}"/>
                 <field name="resultado" type="col"/>
             </pivot>
         </field>
     </record>
 
-<!--     <record id="view_stock_level_forecast_graph" model="ir.ui.view">
+    <record id="view_stock_level_forecast_graph" model="ir.ui.view">
         <field name="name">Report.vph.graph</field>
         <field name="model">report.vph</field>
         <field name="arch" type="xml">
-            <graph string="Stock Level forecast" type="line">
-                <field name="microred" type="col"/>
-                <field name="edad" type="measure"/>
+            <graph string="Reportes VPH" type="line">
+                <field name="microred" type="row"/>
+                <field name="resultado" type="col"/>
             </graph>
         </field>
-    </record> -->
+    </record>
 
     <record id="view_stock_level_forecast_filter" model="ir.ui.view">
         <field name="name">view.report.vph.filter</field>
         <field name="model">report.vph</field>
         <field name="arch" type="xml">
-            <search string="Stock Level forecast">
+            <search string="Reportes VPH">
                 <field name="microred"/>
-                <field name="resultado"/>
-                <!-- <group expand="1" string="Group By">
-                    <filter string="Pivot" name="pivot_by" context="{'pivot_row_groupby': ['paciente'], 'pivot_column_groupby': ['fecha_resultado:month'],'pivot_measures': ['microred']}"/>
-                    <filter string="Graph" name="graph_by" context="{'graph_groupbys': ['fecha_resultado:month', 'paciente']}"/>
-                </group> -->
+                <field name="establecimiento"/>
+                <field name="paciente"/>
+                <filter string="Positivos" name="positivos" domain="[('resultado','=','positivo')]"/>
+                <filter string="Negativos" name="negativos" domain="[('resultado','=','negativo')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="Procedencia" context="{'group_by':'procedencia'}"/>
+                    <filter name="Nacionalidad" context="{'group_by':'nacionalidad'}"/>
+                    <filter name="Establecimiento" context="{'group_by':'establecimiento'}"/>
+                    <filter name="Microred" context="{'group_by':'microred'}"/>
+                </group>
             </search>
         </field>
     </record>
 
     <record id="action_stock_level_forecast_report_template" model="ir.actions.act_window">
-        <field name="name">...Res...</field>
+        <field name="name">Reportes VPH</field>
         <field name="res_model">report.vph</field>
         <field name="view_type">form</field>
         <field name="view_mode">pivot,graph</field>
