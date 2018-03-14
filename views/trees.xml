@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <openerp>
 	<data>
-
         <record id="minsa_reason_for_cancellation_view_tree" model="ir.ui.view">
-            <field name="name">minsa.reason.for.cancellation.tree</field>
-            <field name="model">minsa.reason.for.cancellation</field>
+            <field name="name">minsa.reasonforcancelation.tree</field>
+            <field name="model">minsa.reasonforcancelation</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree>

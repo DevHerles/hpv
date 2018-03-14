@@ -7,7 +7,6 @@
             <field name="model">minsa.records.line</field>
             <field name="arch" type="xml">
                 <calendar date_start="fecha_recepcion" color="promotor_id" display="[promotor_id]">
-
                     <field name="eess" />
                     <field name="promotor_id" />
                     <field name="paciente_id" />

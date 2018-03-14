@@ -216,8 +216,8 @@
        	</record>
 
         <record id="minsa_reason_for_cancellation_view_form" model="ir.ui.view">
-            <field name="name">minsa.reason.for.cancellation.form</field>
-            <field name="model">minsa.reason.for.cancellation</field>
+            <field name="name">minsa.reasonforcancelation.form</field>
+            <field name="model">minsa.reasonforcancelation</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form>
@@ -234,13 +234,10 @@
         <record id="minsa_pacientes_positivos_tree_view" model="ir.ui.view">
             <field name="name">Pacientes positivos</field>
             <field name="model">reportes.line</field>
-            <!--<field name="inherit_id" ref="minsa_records_line_view_search"/>-->
-            <!--<field name="search_view_id" ref="reporte_sobre_search_view"/>-->
             <field name="arch" type="xml">
                 <tree string="Period Tree">
                     <field name="codigo_nombre" string="Código VPH"/>
                     <field name="positivo_valores" string="Resulado"/>
-                    <!--<field name="record_id"/>-->
                 </tree>
             </field>
         </record>
@@ -304,11 +301,9 @@
                                 </div>
                             </group>
                         </group>
-                        <!--<group string="Datos del paciente">-->
-                            <field name="paciente_vph" invisible="True"/>
-                            <field name="nombre_apellido" readonly="True"/><br/>
-                            <field name="eess_paciente_vph" readonly="True"/>
-                        <!--</group>-->
+                        <field name="paciente_vph" invisible="True"/>
+                        <field name="nombre_apellido" readonly="True"/><br/>
+                        <field name="eess_paciente_vph" readonly="True"/>
 
                         <group string="PAP" attrs="{'invisible': [('paciente_vph', '=', True)]}">
                             <field name="pap" widget="radio" class="oe_edit_only"/>
@@ -319,49 +314,6 @@
                             <field name="resultado_pap" attrs="{'invisible': [('pap', '=', 'no')]}"/>
                             <field name="otro_pap" attrs="{'invisible': [('pap', '=', 'no')]}"/>
                         </group>
-
-                        <!--<notebook>
-                            <page string="Ivaa">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="Crioterapia">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="Proc. / Trat. por ref.">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="Colposcopía">
-                                <group>
-                                </group>
-                            </page><page string="Biopsia">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="Cono Leep">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="Histerectomía">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="Radioterapia">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="Quimioterapia">
-                                <group>
-                                </group>
-                            </page>
-                            <page string="Culminó?">
-                                <group>
-                                </group>
-                            </page>
-
-            			</notebook>-->
 
                         <group string="IVAA">
                             <field name="iva"  widget="radio" class="oe_edit_only"/>
@@ -654,7 +606,6 @@
                     <field name="apellidos"/>
                     <field name="edad"/>
                     <field name="mobile"/>
-                    <!--<field name="record_id"/>-->
                 </tree>
             </field>
         </record>

@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_minsa_reason_for_cancellation_obstetra,minsa.reason.for.cancellation,model_minsa_reason_for_cancellation,grupo_obstetra_minsa,1,1,1,0
+access_minsa_reason_for_cancellation_obstetra,minsa.reasonforcancelation,model_minsa_reason_for_cancellation,grupo_obstetra_minsa,1,1,1,0
 access_res_partner_obstetra,res.partner,model_res_partner,grupo_obstetra_minsa,1,1,1,0
 access_minsa_records_obstetra,minsa.records,model_minsa_records,grupo_obstetra_minsa,1,1,1,0
 access_minsa_records_line_obstetra,minsa.records.line,model_minsa_records_line,grupo_obstetra_minsa,1,1,1,0
@@ -14,7 +14,7 @@ access_registro_sobre_obstetra,registro.sobre,model_registro_sobre,grupo_obstetr
 access_registros_generales_obstetra,registros.generales,model_registros_generales,grupo_obstetra_minsa,1,1,1,0
 access_minsa.micro_rede_obstetra,minsa.micro.rede,model_minsa_micro_rede,grupo_obstetra_minsa,1,1,1,0
 
-access_minsa_reason_for_cancellation_coordina,minsa.reason.for.cancellation,model_minsa_reason_for_cancellation,grupo_obstetra_general_minsa,1,1,1,0
+access_minsa_reason_for_cancellation_coordina,minsa.reasonforcancelation,model_minsa_reason_for_cancellation,grupo_obstetra_general_minsa,1,1,1,0
 access_res_partner_coordina,res.partner,model_res_partner,grupo_obstetra_general_minsa,1,1,1,0
 access_minsa_records_coordina,minsa.records,model_minsa_records,grupo_obstetra_general_minsa,1,1,1,0
 access_minsa_records_line_coordina,minsa.records.line,model_minsa_records_line,grupo_obstetra_general_minsa,1,1,1,0
@@ -29,7 +29,7 @@ access_registro_sobre_coordina,registro.sobre,model_registro_sobre,grupo_obstetr
 access_registros_generales_coordina,registros.generales,model_registros_generales,grupo_obstetra_general_minsa,1,1,1,0
 access_minsa_micro_rede_coordina,minsa.micro.rede,model_minsa_micro_rede,grupo_obstetra_general_minsa,1,1,1,0
 
-access_minsa_reason_for_cancellation_laboratorio,minsa.reason.for.cancellation,model_minsa_reason_for_cancellation,grupo_laboratorio_minsa,1,1,1,0
+access_minsa_reason_for_cancellation_laboratorio,minsa.reasonforcancelation,model_minsa_reason_for_cancellation,grupo_laboratorio_minsa,1,1,1,0
 access_res_partner_laboratorio,res.partner,model_res_partner,grupo_laboratorio_minsa,1,1,1,0
 access_minsa_records_laboratorio,minsa.records,model_minsa_records,grupo_laboratorio_minsa,1,1,1,0
 access_minsa_records_line_laboratorio,minsa.records.line,model_minsa_records_line,grupo_laboratorio_minsa,1,1,1,0
@@ -44,7 +44,7 @@ access_registro_sobre_laboratorio,registro.sobre,model_registro_sobre,grupo_labo
 access_registros_generales_laboratorio,registros.generales,model_registros_generales,grupo_laboratorio_minsa,1,1,1,0
 access_minsa_micro_rede_laboratorio,minsa.micro.rede,model_minsa_micro_rede,grupo_laboratorio_minsa,1,1,1,0
 
-access_minsa_reason_for_cancellation_admin,minsa.reason.for.cancellation,model_minsa_reason_for_cancellation,grupo_administrador_minsa,1,1,1,0
+access_minsa_reason_for_cancellation_admin,minsa.reasonforcancelation,model_minsa_reason_for_cancellation,grupo_administrador_minsa,1,1,1,0
 access_res_partner_admin,res.partner,model_res_partner,grupo_administrador_minsa,1,1,1,0
 access_minsa_records_admin,minsa.records,model_minsa_records,grupo_administrador_minsa,1,1,1,0
 access_minsa_records_line_admin,minsa.records.line,model_minsa_records_line,grupo_administrador_minsa,1,1,1,0

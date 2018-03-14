@@ -4,7 +4,7 @@
 
         <record id="minsa_reason_for_cancellation_action" model="ir.actions.act_window">
             <field name="name">Motivo de Cancelación</field>
-            <field name="res_model">minsa.reason.for.cancellation</field>
+            <field name="res_model">minsa.reasonforcancelation</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>

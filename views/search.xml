@@ -65,50 +65,12 @@
             </field>
         </record>
 
-        <!--<record id="minsa_records_line_view_search" model="ir.ui.view">-->
-            <!--<field name="name">minsa.records.line.search</field>-->
-            <!--<field name="model">minsa.records.line</field>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<search string="Registros">-->
-                    <!--<filter name="codigo" string="Codigo de Entrega" filter_domain="[('codigo','ilike',self)]"/>-->
-                    <!--<group expand="0" string="Agrupar por">-->
-                        <!--<filter name="Estado" context="{'group_by':'state'}"/>-->
-                        <!--<filter name="EESS" context="{'group_by':'eess'}"/>-->
-                        <!--<filter name="MicroRed" context="{'group_by':'microred'}"/>-->
-                        <!--<filter name="ACS" context="{'group_by':'promotor_id'}"/>-->
-                        <!--<filter name="Paciente" context="{'group_by':'paciente_id'}"/>-->
-                        <!--<filter name="Fecha Recepcion" context="{'group_by':'fecha_recepcion'}"/>-->
-                        <!--<filter name="Fecha Entrega" context="{'group_by':'fecha_entrega'}"/>-->
-                    <!--</group>-->
-                <!--</search>-->
-            <!--</field>-->
-        <!--</record>-->
-
-        <!-- <record id="minsa_records_view_search" model="ir.ui.view">
-            <field name="name">minsa.records.search</field>
-            <field name="model">minsa.records</field>
-            <field name="arch" type="xml">
-                <search string="Registros">
-                    <group expand="0" string="Agrupar por">
-                        <filter name="Estado" context="{'group_by':'state'}"/>
-                        <filter name="MicroRed" context="{'group_by':'microred'}"/>
-                        <filter name="EESS" context="{'group_by':'eess'}"/>
-                        <filter name="Nombre de ACS" context="{'group_by':'promotor_id'}"/>
-                        <filter name="Por Servicio" context="{'group_by':'servicio'}"/>
-                        <filter name="Agente Comunitario" context="{'group_by':'promotora'}"/>
-                        <filter name="Establecimientos" context="{'group_by':'eess_a'}"/>
-                    </group>
-                </search>
-            </field>
-        </record> -->
-
         <record id="procedimientos_view_search" model="ir.ui.view">
             <field name="name">procedimientos.search</field>
             <field name="model">procedimientos</field>
             <field name="arch" type="xml">
                 <search string="Procedimientos">
                     <field name="vph_id" string="Código de sobre (Paciente VPH)"/>
-                    <!-- <field name="nombre_apellido" string="Paciente"/> -->
                     <field name="pap_id" string="Paciente PAP"/>
                     <group expand="0" string="Agrupar por">
                         <filter name="Paciente" context="{'group_by':'dni_id'}"/>
@@ -143,6 +105,5 @@
                 </search>
             </field>
         </record>
-
     </data>
 </openerp>
