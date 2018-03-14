@@ -19,12 +19,12 @@ class ReportVph(models.Model):
     @api.model_cr
     def init(self):
         """ VPH Positives main report """
-        tools.drop_view_if_exists(self._cr, 'report_vph')
+        tools.drop_view_if_exists(self._cr, "report_vph")
         self._cr.execute(""" CREATE VIEW report_vph AS (
             SELECT T0.id,
                 T2.nombre AS microred,
                 T1.nom_eess as establecimiento,
-                CONCAT(T0.apellidos, ' ', T0.nombres) AS paciente,
+                CONCAT(T0.apellidos,' ', T0.nombres) AS paciente,
                 T0.edad, UPPER(T1.respuesta) AS resultado,
                 T1.fecha_registro AS fecha_resultado,
                 UPPER(T0.nacionalidad) AS nacionalidad,
@@ -44,14 +44,14 @@ class ReportPap(models.Model):
     fecha_resultado = fields.Date("Fecha de resultado")
     paciente = fields.Char(readonly=True)
     microred = fields.Many2one(
-        comodel_name='minsa.micro.rede',
-        string=u'MicroRed',
+        comodel_name="minsa.micro.rede",
+        string=u"MicroRed",
         readonly=True,
     )
     edad = fields.Integer(readonly=True)
     establecimiento = fields.Many2one(
-        comodel_name='res.company',
-        string=u'Establecimiento',
+        comodel_name="res.company",
+        string=u"Establecimiento",
         readolny=True,
     )
     procedencia = fields.Char("Procedencia", readonly=True)
@@ -60,7 +60,7 @@ class ReportPap(models.Model):
     @api.model_cr
     def init(self):
         """ PAP Positives main report """
-        tools.drop_view_if_exists(self._cr, 'report_pap')
+        tools.drop_view_if_exists(self._cr, "report_pap")
         self._cr.execute(""" CREATE VIEW report_pap AS (
             SELECT T0.id,
                 T0.microred,
