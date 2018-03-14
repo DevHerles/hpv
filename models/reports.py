@@ -63,7 +63,7 @@ class ReportPap(models.Model):
         tools.drop_view_if_exists(self._cr, 'report_pap')
         self._cr.execute(""" CREATE VIEW report_pap AS (
             SELECT T0.id,
-                T0.microred, 
+                T0.microred,
                 T0.eess AS establecimiento,
                 UPPER(CONCAT(T0.apellidos,' ',T0.nombres)) AS paciente,
                 T0.edad,
