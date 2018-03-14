@@ -53,9 +53,6 @@
             <menuitem name="REGISTRO" id="minsa_registros_principal_main_menu" parent="minsa_main_menu_laboratorio" sequence="10"/>
                 <menuitem name="Sobres" id="minsa_registros_sobre1_main_menu" action="minsa_registro_sobre_action"
                           parent="minsa_registros_principal_main_menu" sequence="1"/>
-            <menuitem name="REPORTES" id="minsa_reportes_principal_main_menu" parent="minsa_main_menu_laboratorio" sequence="30"/>
-                <menuitem name="Reportes" id="minsa_reportes_sobre1_main_menu" action="action_stock_level_forecast_report_template"
-                          parent="minsa_registros_principal_main_menu" sequence="1"/>
             <menuitem name="PROCESAMIENTO" id="minsa_reporte_menu"
                           parent="minsa_main_menu_laboratorio" sequence="20" />
                 <menuitem name="Placas" id="minsa_registros_placas_menu" action="minsa_reportes_action"
@@ -65,5 +62,11 @@
         <menuitem name="Micro Redes" id="minsa_micro_redes_menu" action="minsa_micro_rede_action"
                   parent="base.menu_users"
                   groups="grupo_administrador_minsa"/>
+
+        <menuitem name="Reportes" id="minsa_reportes" sequence="40"
+                  groups="grupo_laboratorio_minsa,grupo_administrador_minsa,grupo_obstetra_minsa,grupo_obstetra_general_minsa"/>
+            <menuitem name="Resultados" id="minsa_reportes_resultados" parent="minsa_reportes"/>    
+                <menuitem name="Reportes VPH" id="minsa_reportes_vph" parent="minsa_reportes_resultados" action="action_report_vph"/>
+                <menuitem name="Reportes PAP" id="minsa_reportes_pap" parent="minsa_reportes_resultados" action="action_report_pap"/>
 	</data>
 </openerp>

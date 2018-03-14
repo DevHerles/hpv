@@ -507,7 +507,7 @@ class RegistroSobre(models.Model):
     ]
 
 
-class PacentePap(models.Model):
+class PacientePap(models.Model):
     _name = 'paciente.pap'
     _inherit = ['mail.thread']
 
