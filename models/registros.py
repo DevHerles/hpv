@@ -17,16 +17,20 @@ sys.setdefaultencoding("utf-8")
 RENIEC_ERR = "Error!"
 
 
-class MetodosGlobales(object):
-    def calcular_edad(self, fecha_actual):
+class Utils(object):
+    def calcular_edad(self, fecha):
+        edad = 0
         try:
-            if fecha_actual:
-                edad = (datetime.now().date() - datetime.strptime(fecha_actual, '%Y-%m-%d').date()).days / 365
+            if fecha:
+                if datetime.strptime(fecha, '%Y-%m-%d'):
+                    edad = (datetime.now().date() - datetime.strptime(fecha, '%Y-%m-%d').date()).days / 365
+                else:
+                    pass
             else:
-                edad = 0
+                pass
             return edad
         except ValueError:
-            raise ValueError("Formato de fecha incorrecto, debería ser YYYY-MM-DD")
+            raise ValueError("Formato de fecha incorrecto.")
 
 
 class MinsaReasonForCancellation(models.Model):
@@ -178,9 +182,14 @@ class RegistroSobre(models.Model):
     def _compute_edad(self):
         edad = 0
         if self.fecha_nacimiento:
-            mg = MetodosGlobales()
-            edad = mg.calcular_edad(self.fecha_nacimiento)
+            util = Utils()
+            edad = util.calcular_edad(self.fecha_nacimiento)
         self.edad = edad
+
+    @api.one
+    def fecha_nacimiento_changed(self, fecha_nacimiento):
+        util = Utils()
+        self.edad = util.calcular_edad(fecha_nacimiento)
 
     fecha_nacimiento = fields.Date(
         string="Fecha de nacimiento",
@@ -307,8 +316,8 @@ class RegistroSobre(models.Model):
         if self.dni:
             if self.edad < 30 or self.edad >= 50:
                 if self.fecha_toma_muestra:
-                    mg = MetodosGlobales()
-                    edad = mg.calcular_edad(self.fecha_toma_muestra)
+                    util = Utils()
+                    edad = util.calcular_edad(self.fecha_toma_muestra)
                 else:
                     edad = self.edad
                 if edad < 50:
@@ -358,8 +367,8 @@ class RegistroSobre(models.Model):
                 data = self.env["consultadatos.reniec"].consultardni(self.dni)
                 fecha = data["nacimiento"]["fecha"]
                 if fecha:
-                    mg = MetodosGlobales()
-                    edad = mg.calcular_edad(fecha)
+                    util = Utils()
+                    edad = util.calcular_edad(fecha)
                     if edad < 0:
                         edad = 0
                     else:
@@ -379,8 +388,8 @@ class RegistroSobre(models.Model):
     def click_fecha_nacimiento(self):
         if self.fecha_nacimiento:
             # self.edad = (datetime.now().date() - datetime.strptime(self.fecha_nacimiento, "%Y-%m-%d").date()).days / 365
-            mg = MetodosGlobales()
-            self.edad = mg.calcular_edad(self.fecha_nacimiento)
+            util = Utils()
+            self.edad = util.calcular_edad(self.fecha_nacimiento)
 
     @api.onchange("nacionalidad")
     def click_nacionalidad(self):
@@ -450,8 +459,8 @@ class RegistroSobre(models.Model):
                     data = self.env["consultadatos.reniec"].consultardni(obj.dni)
                     fecha = data["nacimiento"]["fecha"]
                     if fecha:
-                        mg = MetodosGlobales()
-                        edad = mg.calcular_edad(fecha)
+                        util = Utils()
+                        edad = util.calcular_edad(fecha)
                         if edad < 0:
                             edad = 0
                         else:
@@ -580,8 +589,8 @@ class PacientePap(models.Model):
     def _compute_edad(self):
         edad = 0
         if self.fecha_nacimiento:
-            mg = MetodosGlobales()
-            edad = mg.calcular_edad(self.fecha_nacimiento)
+            util = Utils()
+            edad = util.calcular_edad(self.fecha_nacimiento)
         self.edad = edad
 
     fecha_nacimiento = fields.Date(
@@ -682,8 +691,8 @@ class PacientePap(models.Model):
             data = self.env["consultadatos.reniec"].consultardni(self.dni)
             fecha = data["nacimiento"]["fecha"]
             if fecha:
-                mg = MetodosGlobales()
-                edad = mg.calcular_edad(fecha)
+                util = Utils()
+                edad = util.calcular_edad(fecha)
                 if edad < 0:
                     edad = 0
                 else:
@@ -941,8 +950,8 @@ class Paciente(models.Model):
             data = self.env["consultadatos.reniec"].consultardni(self.dni)
             fecha = data["nacimiento"]["fecha"]
             if fecha:
-                mg = MetodosGlobales()
-                edad = mg.calcular_edad(fecha)
+                util = Utils()
+                edad = util.calcular_edad(fecha)
                 if edad < 0:
                     edad = 0
                 else:
@@ -2505,8 +2514,8 @@ class Verificacion(models.Model):
                 data2 = self.env["minsa.records.line"].search([("sobre_id", "=", data1.id)], limit=1)
             fecha = data["nacimiento"]["fecha"]
             if fecha:
-                mg = MetodosGlobales()
-                edad = mg.calcular_edad(fecha)
+                util = Utils()
+                edad = util.calcular_edad(fecha)
                 if edad < 0:
                     edad = 0
                 res = {"edad": edad}

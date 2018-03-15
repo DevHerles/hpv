@@ -658,7 +658,7 @@
                             </group>
                             <group>
                                 <field name="image" widget="image" string="" class="oe_avatar"/>
-                                <field name="fecha_nacimiento"/>
+                                <field name="fecha_nacimiento" on_change="fecha_nacimiento_changed(fecha_nacimiento)"/>
                                 <field name="mobile" string="Celular"/>
                             </group>
                         </group>
