@@ -178,7 +178,6 @@ class RegistroSobre(models.Model):
     def _compute_edad(self):
         edad = 0
         if self.fecha_nacimiento:
-            # edad = (datetime.now().date() - datetime.strptime(self.fecha_nacimiento, "%Y-%m-%d").date()).days / 365
             mg = MetodosGlobales()
             edad = mg.calcular_edad(self.fecha_nacimiento)
         self.edad = edad
@@ -308,7 +307,6 @@ class RegistroSobre(models.Model):
         if self.dni:
             if self.edad < 30 or self.edad >= 50:
                 if self.fecha_toma_muestra:
-                    # edad = (datetime.now().date() - datetime.strptime(self.fecha_toma_muestra, "%Y-%m-%d").date()).days / 365
                     mg = MetodosGlobales()
                     edad = mg.calcular_edad(self.fecha_toma_muestra)
                 else:
@@ -360,7 +358,6 @@ class RegistroSobre(models.Model):
                 data = self.env["consultadatos.reniec"].consultardni(self.dni)
                 fecha = data["nacimiento"]["fecha"]
                 if fecha:
-                    # edad = (datetime.now().date() - datetime.strptime(fecha, "%Y-%m-%d").date()).days / 365
                     mg = MetodosGlobales()
                     edad = mg.calcular_edad(fecha)
                     if edad < 0:
@@ -453,7 +450,6 @@ class RegistroSobre(models.Model):
                     data = self.env["consultadatos.reniec"].consultardni(obj.dni)
                     fecha = data["nacimiento"]["fecha"]
                     if fecha:
-                        # edad = (datetime.now().date() - datetime.strptime(fecha, "%Y-%m-%d").date()).days / 365
                         mg = MetodosGlobales()
                         edad = mg.calcular_edad(fecha)
                         if edad < 0:
@@ -584,7 +580,6 @@ class PacientePap(models.Model):
     def _compute_edad(self):
         edad = 0
         if self.fecha_nacimiento:
-            # edad = (datetime.now().date() - datetime.strptime(self.fecha_nacimiento, "%Y-%m-%d").date()).days / 365
             mg = MetodosGlobales()
             edad = mg.calcular_edad(self.fecha_nacimiento)
         self.edad = edad
@@ -687,7 +682,6 @@ class PacientePap(models.Model):
             data = self.env["consultadatos.reniec"].consultardni(self.dni)
             fecha = data["nacimiento"]["fecha"]
             if fecha:
-                # edad = (datetime.now().date() - datetime.strptime(fecha, "%Y-%m-%d").date()).days / 365
                 mg = MetodosGlobales()
                 edad = mg.calcular_edad(fecha)
                 if edad < 0:
@@ -947,7 +941,6 @@ class Paciente(models.Model):
             data = self.env["consultadatos.reniec"].consultardni(self.dni)
             fecha = data["nacimiento"]["fecha"]
             if fecha:
-                # edad = (datetime.now().date() - datetime.strptime(fecha, "%Y-%m-%d").date()).days / 365
                 mg = MetodosGlobales()
                 edad = mg.calcular_edad(fecha)
                 if edad < 0:
@@ -2512,7 +2505,6 @@ class Verificacion(models.Model):
                 data2 = self.env["minsa.records.line"].search([("sobre_id", "=", data1.id)], limit=1)
             fecha = data["nacimiento"]["fecha"]
             if fecha:
-                # edad = (datetime.now().date() - datetime.strptime(fecha, "%Y-%m-%d").date()).days / 365
                 mg = MetodosGlobales()
                 edad = mg.calcular_edad(fecha)
                 if edad < 0:
