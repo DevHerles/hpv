@@ -23,7 +23,8 @@ class Utils(object):
         try:
             if fecha:
                 if datetime.strptime(fecha, '%Y-%m-%d'):
-                    edad = (datetime.now().date() - datetime.strptime(fecha, '%Y-%m-%d').date()).days / 365
+                    edad = (datetime.now().date() - datetime.strptime(fecha,
+                                                                      '%Y-%m-%d').date()).days / 365 # noqa
                 else:
                     pass
             else:
@@ -69,7 +70,9 @@ class RegistroSobre(models.Model):
         if recs:
             return recs.name_get()
 
-        return super(RegistroSobre, self).name_search(name, args=args, operator=operator, limit=limit)
+        return super(RegistroSobre, self).name_search(name, args=args,
+                                                      operator=operator,
+                                                      limit=limit)
 
     @api.multi
     def name_get(self):
@@ -112,15 +115,16 @@ class RegistroSobre(models.Model):
     fecha_nacimiento = fields.Date(
         string=u"Fecha de nacimiento",
         required=True,
-        # readonly=True
     )
     codigo_sobre = fields.Char(
         string=u"Código de sobre",
-        track_visibility="onchange"
+        track_visibility="onchange",
+        required=True
     )
     codigo_tubo = fields.Char(
         string=u"Código de tubo",
-        track_visibility="onchange"
+        track_visibility="onchange",
+        required=True
     )
 
     estado_muestra = fields.Selection(
@@ -302,7 +306,8 @@ class RegistroSobre(models.Model):
     def _check_something(self):
         for record in self:
             if record.edad <= 0 and record.es_pap:
-                raise ValidationError("Su edad no debe ser menor a: %s" % record.edad)
+                raise ValidationError("Su edad no debe ser menor a: %s" %
+                                      record.edad)
 
     @api.onchange("reazones_muestra_invalidad")
     def _onchange_reazones_muestra_invalidad(self):
@@ -340,7 +345,8 @@ class RegistroSobre(models.Model):
             else:
                 self.micro_red = ""
                 self.eess = ""
-                raise ValidationError("El sobre NO está registrado en el sistema.")
+                raise ValidationError("El sobre NO está registrado en el "
+                                      "sistema.")
 
             if self.codigo_sobre == self.codigo_tubo:
                 self.estado_muestra = "yes"
@@ -377,7 +383,8 @@ class RegistroSobre(models.Model):
                     return True
                 elif data:
                     self.nombres = data["nombres"]
-                    self.apellidos = u"{} {}".format(data["ape_paterno"], data["ape_materno"])
+                    self.apellidos = u"{} {}".format(data["ape_paterno"],
+                                                     data["ape_materno"])
                     self.direccion = data["domicilio"]["direccion_descripcion"]
                     self.fecha_nacimiento = data["nacimiento"]["fecha"]
                     self.image = data["fotografia"]
@@ -387,7 +394,6 @@ class RegistroSobre(models.Model):
     @api.onchange("fecha_nacimiento")
     def click_fecha_nacimiento(self):
         if self.fecha_nacimiento:
-            # self.edad = (datetime.now().date() - datetime.strptime(self.fecha_nacimiento, "%Y-%m-%d").date()).days / 365
             util = Utils()
             self.edad = util.calcular_edad(self.fecha_nacimiento)
 
@@ -418,7 +424,8 @@ class RegistroSobre(models.Model):
     @api.model
     def create(self, vals):
         if not vals.get("secuencia"):
-            vals["secuencia"] = self.env["ir.sequence"].next_by_code("registro.sobre")  # noqa
+            vals["secuencia"] = self.env["ir.sequence"].next_by_code(
+                "registro.sobre")  # noqa
         res = super(RegistroSobre, self).create(vals)
         if res.codigo_sobre:
             registro = self.env["minsa.records.line"].search([
@@ -427,7 +434,8 @@ class RegistroSobre(models.Model):
                 registro.write({
                     "sobre_id": res.id,
                     "estado_muestra": res.estado_muestra,
-                    "reazones_muestra_invalidad": res.reazones_muestra_invalidad or "",
+                    "reazones_muestra_invalidad":
+                        res.reazones_muestra_invalidad or "",
                     "otros": res.otros or "",
                     "fecha_recepcion": res.fecha_toma_muestra,
                     "fecha_registro": res.fecha,
@@ -456,7 +464,8 @@ class RegistroSobre(models.Model):
                     return {}
                 # Consulta de Datos Reniec
                 try:
-                    data = self.env["consultadatos.reniec"].consultardni(obj.dni)
+                    data = self.env["consultadatos.reniec"].consultardni(
+                        obj.dni)
                     fecha = data["nacimiento"]["fecha"]
                     if fecha:
                         util = Utils()
@@ -469,8 +478,10 @@ class RegistroSobre(models.Model):
                         return True
                     elif data:
                         obj.nombres = data["nombres"]
-                        obj.apellidos = u"{} {}".format(data["ape_paterno"], data["ape_materno"])
-                        obj.direccion = data["domicilio"]["direccion_descripcion"]
+                        obj.apellidos = u"{} {}".format(data["ape_paterno"],
+                                                        data["ape_materno"])
+                        obj.direccion = data["domicilio"][
+                            "direccion_descripcion"]
                         obj.fecha_nacimiento = data["nacimiento"]["fecha"]
                 except Exception as ex:
                     raise ValidationError("%s : %s" % (RENIEC_ERR, ex.message))
@@ -484,7 +495,8 @@ class RegistroSobre(models.Model):
                 registros.write({
                     "sobre_id": obj.id,
                     "estado_muestra": obj.estado_muestra,
-                    "reazones_muestra_invalidad": obj.reazones_muestra_invalidad or "",
+                    "reazones_muestra_invalidad":
+                        obj.reazones_muestra_invalidad or "",
                     "otros": obj.otros or "",
                     "fecha_recepcion": obj.fecha_toma_muestra,
                     "fecha_registro": obj.fecha,
@@ -528,7 +540,8 @@ class PacientePap(models.Model):
         if name:
             recs = self.search([("dni", "ilike", name)] + args, limit=limit)
         if not recs:
-            recs = self.search([("nombres", operator, name)] + args, limit=limit)
+            recs = self.search([("nombres", operator, name)] + args,
+                               limit=limit)
         return recs.name_get()
 
     @api.multi
@@ -647,12 +660,12 @@ class PacientePap(models.Model):
         string=u"Resultado",
         selection=[
             ("negativo", "Negativo"),
-            ("insactifactorio", "PAP insatifactorio"),
+            ("insatisfactorio", "PAP insatifactorio"),
             ("lei", "LEI bajo grado"),
             ("lei1", "LEI alto grado"),
             ("carcinoma", "Carcinoma Insitu"),
-            ("ascos", "ASCUS"),
-            ("asgos", "AGUS"),
+            ("ascus", "ASCUS"),
+            ("asgus", "ASGUS"),
         ],
         default="negativo"
     )
@@ -701,7 +714,8 @@ class PacientePap(models.Model):
                 return True
             elif data:
                 self.nombres = data["nombres"]
-                self.apellidos = u"{} {}".format(data["ape_paterno"], data["ape_materno"])
+                self.apellidos = u"{} {}".format(data["ape_paterno"],
+                                                 data["ape_materno"])
                 self.direccion = data["domicilio"]["direccion_descripcion"]
                 self.fecha_nacimiento = data["nacimiento"]["fecha"]
                 self.image = data["fotografia"]
@@ -901,13 +915,14 @@ class Paciente(models.Model):
          ("delivery", "Shipping address"),
          ("other", "Other address")], string="Address Type",
         default="other",
-        help="Used to select automatically the right address according to the context in sales and purchases documents.")
+        help="Used to select automatically the right address according to the context in sales and purchases documents.")  # noqa
 
     @api.constrains("edad")
     def _check_something(self):
         for record in self:
             if record.edad <= 0 and record.es_pap:
-                raise ValidationError("Su edad no debe ser menor a: %s" % record.edad)
+                raise ValidationError("Su edad no debe ser menor a: %s" %
+                                      record.edad)
 
     @api.onchange("reazones_muestra_invalidad")
     def _onchange_reazones_muestra_invalidad(self):
@@ -969,7 +984,8 @@ class Paciente(models.Model):
                 registro.write({
                     "paciente_id": res.id,
                     "estado_muestra": res.estado_muestra,
-                    "reazones_muestra_invalidad": res.reazones_muestra_invalidad or "",
+                    "reazones_muestra_invalidad":
+                        res.reazones_muestra_invalidad or "",
                     "otros": res.otros or "",
                     "fecha_recepcion": res.fecha_toma_muestra,
                     "fecha_registro": res.fecha,
@@ -990,7 +1006,8 @@ class Paciente(models.Model):
                 registros.write({
                     "paciente_id": obj.id,
                     "estado_muestra": obj.estado_muestra,
-                    "reazones_muestra_invalidad": obj.reazones_muestra_invalidad or "",
+                    "reazones_muestra_invalidad":
+                        obj.reazones_muestra_invalidad or "",
                     "otros": obj.otros or "",
                     "fecha_recepcion": obj.fecha_toma_muestra,
                     "fecha_registro": obj.fecha,
@@ -1015,7 +1032,7 @@ class MinsaRecords(models.Model):
                 numero_inicio = ni
             except ValueError:
                 return {"value": {}, "warning": {"title": "Cuidado!!!",
-                                                 "message": "El número de inicio debe ser entero. Ejemplo: 1, 100, 203, etc."}}
+                                                 "message": "El número de inicio debe ser entero. Ejemplo: 1, 100, 203, etc."}}   # noqa
 
     def numero_fin_changed(self, numero_fin):
         if numero_fin:
@@ -1024,23 +1041,24 @@ class MinsaRecords(models.Model):
                 numero_fin = nf
             except ValueError:
                 return {"value": {}, "warning": {"title": "Cuidado!!!",
-                                                 "message": "El número de fin debe ser entero. Ejemplo: 1, 2, 3, 100, 203, etc."}}
+                                                 "message": "El número de fin debe ser entero. Ejemplo: 1, 2, 3, 100, 203, etc."}}  # noqa
 
-    def codigo_servicio_obstetra_changed(self, codigo_servicio_obstetra_changed):
+    def codigo_servicio_obstetra_changed(self,
+                                         codigo_servicio_obstetra_changed):
         if codigo_servicio_obstetra_changed:
             try:
                 cs = int(codigo_servicio_obstetra_changed)
                 codigo_servicio_obstetra_changed = cs
             except ValueError:
                 return {"value": {}, "warning": {"title": "Cuidado!!!",
-                                                 "message": "El código de servicio debe ser entero. Ejemplo: 1, 5, 15, 100, 203, etc."}}
+                                                 "message": "El código de servicio debe ser entero. Ejemplo: 1, 5, 15, 100, 203, etc."}}  # noqa
 
     @api.constrains("numero_inicio", "numero_fin", "codigo_servicio_obstetra")
     def _check_numero_inicio_fin_servicio(self):
         try:
             if self.promotora:
                 if int(self.numero_inicio) and int(self.numero_fin):
-                    obj_vats = self.search([("numero_inicio", "=", self.numero_inicio), ("numero_fin", "=", self.numero_fin)])
+                    obj_vats = self.search([("numero_inicio", "=", self.numero_inicio), ("numero_fin", "=", self.numero_fin)])  # noqa
                     if len(obj_vats) > 1:
                         raise ValidationError("El rango ingresado ya existe!")
             else:
@@ -1048,7 +1066,8 @@ class MinsaRecords(models.Model):
 
         except ValueError:
             if self.promotora:
-                raise ValidationError("Número inicio y número fin, deben ser enteros.")
+                raise ValidationError("Número inicio y número fin, deben ser "
+                                      "enteros.")
             else:
                 raise ValidationError("El código de servicio debe ser entero.")
 
@@ -1133,7 +1152,6 @@ class MinsaRecords(models.Model):
         comodel_name="hr.employee",
         string=u"Obstetra",
         default=lambda self: self._default_empleado(),
-        # readonly=True
         required=True
     )
     usuario_id = fields.Many2one(
@@ -1225,7 +1243,8 @@ class MinsaRecords(models.Model):
 
         if int(self.numero_inicio) < int(self.numero_fin):
             if self.promotora:
-                for i in range(int(self.numero_inicio), int(self.numero_fin) + 1):
+                for i in range(int(self.numero_inicio), int(self.numero_fin)
+                                                        + 1):  # noqa
                     codigo = u"{}{}".format(prefijo, str(i).zfill(5))
                     values = {
                         "fecha_entrega": self.fecha_entrega,
@@ -1237,7 +1256,8 @@ class MinsaRecords(models.Model):
                     self.env["minsa.records.line"].create(values)
                 self.write({"state": "entregado"})
             elif self.eess_a:
-                for i in range(int(self.numero_inicio), int(self.numero_fin) + 1):
+                for i in range(int(self.numero_inicio), int(self.numero_fin)
+                                                        + 1):  # noqa
                     codigo = u"{}{}".format(prefijo, str(i).zfill(5))
                     record_line = {
                         "fecha_entrega": self.fecha_entrega,
@@ -1261,7 +1281,8 @@ class MinsaRecords(models.Model):
             self.write({"state": "entregado"})
         else:
             raise ValidationError(
-                u"La número de Inicio debe ser mayor al número de fin y el Producto debe ser Ingresado")
+                u"La número de Inicio debe ser mayor al número de fin y el "
+                u"Producto debe ser Ingresado")
 
     @api.model
     def create(self, vals):
@@ -1275,7 +1296,9 @@ class MinsaRecords(models.Model):
             raise ValidationError(u"Debe ingresar un rango")
         if res.codigo_servicio_obstetra and res.servicio:
             vals = {
-                "codigo": u"{}{}".format(prefijo, str(res.codigo_servicio_obstetra).zfill(5)),
+                "codigo": u"{}{}".format(prefijo,
+                                         str(
+                                             res.codigo_servicio_obstetra).zfill(5)),  # noqa
                 "fecha_entrega": res.fecha_entrega,
                 "record_id": res.id
             }
@@ -1289,7 +1312,8 @@ class MinsaRecords(models.Model):
 
             if int(res.numero_inicio) < int(res.numero_fin):
                 if res.promotora:
-                    for i in range(int(res.numero_inicio), int(res.numero_fin) + 1):
+                    for i in range(int(res.numero_inicio),
+                                   int(res.numero_fin) + 1):
                         codigo = u"{}{}".format(prefijo, str(i).zfill(5))
                         record_line = {
                             "fecha_entrega": res.fecha_entrega,
@@ -1301,7 +1325,8 @@ class MinsaRecords(models.Model):
                         self.env["minsa.records.line"].create(record_line)
                     res.write({"state": "entregado"})
                 elif res.eess_a:
-                    for i in range(int(res.numero_inicio), int(res.numero_fin) + 1):
+                    for i in range(int(res.numero_inicio),
+                                   int(res.numero_fin) + 1):
                         y = i
                         if len(str(y)) == 1:
                             company = self.env.user.company_id.prefijo
@@ -1331,19 +1356,24 @@ class MinsaRecords(models.Model):
                 elif res.servicio:
                     if len(str(self.numero_inicio)) == 1:
                         company = self.env.user.company_id.prefijo
-                        codigo = u"{}{}{}".format(company, "0000", res.numero_inicio)
+                        codigo = u"{}{}{}".format(company, "0000",
+                                                  res.numero_inicio)
                     elif len(str(self.numero_inicio)) == 2:
                         company = self.env.user.company_id.prefijo
-                        codigo = u"{}{}{}".format(company, "000", res.numero_inicio)
+                        codigo = u"{}{}{}".format(company, "000",
+                                                  res.numero_inicio)
                     elif len(str(self.numero_inicio)) == 3:
                         company = self.env.user.company_id.prefijo
-                        codigo = u"{}{}{}".format(company, "00", res.numero_inicio)
+                        codigo = u"{}{}{}".format(company, "00",
+                                                  res.numero_inicio)
                     elif len(str(self.numero_inicio)) == 4:
                         company = self.env.user.company_id.prefijo
-                        codigo = u"{}{}{}".format(company, "0", res.numero_inicio)
+                        codigo = u"{}{}{}".format(company, "0",
+                                                  res.numero_inicio)
                     elif len(str(self.numero_inicio)) == 5:
                         company = self.env.user.company_id.prefijo
-                        codigo = u"{}{}{}".format(company, res.numero_inicio, "")
+                        codigo = u"{}{}{}".format(company, res.numero_inicio,
+                                                  "")
                     record_line = {
                         "fecha_entrega": res.fecha_entrega,
                         "codigo": codigo,
@@ -1354,7 +1384,8 @@ class MinsaRecords(models.Model):
                 res.write({"state": "entregado"})
             else:
                 raise ValidationError(
-                    u"La número de Inicio debe ser mayor al número de fin y el Producto debe ser Ingresado")
+                    u"El número de Inicio debe ser mayor al número de fin y "
+                    u"el Producto debe ser Ingresado")
         return res
 
     @api.multi
@@ -1522,34 +1553,46 @@ class MinsaRecordsLine(models.Model):
                 ap1 = words[0]
                 ap2 = words[-1]
                 lista = {
-                    "paciente": {"tipo_documento": "01" if obj.sobre_id.tipo_documento == "dni" else "02",
+                    "paciente": {"tipo_documento": "01" if
+                    obj.sobre_id.tipo_documento == "dni" else "02",
                                  "nro_documento": obj.sobre_id.dni,
-                                 "renipress": obj.obstetra_id.company_id.codigo_renipes,
+                                 "renipress":
+                                     obj.obstetra_id.company_id.codigo_renipes,
                                  "apellido_paterno": ap1,
                                  "apellido_materno": ap2,
                                  "nombres": obj.sobre_id.nombres,
                                  "sexo": "F",
-                                 "pais": "Peru" if obj.sobre_id.tipo_documento == "dni" else "Otro",
-                                 "fecha_nacimiento": obj.sobre_id.fecha_nacimiento,
+                                 "pais": "Peru" if
+                                 obj.sobre_id.tipo_documento == "dni" else "Otro",  # noqa
+                                 "fecha_nacimiento":
+                                     obj.sobre_id.fecha_nacimiento,
                                  "edad": obj.sobre_id.edad,
                                  },
-                    "registrador": {"nro_documento": obj.obstetra_id.user_id.login,
-                                    "tipo_documento": "01" if obj.obstetra_id.user_id.tipo_documento == "dni" else "02",
+                    "registrador": {"nro_documento":
+                                        obj.obstetra_id.user_id.login,
+                                    "tipo_documento": "01" if
+                                    obj.obstetra_id.user_id.tipo_documento == "dni" else "02",  # noqa
                                     },
-                    "prestador": {"nro_documento": obj.sobre_id.usuario_id.login,
-                                  "tipo_documento": "01" if obj.sobre_id.usuario_id.tipo_documento == "dni" else "02",
-                                  "renipress": obj.obstetra_id.company_id.codigo_renipes,
+                    "prestador": {"nro_documento":
+                                      obj.sobre_id.usuario_id.login,
+                                  "tipo_documento": "01" if
+                                  obj.sobre_id.usuario_id.tipo_documento ==
+                                  "dni" else "02",
+                                  "renipress":
+                                      obj.obstetra_id.company_id.codigo_renipes,  # noqa
                                   },
                     "atencion": {"fecha": obj.sobre_id.fecha_toma_muestra},
                     "registro_id": obj.id,
                 }
                 atenciones += [lista]
         parametro_host = "his_migrate_host"
-        migrator_host_parametro = self.env["ir.config_parameter"].get_param(parametro_host) or None
+        migrator_host_parametro = self.env["ir.config_parameter"].get_param(
+            parametro_host) or None
         if migrator_host_parametro is None:
             raise ValidationError("No Existe el Parametro en el Sistema")
         if migrator_host_parametro == "his_migrate_host":
-            raise ValidationError("Falta configurar el parametro para la migraccion al HisMinsa")
+            raise ValidationError("Falta configurar el parametro para la "
+                                  "migraccion al HisMinsa")
         settings = {
             "HISMIGRATOR_HOST": migrator_host_parametro
         }
@@ -1562,19 +1605,25 @@ class MinsaRecordsLine(models.Model):
         for registro in atenciones:
             if registro["paciente"].get("tipo_documento") == "01":
                 paciente = self.env["consultadatos.mpi"].ver(
-                    registro["paciente"].get("nro_documento"), registro["paciente"].get("tipo_documento"))
+                    registro["paciente"].get("nro_documento"), registro[
+                        "paciente"].get("tipo_documento"))
                 paciente = {
                     "idtipodoc": registro["paciente"].get("tipo_documento"),
                     "nrodocumento": registro["paciente"].get("nro_documento"),
-                    "apepaterno": u"{}".format(paciente.get("apellido_paterno", "")),
-                    "apematerno": u"{}".format(paciente.get("apellido_materno", "")),
+                    "apepaterno": u"{}".format(paciente.get(
+                        "apellido_paterno", "")),
+                    "apematerno": u"{}".format(paciente.get(
+                        "apellido_materno", "")),
                     "nombres": u"{}".format(paciente.get("nombres", "")),
                     "fechanacimiento": "{:%Y%m%d}".format(
-                        datetime.strptime(paciente.get("fecha_nacimiento"), "%Y-%m-%d")),
+                        datetime.strptime(paciente.get("fecha_nacimiento"),
+                                          "%Y-%m-%d")),
                     "idsexo": "M" if paciente.get("sexo") == "1" else "F",
-                    "idestablecimiento": registro["prestador"].get("renipress"),
+                    "idestablecimiento": registro["prestador"].get(
+                        "renipress"),
                     "idetnia": paciente.get("etnia", "80"),
-                    "nrohistoriaclinica": registro["paciente"].get("nro_documento"),
+                    "nrohistoriaclinica": registro["paciente"].get(
+                        "nro_documento"),
                     "idpais": registro["paciente"].get("pais"),
                     "idflag": "7"
                 }
@@ -1583,17 +1632,24 @@ class MinsaRecordsLine(models.Model):
 
                 paciente = {
                     "idtipodoc": registro["paciente"].get("tipo_documento"),
-                    "nrodocumento": "SD-0000000" if registro["paciente"].get("tipo_documento") == "5" else registro[
+                    "nrodocumento": "SD-0000000" if registro["paciente"].get(
+                        "tipo_documento") == "5" else registro[
                         "paciente"].get("nro_documento"),
-                    "apepaterno": u"{}".format(registro["paciente"].get("apellido_paterno")),
-                    "apematerno": u"{}".format(registro["paciente"].get("apellido_marteno")),
-                    "nombres": u"{}".format(registro["paciente"].get("nombres")),
+                    "apepaterno": u"{}".format(registro["paciente"].get(
+                        "apellido_paterno")),
+                    "apematerno": u"{}".format(registro["paciente"].get(
+                        "apellido_marteno")),
+                    "nombres": u"{}".format(registro["paciente"].get(
+                        "nombres")),
                     "fechanacimiento": "{:%Y%m%d}".format(
-                        datetime.strptime(registro["paciente"].get("fecha_nacimiento"), "%Y-%m-%d")),
+                        datetime.strptime(registro["paciente"].get(
+                            "fecha_nacimiento"), "%Y-%m-%d")),
                     "idsexo": registro["paciente"].get("sexo"),
-                    "idestablecimiento": registro["prestador"].get("renipress"),
+                    "idestablecimiento": registro["prestador"].get(
+                        "renipress"),
                     "idetnia": registro["paciente"].get("etnia", "80"),
-                    "nrohistoriaclinica": "SD-0000000" if registro["paciente"].get("tipo_documento") == "5" else
+                    "nrohistoriaclinica": "SD-0000000" if registro[
+                                                              "paciente"].get("tipo_documento") == "5" else  # noqa
                     registro["paciente"].get("nro_documento"),
                     "idpais": registro["paciente"].get("pais"),
                     "idflag": "7"
@@ -1603,17 +1659,21 @@ class MinsaRecordsLine(models.Model):
             nro_documento = registro["registrador"].get("nro_documento")
             if nro_documento not in registradores:
                 registrador = self.env["consultadatos.mpi"].ver(
-                    nro_documento, registro["registrador"].get("tipo_documento"))
+                    nro_documento, registro["registrador"].get(
+                        "tipo_documento"))
                 registradores[nro_documento] = registrador
             registrador = registradores.get(nro_documento)
             personal_registra = {
                 "idtipodoc": "1",
                 "nrodocumento": registro["registrador"].get("nro_documento"),
-                "apepaterno": u"{}".format(registrador.get("apellido_paterno", "")),
-                "apematerno": u"{}".format(registrador.get("apellido_materno", "")),
+                "apepaterno": u"{}".format(registrador.get(
+                    "apellido_paterno", "")),
+                "apematerno": u"{}".format(registrador.get(
+                    "apellido_materno", "")),
                 "nombres": u"{}".format(registrador.get("nombres", "")),
                 "fechanacimiento": "{:%Y%m%d}".format(
-                    datetime.strptime(registrador.get("fecha_nacimiento"), "%Y-%m-%d")),
+                    datetime.strptime(registrador.get("fecha_nacimiento"),
+                                      "%Y-%m-%d")),
                 "idsexo": "M" if registrador.get("sexo") == "1" else "F",
                 "idpais": "PER",
                 "idprofesion": "42",
@@ -1630,11 +1690,14 @@ class MinsaRecordsLine(models.Model):
             personal_atiende = {
                 "idtipodoc": "1",
                 "nrodocumento": registro["prestador"].get("nro_documento"),
-                "apepaterno": u"{}".format(prestador.get("apellido_paterno", "")),
-                "apematerno": u"{}".format(prestador.get("apellido_materno", "")),
+                "apepaterno": u"{}".format(prestador.get("apellido_paterno",
+                                                         "")),
+                "apematerno": u"{}".format(prestador.get("apellido_materno",
+                                                         "")),
                 "nombres": u"{}".format(prestador.get("nombres", "")),
                 "fechanacimiento": "{:%Y%m%d}".format(
-                    datetime.strptime(prestador.get("fecha_nacimiento"), "%Y-%m-%d")),
+                    datetime.strptime(prestador.get("fecha_nacimiento"),
+                                      "%Y-%m-%d")),
                 "idsexo": "M" if prestador.get("sexo") == "1" else "F",
                 "idpais": "PER",
                 "idprofesion": "42",
@@ -1643,7 +1706,8 @@ class MinsaRecordsLine(models.Model):
 
             proxy = self.env["consultadatos.mpi"]
             ciudadano = proxy.ver(registro["paciente"].get("nro_documento"),
-                                  "01" if registro["paciente"].get("tipo_documento") == "1" else registro[
+                                  "01" if registro["paciente"].get(
+                                      "tipo_documento") == "1" else registro[
                                       "paciente"].get("tipo_documento"))
             idfinanciador = "10"
             componente = "1"
@@ -1676,7 +1740,8 @@ class MinsaRecordsLine(models.Model):
                 "items": items,
                 "idtipedadregistro": "A",
                 "fechaatencion": "{:%Y%m%d}".format(
-                    datetime.strptime(registro["atencion"].get("fecha"), "%Y-%m-%d")),
+                    datetime.strptime(registro["atencion"].get("fecha"),
+                                      "%Y-%m-%d")),
                 "idups": "303203",
                 "estadoregistro": "A",
                 "fgdiag": 7,
@@ -1696,14 +1761,15 @@ class MinsaRecordsLine(models.Model):
             try:
                 headers = {"content-type": "application/json"}
                 response = requests.post(
-                    "{}/wsrest-his/hisminsa/paquete/actualizar/".format(settings.get("HISMIGRATOR_HOST")),
+                    "{}/wsrest-his/hisminsa/paquete/actualizar/".format(
+                        settings.get("HISMIGRATOR_HOST")),
                     data=json.dumps(trama), headers=headers)
                 if response and response.status_code == 200:
                     try:
                         res = response.json()
                         if res.get("estado", "") == "ERROR":
                             logger.error(
-                                "Se producio un error(1) {} en el envio de la trama de servicio al HIS-MINSA".format(
+                                "Se producio un error(1) {} en el envio de la trama de servicio al HIS-MINSA".format(  # noqa
                                     res.get("descripcion", "")))
                         else:
                             logger.info("Se envio la atencion al HIS-MINSA")
@@ -1711,20 +1777,24 @@ class MinsaRecordsLine(models.Model):
                     except:
                         result = response.__dict__
                         logger.error(
-                            u"Se producio un error(2) {} en el envio de la trama de servicio al HIS-MINSA".format(
+                            u"Se producio un error(2) {} en el envio de la "
+                            u"trama de servicio al HIS-MINSA".format(
                                 result[u"_content"]))
                 else:
-                    logger.error(u"El servidor no proceso correctamente el paquete de servicio al HIS-MINSA")
+                    logger.error(u"El servidor no proceso correctamente el "
+                                 u"paquete de servicio al HIS-MINSA")
 
             except Exception as ex:
                 logger.error(
-                    u"Se producio un error(3) {} en el envio de la trama de servicio al HIS-MINSA".format(str(ex)))
+                    u"Se producio un error(3) {} en el envio de la trama de "
+                    u"servicio al HIS-MINSA".format(str(ex)))
 
     @api.one
     @api.depends("sobre_id")
     def _compute_nombres_apellidos(self):
         if self.sobre_id:
-            self.nombre_apellido = u"{} {}".format(self.sobre_id.nombres, self.sobre_id.apellidos)
+            self.nombre_apellido = u"{} {}".format(self.sobre_id.nombres,
+                                                   self.sobre_id.apellidos)
         else:
             self.nombre_apellido = ""
 
@@ -1957,7 +2027,8 @@ class Procedimientos(models.Model):
             ("gestacion", "Gestación"),
             ("sospecha", "Sospecha de microinvasión o cáncer"),
             ("lesion", "Lesión blanda en canal endocervical"),
-            ("lesion1", "Lesión que ocupa más del 70% y se extiende a pared vaginal"),
+            ("lesion1", "Lesión que ocupa más del 70% y se extiende a pared "
+                        "vaginal"),
             ("alteracion", "Alteraciones anatómicas de cuello"),
         ]
     )
@@ -2149,7 +2220,8 @@ class Procedimientos(models.Model):
         if self.vph_id:
             self.paciente_vph = True
             self.pap_id = ""
-            self.nombre_apellido = u"{} {}".format(self.vph_id.nombres, self.vph_id.apellidos)
+            self.nombre_apellido = u"{} {}".format(self.vph_id.nombres,
+                                                   self.vph_id.apellidos)
         else:
             self.paciente_vph = False
             self.nombre_apellido = ""
@@ -2158,7 +2230,8 @@ class Procedimientos(models.Model):
     def create(self, vals):
         res = super(Procedimientos, self).create(vals)
         if res.vph_id:
-            res.nombre_apellido = u"{} {}".format(res.vph_id.nombres, res.vph_id.apellidos)
+            res.nombre_apellido = u"{} {}".format(res.vph_id.nombres,
+                                                  res.vph_id.apellidos)
         else:
             res.nombre_apellido = ""
         return res
@@ -2208,7 +2281,7 @@ class Reportes(models.Model):
         if numero_muestras == 90 or numero_muestras == 0:
             return {}
         else:
-            return {"value": {}, "warning": {"title": "Cuidado!!!", "message": "Recuerda que el número de muestras debe ser 90. Asegúrese de que el número de muestras ingresado es el correcto."}}
+            return {"value": {}, "warning": {"title": "Cuidado!!!", "message": "Recuerda que el número de muestras debe ser 90. Asegúrese de que el número de muestras ingresado es el correcto."}}  # noqa
 
     @api.constrains("numero_muestras")
     def _check_numero_muestras(self):
@@ -2275,7 +2348,8 @@ class Reportes(models.Model):
             letra = numero = ""
             letras = ("A", "B", "C", "D", "E", "F", "G", "H")
             numeros = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
-            domain = [("estado_muestra", "=", "yes"), ("reazones_muestra_invalidad", "=", False),
+            domain = [("estado_muestra", "=", "yes"),
+                      ("reazones_muestra_invalidad", "=", False),
                       ("matriz", "=", False)]
             c = 0
             lista = []
@@ -2309,7 +2383,9 @@ class Reportes(models.Model):
                     indicen = 0
                     c = c + 1
 
-            data2 = self.env["registro.sobre"].search(domain, order="secuencia", limit=self.numero_muestras)
+            data2 = self.env["registro.sobre"].search(domain,
+                                                      order="secuencia",
+                                                      limit=self.numero_muestras)  # noqa
             data2.write({
                 "matriz": True,
                 "procesamiento_id": self.id,
@@ -2327,23 +2403,27 @@ class Reportes(models.Model):
                     xx = xx + 1
                 cc = cc + 1
                 if len(data2) < self.numero_muestras:
-                    raise ValidationError(u"No tiene suficientes muestras disponibles para continuar.")
+                    raise ValidationError(u"No tiene suficientes muestras "
+                                          u"disponibles para continuar.")
                 else:
                     self.env["reportes.line"].create(rr)
 
             self.write({"state": "procesado"})
         else:
             raise ValidationError(
-                u"El número de Inicio debe ser mayor al número de fin y el Producto debe ser Ingresado")
+                u"El número de Inicio debe ser mayor al número de fin y el "
+                u"Producto debe ser Ingresado")
 
     @api.multi
     def click_procesados(self):
         domain = [("state", "=", "laboratorio"),
                   ("regitro", "=", True), ("sync", "=", False)]
-        data2 = self.env["minsa.records.line"].search(domain, order="fecha_registro")
+        data2 = self.env["minsa.records.line"].search(domain,
+                                                      order="fecha_registro")
         for record in self:
             for line in record.registros_lines_ids:
-                if line.record_lista_id.mobile and not line.positivo and not line.record_lista_id.enviado:
+                if line.record_lista_id.mobile and not line.positivo and not \
+                        line.record_lista_id.enviado:
                     celular = str(line.record_lista_id.mobile)
                     record.mensaje("51" + celular)
                     line.record_lista_id.enviado = True
@@ -2367,19 +2447,22 @@ class Reportes(models.Model):
     def mensaje(self, celular):
         parametro_url = "sms_host"
         parametro_token = "sms_token"
-        msg_url_parametro = self.env["ir.config_parameter"].get_param(parametro_url) or None
-        msg_token_parametro = self.env["ir.config_parameter"].get_param(parametro_token) or None
+        msg_url_parametro = self.env["ir.config_parameter"].get_param(
+            parametro_url) or None
+        msg_token_parametro = self.env["ir.config_parameter"].get_param(
+            parametro_token) or None
         if msg_token_parametro is None:
             raise ValidationError("No existe el parametro en el sistema")
         if msg_url_parametro == "host":
-            raise ValidationError("Falta configurar el parametro para el envio de mensajes")
+            raise ValidationError("Falta configurar el parametro para el "
+                                  "envio de mensajes")
         msg_url = msg_url_parametro
         msg_token = msg_token_parametro
-        msg_texto = " Su resultado de la prueba para el Virus Papiloma Humano es NEGATIVO " \
-                    "Continue cuidando su salud. " \
-                    "Atte " \
-                    "Laboratorio Referencial Regional Tumbes"
-        requests.post(msg_url, {"recipient": celular, "sender": "EXTRANET", "body": msg_texto},
+        msg_texto = """Su resultado de la prueba para el Virus Papiloma Humano
+                    es NEGATIVO. Continue cuidando su salud.
+                    Atte, Laboratorio Referencial Regional Tumbes"""
+        requests.post(msg_url, {"recipient": celular, "sender": "EXTRANET",
+                                "body": msg_texto},
                       headers={"X-Api-Token": msg_token})
 
     @api.multi
@@ -2509,9 +2592,13 @@ class Verificacion(models.Model):
             # Consulta de Datos Reniec
         try:
             data = self.env["consultadatos.reniec"].consultardni(self.dni)
-            data1 = self.env["registro.sobre"].search([("dni", "=", self.dni)], limit=1)
+            data1 = self.env["registro.sobre"].search([("dni", "=",
+                                                        self.dni)], limit=1)
             if data1:
-                data2 = self.env["minsa.records.line"].search([("sobre_id", "=", data1.id)], limit=1)
+                data2 = self.env["minsa.records.line"].search([("sobre_id",
+                                                                "=",
+                                                                data1.id)],
+                                                              limit=1)
             fecha = data["nacimiento"]["fecha"]
             if fecha:
                 util = Utils()
@@ -2553,8 +2640,10 @@ class Verificacion(models.Model):
 
     @api.one
     def click_buscar(self):
-        data = self.env["registro.sobre"].search([("dni", "=", self.dni)], limit=1)
-        data1 = self.env["minsa.records.line"].search([("sobre_id", "=", data.id)], limit=1)
+        data = self.env["registro.sobre"].search([("dni", "=", self.dni)],
+                                                 limit=1)
+        data1 = self.env["minsa.records.line"].search([("sobre_id", "=",
+                                                        data.id)], limit=1)
         self.establecimiento = True
         if data and data1:
             for resultado in data1:

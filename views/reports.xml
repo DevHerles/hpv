@@ -33,13 +33,67 @@
                 <field name="microred"/>
                 <field name="establecimiento"/>
                 <field name="paciente"/>
-                <filter string="Positivos" name="positivos" domain="[('resultado','=','positivo')]"/>
-                <filter string="Negativos" name="negativos" domain="[('resultado','=','negativo')]"/>
+                <filter string="VPH Positivos" name="positivos" domain="[('resultado','=','POSITIVO')]"/>
+                <filter string="VPH Negativos" name="negativos" domain="[('resultado','=','NEGATIVO')]"/>
                 <group expand="0" string="Agrupar por">
                     <filter name="Procedencia" context="{'group_by':'procedencia'}"/>
                     <filter name="Nacionalidad" context="{'group_by':'nacionalidad'}"/>
                     <filter name="Establecimiento" context="{'group_by':'establecimiento'}"/>
                     <filter name="Microred" context="{'group_by':'microred'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--VPH Inválidos-->
+    <record id="view_report_vphinvalidos_pivot" model="ir.ui.view">
+        <field name="name">Report.vphinvalidos.pivot</field>
+        <field name="model">report.vphinvalidos</field>
+        <field name="arch" type="xml">
+            <pivot string="Reportes VPH Inválidos" disable_linking="True">
+                <field name="microred" type="row"/>
+                <field name="establecimiento" type="row"/>
+                <field name="fecha_resultado" type="col" context="{'pivot_column_groupby': ['fecha_resultado:year','microred']}"/>
+                <field name="razon" string="Razón" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_report_vphinvalidos_graph" model="ir.ui.view">
+        <field name="name">Report.vphinvalidos.graph</field>
+        <field name="model">report.vphinvalidos</field>
+        <field name="arch" type="xml">
+            <graph string="Reportes VPH Inválidos" type="line">
+                <field name="microred" type="row"/>
+                <field name="razon" string="Razón" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_report_vphinvalidos" model="ir.ui.view">
+        <field name="name">view.report.vphinvalidos.filter</field>
+        <field name="model">report.vphinvalidos</field>
+        <field name="arch" type="xml">
+            <search string="Reportes VPH Inválidos">
+                <field name="microred"/>
+                <field name="establecimiento"/>
+                <field name="paciente"/>
+                <filter string="Edad fuera de rango" name="edadfuera" domain="[('razon','=','EDADFUERA')]"/>
+                <filter string="DNI sin datos" name="dnisindato" domain="[('razon','=','DNISINDATO')]"/>
+                <filter string="DNI equivocado" name="dniequivovado" domain="[('razon','=','DNIEQUIVOCADO')]"/>
+                <filter string="Código diferente Sobre/Tubo" name="codigo" domain="[('razon','=','CODIGO')]"/>
+                <filter string="Muestra con moco" name="muestra" domain="[('razon','=','MUESTRA')]"/>
+                <filter string="Tubo sin líquido" name="tubo" domain="[('razon','=','TUBO')]"/>
+                <filter string="Tubo sin cepillo" name="tubo1" domain="[('razon','=','TUBO1')]"/>
+                <filter string="Sobre sin tubo" name="sobre" domain="[('razon','=','SOBRE')]"/>
+                <filter string="Sobre sin datos" name="sobre1" domain="[('razon','=','SOBRE1')]"/>
+                <filter string="Los datos de RENIEC no coiciden con el sobre" name="reniec" domain="[('razon','=','RENIEC')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="Procedencia" context="{'group_by':'procedencia'}"/>
+                    <filter name="Nacionalidad" context="{'group_by':'nacionalidad'}"/>
+                    <filter name="Establecimiento" context="{'group_by':'establecimiento'}"/>
+                    <filter name="Microred" context="{'group_by':'microred'}"/>
+                    <filter name="Razon" string="Razón" context="{'group_by':'razon'}"/>
                 </group>
             </search>
         </field>
@@ -78,8 +132,12 @@
                 <field name="microred"/>
                 <field name="establecimiento"/>
                 <field name="paciente"/>
-                <filter string="Positivos" name="positivos" domain="[('resultado','=','positivo')]"/>
-                <filter string="Negativos" name="negativos" domain="[('resultado','=','negativo')]"/>
+                <filter string="LEI bajo grado" name="lei" domain="[('resultado','=','LEI')]"/>
+                <filter string="LEI alto grado" name="lei1" domain="[('resultado','=','LEI1')]"/>
+                <filter string="Carcinoma insitu" name="carcinoma" domain="[('resultado','=','CARCINOMA')]"/>
+                <filter string="ASCUS" name="ascus" domain="[('resultado','=','ASCUS')]"/>
+                <filter string="ASGUS" name="asgus" domain="[('resultado','=','ASGUS')]"/>
+                <filter string="Insatisfactorio" name="insatisfactorio" domain="[('resultado','=','INSATISFACTORIO')]"/>
                 <group expand="0" string="Agrupar por">
                     <filter name="Procedencia" context="{'group_by':'procedencia'}"/>
                     <filter name="Nacionalidad" context="{'group_by':'nacionalidad'}"/>
@@ -97,6 +155,14 @@
         <field name="view_type">form</field>
         <field name="view_mode">pivot,graph</field>
         <field name="search_view_id" ref="view_report_vph"/>
+    </record>
+
+    <record id="action_report_vphinvalidos" model="ir.actions.act_window">
+        <field name="name">Reportes VPH Inválidos</field>
+        <field name="res_model">report.vphinvalidos</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="search_view_id" ref="view_report_vphinvalidos"/>
     </record>
 
     <record id="action_report_pap" model="ir.actions.act_window">

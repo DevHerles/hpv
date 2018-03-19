@@ -39,7 +39,8 @@ class PoiWizardExcelReport(models.TransientModel):
         ws.col(8).width = 10000
         style0 = easyxf("font: height 200, name Calibri, colour_index black")
         style1_1 = easyxf(
-            "font: height 200, name Calibri, colour_index white;pattern: pattern solid, fore_colour black; align: horiz center")
+            "font: height 200, name Calibri, colour_index white;pattern: "
+            "pattern solid, fore_colour black; align: horiz center")
 
         s2 = 3
         s3 = 4
@@ -117,7 +118,8 @@ class PoiWizardExcelReport(models.TransientModel):
             "txt_binary": base64.encodestring(file_data.getvalue())
         })
         if self.general:
-            form = self.env.ref("modulos_registros.view_pruebas_excel_report_wizard", False)
+            form = self.env.ref(
+                "modulos_registros.view_pruebas_excel_report_wizard", False)
             return {
                 "type": "ir.actions.act_window",
                 "name": "Pacientes Positivas",
@@ -130,7 +132,9 @@ class PoiWizardExcelReport(models.TransientModel):
                 "target": "new",
             }
         else:
-            form = self.env.ref("modulos_registros.view_pruebas_obtetras_excel_report_wizard", False)
+            form = self.env.ref(
+                "modulos_registros.view_pruebas_obtetras_excel_report_wizard"
+                "", False)
             return {
                 "type": "ir.actions.act_window",
                 "name": "Pacientes Positivas",

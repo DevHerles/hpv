@@ -2,7 +2,8 @@
 
 from odoo import http
 from odoo.http import request
-from odoo.addons.web.controllers.main import serialize_exception, content_disposition
+from odoo.addons.web.controllers.main import serialize_exception, \
+    content_disposition
 
 
 class ReportBinary(http.Controller):

@@ -1,3 +1,3 @@
-import registros
-import wizards
-import reports
+import registros  # noqa
+import wizards  # noqa
+import reports  # noqa
