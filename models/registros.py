@@ -189,11 +189,13 @@ class RegistroSobre(models.Model):
             util = Utils()
             edad = util.calcular_edad(self.fecha_nacimiento)
         self.edad = edad
+        self._onchange_edad_si()
 
     @api.one
     def fecha_nacimiento_changed(self, fecha_nacimiento):
         util = Utils()
         self.edad = util.calcular_edad(fecha_nacimiento)
+        self._onchange_edad_si()
 
     fecha_nacimiento = fields.Date(
         string="Fecha de nacimiento",
@@ -325,7 +327,7 @@ class RegistroSobre(models.Model):
                     edad = util.calcular_edad(self.fecha_toma_muestra)
                 else:
                     edad = self.edad
-                if edad < 50:
+                if edad == 49:
                     self.reazones_muestra_invalidad = False
                 else:
                     self.reazones_muestra_invalidad = 'edadfuera'
@@ -388,6 +390,16 @@ class RegistroSobre(models.Model):
                     self.direccion = data["domicilio"]["direccion_descripcion"]
                     self.fecha_nacimiento = data["nacimiento"]["fecha"]
                     self.image = data["fotografia"]
+                    if data["sexo"] == "male":
+                        self.dni = ""
+                        return {"value": {}, "warning": {"title": "Cuidado!!!",
+                                                         "message": "El "
+                                                                    "exámen "
+                                                                    "se "
+                                                                    "realiza solamente a personas del "  # noqa
+                                                                    "sexo "
+                                                                    "FENENINO."}}  # noqa
+                        # noqa
             except Exception as ex:
                 raise ValidationError("%s : %s" % (RENIEC_ERR, ex.message))
 
@@ -1981,7 +1993,7 @@ class Procedimientos(models.Model):
         ]
     )
     luegar_iva = fields.Char(
-        string="Lugar IVA"
+        string="Lugar IVAA"
     )
     razon_iva = fields.Char(
         string=u"Razón IVAA"
@@ -2000,7 +2012,7 @@ class Procedimientos(models.Model):
         string=u"Fecha de crioterapia"
     )
     razon_crio = fields.Char(
-        string=u"Razón de crioterapia"
+        string=u"Razón de no crioterapia"
     )
     fecha_de_contro = fields.Date(
         string=u"Fecha de control crioterapia"

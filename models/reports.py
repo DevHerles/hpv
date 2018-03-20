@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 
-from odoo import models, fields, api, tools
+from odoo import api, models, fields, tools
 
 
-class ReportVphValido(models.Model):
-    _name = "report.vph"
+class ReportVph(models.Model):
+    _name = "vph.reportvph"
     _auto = False
 
     resultado = fields.Char(readonly=True)
@@ -19,26 +19,29 @@ class ReportVphValido(models.Model):
     @api.model_cr
     def init(self):
         """ VPH Positives main report """
-        tools.drop_view_if_exists(self._cr, "report_vph")
-        self._cr.execute(""" CREATE VIEW report_vph AS (
-            SELECT T0.id,
-                T2.nombre AS microred,
-                T1.nom_eess as establecimiento,
-                CONCAT(T0.apellidos,' ', T0.nombres) AS paciente,
-                T0.edad, UPPER(T1.respuesta) AS resultado,
-                T1.fecha_registro AS fecha_resultado,
-                UPPER(T0.nacionalidad) AS nacionalidad,
-                UPPER(T0.procedencia) AS procedencia
-            FROM registro_sobre T0
-                INNER JOIN minsa_records_line T1 ON T0.codigo_sobre = T1.codigo
-                INNER JOIN minsa_micro_rede T2 ON T1.microred = T2.id
-            WHERE T0.estado_muestra_valido_invalido = 'valido' AND
-            T1.respuesta IN ('negativo','positivo')
+        tools.drop_view_if_exists(self._cr, "vph_reportvph")
+        self._cr.execute(""" CREATE VIEW vph_reportvph AS (
+            SELECT
+                sobre.id,
+                microred.nombre AS microred,
+                records_line.nom_eess as establecimiento,
+                CONCAT(sobre.apellidos,' ', sobre.nombres) AS paciente,
+                sobre.edad, UPPER(records_line.respuesta) AS resultado,
+                records_line.fecha_registro AS fecha_resultado,
+                UPPER(sobre.nacionalidad) AS nacionalidad,
+                UPPER(sobre.procedencia) AS procedencia
+            FROM registro_sobre sobre
+                INNER JOIN minsa_records_line records_line ON
+                sobre.codigo_sobre = records_line.codigo
+                INNER JOIN minsa_micro_rede microred ON
+                records_line.microred = microred.id
+            WHERE sobre.estado_muestra_valido_invalido = 'valido' AND
+            records_line.respuesta IN ('negativo','positivo')
         )""")
 
 
 class ReportVphInvalido(models.Model):
-    _name = "report.vphinvalidos"
+    _name = "vph.reportvphinvalido"
     _auto = False
 
     razon = fields.Char(readonly=True)
@@ -53,29 +56,32 @@ class ReportVphInvalido(models.Model):
     @api.model_cr
     def init(self):
         """ VPH Invalids main report """
-        tools.drop_view_if_exists(self._cr, "report_vphinvalidos")
-        self._cr.execute(""" CREATE VIEW report_vphinvalidos AS (
-            SELECT T0.id,
-                T2.nombre AS microred,
-                T1.nom_eess as establecimiento,
-                CONCAT(T0.apellidos,' ', T0.nombres) AS paciente,
-                T1.fecha_registro AS fecha_resultado,
-                UPPER(T0.nacionalidad) AS nacionalidad,
-                UPPER(T0.procedencia) AS procedencia,
-                UPPER(T0.reazones_muestra_invalidad) AS razon
-            FROM registro_sobre T0
-                INNER JOIN minsa_records_line T1 ON T0.codigo_sobre = T1.codigo
-                INNER JOIN minsa_micro_rede T2 ON T1.microred = T2.id
-            WHERE T0.estado_muestra_valido_invalido = 'invalido'
+        tools.drop_view_if_exists(self._cr, "vph_reportvphinvalido")
+        self._cr.execute(""" CREATE VIEW vph_reportvphinvalido AS (
+            SELECT
+                sobre.id,
+                microred.nombre AS microred,
+                records_line.nom_eess as establecimiento,
+                CONCAT(sobre.apellidos,' ', sobre.nombres) AS paciente,
+                records_line.fecha_registro AS fecha_resultado,
+                UPPER(sobre.nacionalidad) AS nacionalidad,
+                UPPER(sobre.procedencia) AS procedencia,
+                UPPER(sobre.reazones_muestra_invalidad) AS razon
+            FROM registro_sobre sobre
+                INNER JOIN minsa_records_line records_line ON
+                sobre.codigo_sobre = records_line.codigo
+                INNER JOIN minsa_micro_rede microred ON
+                records_line.microred = microred.id
+            WHERE sobre.estado_muestra_valido_invalido = 'invalido'
         )""")
 
 
 class ReportPap(models.Model):
-    _name = "report.pap"
+    _name = "vph.reportpap"
     _auto = False
 
     resultado = fields.Char(readonly=True)
-    fecha_resultado = fields.Date("Fecha de resultado")
+    fecha_resultado = fields.Date("Fecha de resultado", readonly=True)
     paciente = fields.Char(readonly=True)
     microred = fields.Many2one(
         comodel_name="minsa.micro.rede",
@@ -94,17 +100,49 @@ class ReportPap(models.Model):
     @api.model_cr
     def init(self):
         """ PAP Positives main report """
-        tools.drop_view_if_exists(self._cr, "report_pap")
-        self._cr.execute(""" CREATE VIEW report_pap AS (
-            SELECT T0.id,
-                T0.microred,
-                T0.eess AS establecimiento,
-                UPPER(CONCAT(T0.apellidos,' ',T0.nombres)) AS paciente,
-                T0.edad,
-                T0.fecha_resulado AS fecha_resultado,
-                UPPER(T0.resultado_pap) AS resultado,
-                UPPER(T0.nacionalidad) AS nacionalidad,
-                UPPER(T0.procedencia) AS procedencia
-            FROM paciente_pap T0
-            WHERE T0.resultado_pap <> 'negativo'
+        tools.drop_view_if_exists(self._cr, "vph_reportpap")
+        self._cr.execute(""" CREATE VIEW vph_reportpap AS (
+            SELECT
+                id,
+                microred,
+                eess AS establecimiento,
+                UPPER(CONCAT(apellidos,' ',nombres)) AS paciente,
+                edad,
+                fecha_resulado AS fecha_resultado,
+                UPPER(resultado_pap) AS resultado,
+                UPPER(nacionalidad) AS nacionalidad,
+                UPPER(procedencia) AS procedencia
+            FROM paciente_pap
+            WHERE resultado_pap <> 'negativo'
+        )""")
+
+
+class ReportAnonimo(models.Model):
+    _name = "vph.reportanonimo"
+    _auto = False
+
+    fecha_entrega = fields.Date("Fecha de entrega", readonly=True)
+    microred = fields.Many2one(
+        comodel_name="minsa.micro.rede",
+        string=u"MicroRed",
+        readonly=True,
+    )
+    establecimiento = fields.Char("Establecimiento", readonly=True)
+    codigo = fields.Char("Código de sobre", readonly=True)
+    estado = fields.Char("Estado", readonly=True)
+
+    @api.model_cr
+    def init(self):
+        """ VPH unset main report """
+        tools.drop_view_if_exists(self._cr, "vph_reportanonimo")
+        self._cr.execute(""" CREATE VIEW vph_reportanonimo AS (
+            SELECT
+                id,
+                microred,
+                nom_eess AS establecimiento,
+                fecha_entrega,
+                codigo,
+                UPPER(state) AS estado
+            FROM minsa_records_line
+            WHERE regitro = False
         )""")

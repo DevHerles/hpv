@@ -72,12 +72,10 @@
                     </header>
                     <sheet>
                         <group string="Datos del establecimiento de salud y profesional">
-                            <!--<group string="Datos del establecimiento de salud y profesional">-->
-                                <field name="fecha_entrega"/>
-                                <field name="eess"/>
-                                <field name="microred"/>
-                                <field name="obstetra_id"/>
-                            <!--</group>-->
+                            <field name="fecha_entrega"/>
+                            <field name="eess"/>
+                            <field name="microred"/>
+                            <field name="obstetra_id"/>
                         </group>
                         <group string="Datos generales">
                             <field name="usuario_id" invisible="True"/>
@@ -142,7 +140,6 @@
                     <field name="dni"/>
                     <field name="nombre_apellido" string="Paciente"/>
                     <field name="eess"/>
-                    <!--<field name="microred"/>-->
                     <field name="obstetra_id"/>
                     <field name="state"/>
                     <field name="respuesta"/>
@@ -254,6 +251,8 @@
                     <field name="pap_id" string="Paciente PAP"/>
                     <field name="eess"/>
                     <field name="resultado_iva"/>
+                    <field name="fecha_de_crio"/>
+                    <field name="fecha_coloscopia"/>
                 </tree>
             </field>
         </record>
@@ -319,7 +318,8 @@
                             <field name="iva"  widget="radio" class="oe_edit_only"/>
                             <field name="luegar_iva" attrs="{'invisible': [('iva', '=', 'no')]}"/>
                             <field name="medico0" domain="[('autorizados', '=', True)]"/>
-                            <field name="fecha_no_iva"/>
+                            <field name="fecha_no_iva" string="Fecha de IVAA"
+                                   attrs="{'invisible': [('iva', '=', 'no')]}"/>
                             <field name="resultado_iva" attrs="{'invisible': [('iva', '=', 'no')]}"/>
                             <field name="razon_iva" attrs="{'invisible': [('iva', '=', 'yes')]}"/>
                         </group>
@@ -328,7 +328,8 @@
                             <field name="luegar_crioterapia" attrs="{'invisible': [('crioterapia', '=', 'no')]}"/>
                             <field name="medico" domain="[('autorizados', '=', True)]"/>
                             <field name="fecha_de_crio"/>
-                            <field name="razon_crio"/>
+                            <field name="razon_crio"
+                                   attrs="{'invisible': [('crioterapia', '=', 'yes')]}"/>
                             <field name="fecha_de_contro" attrs="{'invisible': [('crioterapia', '=', 'no')]}"/>
                         </group>
                         <group>

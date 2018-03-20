@@ -3,7 +3,7 @@
     <!--VPH-->
     <record id="view_report_vph_pivot" model="ir.ui.view">
         <field name="name">Report.vph.pivot</field>
-        <field name="model">report.vph</field>
+        <field name="model">vph.reportvph</field>
         <field name="arch" type="xml">
             <pivot string="Reportes VPH" disable_linking="True">
                 <field name="microred" type="row"/>
@@ -16,7 +16,7 @@
 
     <record id="view_report_vph_graph" model="ir.ui.view">
         <field name="name">Report.vph.graph</field>
-        <field name="model">report.vph</field>
+        <field name="model">vph.reportvph</field>
         <field name="arch" type="xml">
             <graph string="Reportes VPH" type="line">
                 <field name="microred" type="row"/>
@@ -26,8 +26,8 @@
     </record>
 
     <record id="view_report_vph" model="ir.ui.view">
-        <field name="name">view.report.vph.filter</field>
-        <field name="model">report.vph</field>
+        <field name="name">view.vph.reportvph.filter</field>
+        <field name="model">vph.reportvph</field>
         <field name="arch" type="xml">
             <search string="Reportes VPH">
                 <field name="microred"/>
@@ -46,9 +46,9 @@
     </record>
 
     <!--VPH Inválidos-->
-    <record id="view_report_vphinvalidos_pivot" model="ir.ui.view">
-        <field name="name">Report.vphinvalidos.pivot</field>
-        <field name="model">report.vphinvalidos</field>
+    <record id="view_report_vphinvalido_pivot" model="ir.ui.view">
+        <field name="name">Report.vphinvalido.pivot</field>
+        <field name="model">vph.reportvphinvalido</field>
         <field name="arch" type="xml">
             <pivot string="Reportes VPH Inválidos" disable_linking="True">
                 <field name="microred" type="row"/>
@@ -59,9 +59,9 @@
         </field>
     </record>
 
-    <record id="view_report_vphinvalidos_graph" model="ir.ui.view">
-        <field name="name">Report.vphinvalidos.graph</field>
-        <field name="model">report.vphinvalidos</field>
+    <record id="view_report_vphinvalido_graph" model="ir.ui.view">
+        <field name="name">Report.vphinvalido.graph</field>
+        <field name="model">vph.reportvphinvalido</field>
         <field name="arch" type="xml">
             <graph string="Reportes VPH Inválidos" type="line">
                 <field name="microred" type="row"/>
@@ -70,9 +70,9 @@
         </field>
     </record>
 
-    <record id="view_report_vphinvalidos" model="ir.ui.view">
-        <field name="name">view.report.vphinvalidos.filter</field>
-        <field name="model">report.vphinvalidos</field>
+    <record id="view_report_vphinvalido" model="ir.ui.view">
+        <field name="name">view.vph.reportvphinvalido.filter</field>
+        <field name="model">vph.reportvphinvalido</field>
         <field name="arch" type="xml">
             <search string="Reportes VPH Inválidos">
                 <field name="microred"/>
@@ -102,7 +102,7 @@
     <!--PAP-->
     <record id="view_report_pap_pivot" model="ir.ui.view">
         <field name="name">Report.pap.pivot</field>
-        <field name="model">report.pap</field>
+        <field name="model">vph.reportpap</field>
         <field name="arch" type="xml">
             <pivot string="Reportes PAP" disable_linking="True">
                 <field name="microred" type="row"/>
@@ -115,7 +115,7 @@
 
     <record id="view_report_pap_graph" model="ir.ui.view">
         <field name="name">Report.pap.graph</field>
-        <field name="model">report.pap</field>
+        <field name="model">vph.reportpap</field>
         <field name="arch" type="xml">
             <graph string="Reportes PAP" type="line">
                 <field name="microred" type="row"/>
@@ -125,8 +125,8 @@
     </record>
 
     <record id="view_report_pap" model="ir.ui.view">
-        <field name="name">view.report.pap.filter</field>
-        <field name="model">report.pap</field>
+        <field name="name">view.vph.reportpap.filter</field>
+        <field name="model">vph.reportpap</field>
         <field name="arch" type="xml">
             <search string="Reportes PAP">
                 <field name="microred"/>
@@ -149,27 +149,95 @@
         </field>
     </record>
 
+    <!--ANONYMOUS-->
+    <record id="view_report_anonimo_pivot" model="ir.ui.view">
+        <field name="name">Report.anonimo.pivot</field>
+        <field name="model">vph.reportanonimo</field>
+        <field name="arch" type="xml">
+            <pivot string="Reportes de muestras no procesadas"
+                   disable_linking="True">
+                <field name="microred" type="row"/>
+                <field name="establecimiento" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_report_anonimo_tree" model="ir.ui.view">
+        <field name="name">Report.anonimo.pivot</field>
+        <field name="model">vph.reportanonimo</field>
+        <field name="arch" type="xml">
+            <tree string="Reportes de muestras no procesadas"
+                   disable_linking="True">
+                <field name="codigo" string="Código de sobre"/>
+                <field name="estado"/>
+                <field name="fecha_entrega"/>
+                <field name="microred"/>
+                <field name="establecimiento"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_report_anonimo_graph" model="ir.ui.view">
+        <field name="name">Report.anonimo.graph</field>
+        <field name="model">vph.reportanonimo</field>
+        <field name="arch" type="xml">
+            <graph string="Reportes de muestras no procesadas" type="line">
+                <field name="microred" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_report_anonimo" model="ir.ui.view">
+        <field name="name">view.vph.reportanonimo.filter</field>
+        <field name="model">vph.reportanonimo</field>
+        <field name="arch" type="xml">
+            <search string="Reportes de muestras no procesadas">
+                <field name="microred"/>
+                <field name="establecimiento"/>
+                <field name="estado"/>
+                <filter string="En servicio" name="enservicio"
+                        domain="[('estado','=','SERVICIO')]"/>
+                <filter string="En agente comunitario" name="enagente"
+                        domain="[('estado','=','PROMOTOR')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="Estado"
+                            context="{'group_by':'estado'}"/>
+                    <filter name="Establecimiento" context="{'group_by':'establecimiento'}"/>
+                    <filter name="Microred" context="{'group_by':'microred'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="action_report_vph" model="ir.actions.act_window">
         <field name="name">Reportes VPH</field>
-        <field name="res_model">report.vph</field>
+        <field name="res_model">vph.reportvph</field>
         <field name="view_type">form</field>
         <field name="view_mode">pivot,graph</field>
         <field name="search_view_id" ref="view_report_vph"/>
     </record>
 
-    <record id="action_report_vphinvalidos" model="ir.actions.act_window">
+    <record id="action_report_vphinvalido" model="ir.actions.act_window">
         <field name="name">Reportes VPH Inválidos</field>
-        <field name="res_model">report.vphinvalidos</field>
+        <field name="res_model">vph.reportvphinvalido</field>
         <field name="view_type">form</field>
         <field name="view_mode">pivot,graph</field>
-        <field name="search_view_id" ref="view_report_vphinvalidos"/>
+        <field name="search_view_id" ref="view_report_vphinvalido"/>
     </record>
 
     <record id="action_report_pap" model="ir.actions.act_window">
         <field name="name">Reportes PAP</field>
-        <field name="res_model">report.pap</field>
+        <field name="res_model">vph.reportpap</field>
         <field name="view_type">form</field>
         <field name="view_mode">pivot,graph</field>
         <field name="search_view_id" ref="view_report_pap"/>
+    </record>
+
+    <record id="action_report_anonimo" model="ir.actions.act_window">
+        <field name="name">Reportes de muestras no procesadas</field>
+        <field name="res_model">vph.reportanonimo</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field name="search_view_id" ref="view_report_anonimo"/>
     </record>
 </odoo>

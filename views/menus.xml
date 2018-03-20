@@ -131,10 +131,14 @@
                 <menuitem name="Reportes VPH Invalidos"
                           id="minsa_reportes_vphinvalidos"
                           parent="minsa_reportes_resultados"
-                          action="action_report_vphinvalidos"/>
+                          action="action_report_vphinvalido"/>
                 <menuitem name="Reportes PAP"
                           id="minsa_reportes_pap"
                           parent="minsa_reportes_resultados"
                           action="action_report_pap"/>
+                <menuitem name="Reportes de muestras no procesadas"
+                          id="minsa_reportes_anonimo"
+                          parent="minsa_reportes_resultados"
+                          action="action_report_anonimo"/>
 	</data>
 </openerp>

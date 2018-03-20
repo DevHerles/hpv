@@ -3,7 +3,7 @@
     <data>
         <report
             id="modulos_registros_report_vph"
-            string="*Imprimir resultados*"
+            string="Imprimir resultados"
             model="minsa.records.line"
             report_type="qweb-pdf"
             file="modulos_registros.report_vph"
