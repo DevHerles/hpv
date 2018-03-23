@@ -1,6 +1,3 @@
-//@import url("../fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css");
-@import url("../css/materia_icons.css");
-
 @gray-base:              #000;
 @gray-darker:            lighten(@gray-base, 13.5%); // #222
 @gray-dark:              lighten(@gray-base, 20%);   // #333
@@ -779,4 +776,16 @@ html .o_loading {
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
     padding: 0px 20px;
+}
+
+.o_pivot table .o_pivot_header_cell_closed::before {
+    font-family: FontAwesome;
+    content: "\f078";
+    margin-right: 8px;
+}
+
+.o_pivot table .o_pivot_header_cell_opened::before {
+    font-family: FontAwesome;
+    content: "\f077";
+    margin-right: 8px;
 }

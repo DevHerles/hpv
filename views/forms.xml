@@ -252,7 +252,8 @@
                     <field name="eess"/>
                     <field name="resultado_iva"/>
                     <field name="fecha_de_crio"/>
-                    <field name="fecha_coloscopia"/>
+                    <field name="fecha_coloscopia"
+                           string="Fecha de colposcopía"/>
                 </tree>
             </field>
         </record>

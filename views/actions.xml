@@ -17,7 +17,7 @@
         </record>
 
         <record id="minsa_records_action_order" model="ir.actions.server">
-            <field name="name">*CODIGOS FALTANTES*</field>
+            <field name="name">Códigos faltantes</field>
             <field name="model_id" ref="model_minsa_records"/>
             <field name="state">code</field>
             <field name="code">
@@ -28,7 +28,7 @@
 
         <record id="ir_minsa_records_action_order" model="ir.values">
             <field name="model_id" ref="model_minsa_records" />
-            <field name="name">CODIGOS FALTANTES</field>
+            <field name="name">Códigos faltantes</field>
             <field name="key2">client_action_multi</field>
             <field eval="'ir.actions.server,%d'%minsa_records_action_order" name="value"/>
             <field name="key">action</field>

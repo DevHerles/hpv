@@ -17,7 +17,9 @@
             <field name="arch" type="xml">
                 <search string="Sobres">
                      <field name="codigo_sobre" string="Código de sobre" filter_domain="[('codigo_sobre', 'ilike', self)]"/>
-                     <field name="dni" filter_domain="[('dni', 'ilike', self)]"/>
+                     <field name="dni"
+                            string="Número de documento"
+                    filter_domain="[('dni', 'ilike', self)]"/>
                      <field name="apellidos" filter_domain="[('apellidos', 'ilike', self)]"/>
                 </search>
             </field>
@@ -32,12 +34,10 @@
                     <field name="obstetra_id" string="Obstetra" filter_domain="[('obstetra_id', 'ilike', self)]"/>
                     <group expand="0" string="Agrupar por">
                         <filter name="Estado" context="{'group_by':'state'}"/>
-                        <filter name="MicroRed" context="{'group_by':'microred'}"/>
-                        <filter name="EESS" context="{'group_by':'eess'}"/>
+                        <filter name="Establecimientos"
+                                context="{'group_by':'eess'}"/>
                         <filter name="Nombre de ACS" context="{'group_by':'promotor_id'}"/>
                         <filter name="Por Servicio" context="{'group_by':'servicio'}"/>
-                        <filter name="Agente Comunitario" context="{'group_by':'promotora'}"/>
-                        <filter name="Establecimientos" context="{'group_by':'eess_a'}"/>
                     </group>
                 </search>
             </field>
@@ -55,9 +55,6 @@
                         <filter name="Resultado" context="{'group_by':'respuesta'}"/>
                         <filter name="Estado" context="{'group_by':'state'}"/>
                         <filter name="EESS" context="{'group_by':'eess'}"/>
-                        <filter name="MicroRed" context="{'group_by':'microred'}"/>
-                        <filter name="ACS" context="{'group_by':'promotor_id'}"/>
-                        <filter name="Paciente" context="{'group_by':'paciente_id'}"/>
                         <filter name="Fecha Recepcion" context="{'group_by':'fecha_recepcion'}"/>
                         <filter name="Fecha Entrega" context="{'group_by':'fecha_entrega'}"/>
                     </group>
@@ -72,10 +69,6 @@
                 <search string="Procedimientos">
                     <field name="vph_id" string="Código de sobre (Paciente VPH)"/>
                     <field name="pap_id" string="Paciente PAP"/>
-                    <group expand="0" string="Agrupar por">
-                        <filter name="Paciente" context="{'group_by':'dni_id'}"/>
-                        <filter name="MicroRed" context="{'group_by':'microred'}"/>
-                    </group>
                 </search>
             </field>
         </record>
@@ -88,9 +81,6 @@
                     <field name="dni" filter_domain="[('dni','ilike',self)]"/>
                     <field name="apellidos" filter_domain="[('apellidos','ilike',self)]"/>
                     <field name="obstetra_id" filter_domain="[('obstetra_id','ilike',self)]"/>
-                    <group expand="0" string="Agrupar por">
-                        <filter name="MicroRed" context="{'group_by':'microred'}"/>
-                    </group>
                 </search>
             </field>
         </record>

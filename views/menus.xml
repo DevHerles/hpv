@@ -10,7 +10,7 @@
                       parent="minsa_main_menu_cancer"
                       sequence="20"/>
 
-                <menuitem name="Distribución a Diresa"
+                <menuitem name="Distribución: Servicio / Acs"
                           id="minsa_entrega_registros_menu"
                           action="minsa_records_action"
                           parent="minsa_cancer_registros_main_menu"

@@ -2,7 +2,6 @@
 <odoo>
     <template id="report_vph_document">
         <t t-call="report.external_layout">
-            <t t-set="doc" t-value="doc" />
             <div class="page">
                 <div class="oe_structure">
                     <table class="table">
@@ -86,7 +85,6 @@
 
     <template id="report_placa_document">
         <t t-call="report.external_layout">
-            <t t-set="doc" t-value="doc.with_context({})" />
             <div class="page">
                 <div class="oe_structure">
                     <table class="table">
