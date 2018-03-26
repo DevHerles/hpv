@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 
-from odoo import models, fields
+from odoo import fields, models
 
 
 class ResUsers(models.Model):
-    _inherit = "res.users"
+    _inherit = 'res.users'
 
     tipo_documento = fields.Selection(
-        string="Tipo de documento",
-        selection=[
-            ("dni", "DNI"),
-            ("carnet", "Carnet de Extranjería"),
+        [
+            ('dni', 'DNI'),
+            ('carnet', 'Carnet de Extranjería'),
         ],
-        default="dni"
+        'Tipo de documento',
+        default='dni'
     )

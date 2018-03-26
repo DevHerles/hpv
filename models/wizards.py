@@ -1,7 +1,8 @@
 # coding: utf-8
 
 import base64
-from odoo import models, fields, api
+
+from odoo import api, fields, models
 from StringIO import StringIO
 from xlwt import easyxf, Workbook
 
@@ -10,14 +11,12 @@ class PoiWizardExcelReport(models.TransientModel):
     _name = 'poi.wizard.excel.report'
 
     txt_filename = fields.Char()
-    txt_binary = fields.Binary(string=u'Pacientes Positivas')
+    txt_binary = fields.Binary('Pacientes Positivas')
     eess = fields.Many2one(
-        comodel_name='res.company',
-        string=u"Establecimiento"
+        'res.company',
+        "Establecimiento"
     )
-    general = fields.Boolean(
-        string=u'Todos los Establecimientos'
-    )
+    general = fields.Boolean('Todos los Establecimientos')
 
     @api.multi
     def generate_file(self):

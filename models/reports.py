@@ -4,23 +4,23 @@ from odoo import api, models, fields, tools
 
 
 class ReportVph(models.Model):
-    _name = "vph.reportvph"
+    _name = 'vph.reportvph'
     _auto = False
 
     resultado = fields.Char(readonly=True)
-    fecha_resultado = fields.Date("Fecha de resultado")
+    fecha_resultado = fields.Date('Fecha de resultado')
     paciente = fields.Char(readonly=True)
-    microred = fields.Char("Microred", readonly=True)
+    microred = fields.Char('Microred', readonly=True)
     edad = fields.Integer(readonly=True)
-    establecimiento = fields.Char("Establecimiento", readonly=True)
-    procedencia = fields.Char("Procedencia", readonly=True)
-    nacionalidad = fields.Char("Nacionalidad", readonly=True)
+    establecimiento = fields.Char('Establecimiento', readonly=True)
+    procedencia = fields.Char('Procedencia', readonly=True)
+    nacionalidad = fields.Char('Nacionalidad', readonly=True)
 
     @api.model_cr
     def init(self):
-        """ VPH Positives main report """
-        tools.drop_view_if_exists(self._cr, "vph_reportvph")
-        self._cr.execute(""" CREATE VIEW vph_reportvph AS (
+        ''' VPH Positives main report '''
+        tools.drop_view_if_exists(self._cr, 'vph_reportvph')
+        self._cr.execute(''' CREATE VIEW vph_reportvph AS (
             SELECT
                 sobre.id,
                 microred.nombre AS microred,
@@ -37,27 +37,27 @@ class ReportVph(models.Model):
                 records_line.microred = microred.id
             WHERE sobre.estado_muestra_valido_invalido = 'valido' AND
             records_line.respuesta IN ('negativo','positivo')
-        )""")
+        )''')
 
 
 class ReportVphInvalido(models.Model):
-    _name = "vph.reportvphinvalido"
+    _name = 'vph.reportvphinvalido'
     _auto = False
 
     razon = fields.Char(readonly=True)
-    fecha_resultado = fields.Date("Fecha de resultado")
+    fecha_resultado = fields.Date('Fecha de resultado')
     paciente = fields.Char(readonly=True)
-    microred = fields.Char("Microred", readonly=True)
+    microred = fields.Char('Microred', readonly=True)
     edad = fields.Integer(readonly=True)
-    establecimiento = fields.Char("Establecimiento", readonly=True)
-    procedencia = fields.Char("Procedencia", readonly=True)
-    nacionalidad = fields.Char("Nacionalidad", readonly=True)
+    establecimiento = fields.Char('Establecimiento', readonly=True)
+    procedencia = fields.Char('Procedencia', readonly=True)
+    nacionalidad = fields.Char('Nacionalidad', readonly=True)
 
     @api.model_cr
     def init(self):
-        """ VPH Invalids main report """
-        tools.drop_view_if_exists(self._cr, "vph_reportvphinvalido")
-        self._cr.execute(""" CREATE VIEW vph_reportvphinvalido AS (
+        ''' VPH Invalids main report '''
+        tools.drop_view_if_exists(self._cr, 'vph_reportvphinvalido')
+        self._cr.execute(''' CREATE VIEW vph_reportvphinvalido AS (
             SELECT
                 sobre.id,
                 microred.nombre AS microred,
@@ -73,35 +73,35 @@ class ReportVphInvalido(models.Model):
                 INNER JOIN minsa_micro_rede microred ON
                 records_line.microred = microred.id
             WHERE sobre.estado_muestra_valido_invalido = 'invalido'
-        )""")
+        )''')
 
 
 class ReportPap(models.Model):
-    _name = "vph.reportpap"
+    _name = 'vph.reportpap'
     _auto = False
 
     resultado = fields.Char(readonly=True)
-    fecha_resultado = fields.Date("Fecha de resultado", readonly=True)
+    fecha_resultado = fields.Date('Fecha de resultado', readonly=True)
     paciente = fields.Char(readonly=True)
     microred = fields.Many2one(
-        comodel_name="minsa.micro.rede",
-        string=u"MicroRed",
+        comodel_name='minsa.micro.rede',
+        string=u'MicroRed',
         readonly=True,
     )
     edad = fields.Integer(readonly=True)
     establecimiento = fields.Many2one(
-        comodel_name="res.company",
-        string=u"Establecimiento",
+        comodel_name='res.company',
+        string=u'Establecimiento',
         readolny=True,
     )
-    procedencia = fields.Char("Procedencia", readonly=True)
-    nacionalidad = fields.Char("Nacionalidad", readonly=True)
+    procedencia = fields.Char('Procedencia', readonly=True)
+    nacionalidad = fields.Char('Nacionalidad', readonly=True)
 
     @api.model_cr
     def init(self):
-        """ PAP Positives main report """
-        tools.drop_view_if_exists(self._cr, "vph_reportpap")
-        self._cr.execute(""" CREATE VIEW vph_reportpap AS (
+        ''' PAP Positives main report '''
+        tools.drop_view_if_exists(self._cr, 'vph_reportpap')
+        self._cr.execute(''' CREATE VIEW vph_reportpap AS (
             SELECT
                 id,
                 microred,
@@ -114,28 +114,28 @@ class ReportPap(models.Model):
                 UPPER(procedencia) AS procedencia
             FROM paciente_pap
             WHERE resultado_pap <> 'negativo'
-        )""")
+        )''')
 
 
 class ReportAnonimo(models.Model):
-    _name = "vph.reportanonimo"
+    _name = 'vph.reportanonimo'
     _auto = False
 
-    fecha_entrega = fields.Date("Fecha de entrega", readonly=True)
+    fecha_entrega = fields.Date('Fecha de entrega', readonly=True)
     microred = fields.Many2one(
-        comodel_name="minsa.micro.rede",
-        string=u"MicroRed",
+        comodel_name='minsa.micro.rede',
+        string=u'MicroRed',
         readonly=True,
     )
-    establecimiento = fields.Char("Establecimiento", readonly=True)
-    codigo = fields.Char("Código de sobre", readonly=True)
-    estado = fields.Char("Estado", readonly=True)
+    establecimiento = fields.Char('Establecimiento', readonly=True)
+    codigo = fields.Char('Código de sobre', readonly=True)
+    estado = fields.Char('Estado', readonly=True)
 
     @api.model_cr
     def init(self):
-        """ VPH unset main report """
-        tools.drop_view_if_exists(self._cr, "vph_reportanonimo")
-        self._cr.execute(""" CREATE VIEW vph_reportanonimo AS (
+        ''' VPH unset main report '''
+        tools.drop_view_if_exists(self._cr, 'vph_reportanonimo')
+        self._cr.execute(''' CREATE VIEW vph_reportanonimo AS (
             SELECT
                 id,
                 microred,
@@ -145,4 +145,4 @@ class ReportAnonimo(models.Model):
                 UPPER(state) AS estado
             FROM minsa_records_line
             WHERE regitro = False
-        )""")
+        )''')

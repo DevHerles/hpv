@@ -4,8 +4,6 @@ from odoo import models, fields
 
 
 class HrEmployee(models.Model):
-    _inherit = "hr.employee"
+    _inherit = 'hr.employee'
 
-    autorizados = fields.Boolean(
-        string=u"Autorizadas"
-    )
+    autorizado = fields.Boolean('Autorizada', oldname='autorizadas')
